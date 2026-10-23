@@ -33,3 +33,13 @@ Data schema: editions array; each entry has numeric id, ISO date, header and ite
 GitHub Pages serves main at repository root. No build dependencies. index.html, style.css, app.js, data/editions.json and assets/banner.png form the website.
 
 First edition text is imported from the previous chat; it has not been independently re-researched during site implementation.
+
+## Announcement and year archive
+
+announcement.html contains the announcement post (data/announcement.txt), clipboard and TXT downloads, and the reusable banner. history.html?year=2026 is the year-specific archive; years are generated from data/editions.json automatically. Editions sort newest first and load current central review status and approved text. Incomplete reviews are labelled, not represented as published. The archive links to index.html?edition=N for review. New annual pages require no manual generation: each year has a stable history.html?year=YYYY URL.
+
+## LinkedIn handoff and future API integration
+
+Copy & open LinkedIn copies the export and opens https://www.linkedin.com/feed/. The user pastes it, attaches the banner and publishes in LinkedIn. It does not prefill the composer, upload the banner or publish automatically.
+
+A future Publish to LinkedIn action requires a LinkedIn developer application, OAuth consent, and the applicable scope: w_member_social for a personal profile, or w_organization_social plus an eligible organization-page role and API access for an EFI page. Image publication also requires image upload and an image URN. Tokens must remain server-side. Publication must require publisher authentication/authorization even though article review is anonymous, plus a final preview, explicit publish action and duplicate-post prevention. No LinkedIn credentials or publishing endpoints are configured.
