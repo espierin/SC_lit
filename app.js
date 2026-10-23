@@ -1,6 +1,6 @@
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
-const tags='#EFI #Histocompatibility #Immunogenetics #JournalClub';
+const tags='#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub';
 let editions,current,state,etag='"0"',seq=0,savedSeq=0,saving=false,syncError='',timer,record;
 const backup=()=>{try{localStorage.setItem('efi-review-draft-'+current.id,JSON.stringify(state))}catch{}};
 const request=async(id,options={})=>{const r=await fetch(API+'/reviews/'+id,{cache:'no-store',...options});const body=await r.json();if(!r.ok)throw Error(body.error||'Shared storage unavailable');return {body,etag:JSON.stringify(String(body.revision))}};
