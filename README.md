@@ -14,7 +14,7 @@ The website and repository are public. An unshared URL is not access control. No
 
 ## Weekly updates
 
-The existing local Codex automation runs Fridays at 07:00 Europe/Amsterdam in the owning chat. It writes a UTF-8 TXT file in the parent Journal Club directory and appends the draft edition to data/editions.json, then commits and pushes it. GitHub Pages deploys main. The computer and desktop app must be running. This is not an independent GitHub Actions research job.
+The ChatGPT Work cloud task runs Fridays at 07:00 Europe/Amsterdam. It uses the connected GitHub plugin to append a draft to data/editions.json and save the LinkedIn TXT in editions/. GitHub Pages publishes main. No local computer or separate OpenAI API key is used. The previous local automation is paused. Cloud-to-GitHub writing was successfully tested on 23 October 2026; only SC_lit is selected in the ChatGPT Codex Connector installation. A scheduled run starts at 07:00; research and publication finish later.
 
 Edition 1 = 2026-10-23, Edition 2 = 2026-10-30. The retrospective simulation is not numbered in the live series. Existing editions are retained. Candidate registers and research notes stay outside this public repository.
 
