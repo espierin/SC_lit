@@ -4,7 +4,7 @@ Public site: https://espierin.github.io/SC_lit/
 
 ## Editorial workflow
 
-1. Open an edition. The central review is loaded automatically; no login or handover link is required.
+1. Sign in with an activated committee account. Only the reviewer assigned to the current Amsterdam ISO-week block, Eric as administrator and Pietro as backup reviewer can access the review desk. Then open an edition.
 2. Approve or exclude each item and edit text as needed. Changes save automatically after a short pause. Editing text resets the item to Pending.
 3. Export is enabled only after all items are reviewed, at least one is approved, the text fits LinkedIn, and central saving succeeds.
 4. Download the reusable banner separately.
@@ -16,7 +16,7 @@ Public site: https://espierin.github.io/SC_lit/
 
 The GitHub website uses a public Sites Worker with R2 storage at https://efi-journal-club-review-store.espierin.chatgpt.site. Source is maintained separately in the adjacent review-store directory and the Site source repository. No GitHub or service credential is shipped in the frontend. The browser sends whole-edition reviews with a revision precondition; the server validates fields against the edition and performs a conditional R2 write. Prior snapshots are retained inside the same atomic record.
 
-This is deliberately anonymous editing: anyone who knows the URL can read and change reviews. Reviewer names are self-reported. Origin checks and revision control protect against accidental cross-origin writes and simultaneous overwrites; they do not authenticate visitors. Do not put confidential material in the reviews.
+Article drafts and archived read-only review data remain public. Review writes require a server-validated account session, active account and a current duty assignment (or admin/backup role). New reviews use the verified account name. Earlier anonymous history is preserved. No password, session token, email allowlist or invitation link belongs in this public repository.
 
 The GitHub edition data remains the immutable source draft. Central reviewer corrections do not rewrite the draft or cloud research history. The existing Friday cloud task continues to add new editions normally. Central records use edition IDs; do not reuse or change existing IDs.
 
@@ -40,7 +40,7 @@ announcement.html contains the announcement post (data/announcement.txt), clipbo
 
 ## Automatic publication through Buffer Free
 
-The owner authorized the anonymous editorial review to trigger publication to the EFI organization page only. The cloud review backend sends approved text and assets/banner.png to Buffer channel 6adb1036778b240e2f9a379c. Every item must be approved or excluded, at least one approved, text below 3,000 UTF16 code units and DOI-only links. Before the target, Buffer schedules Monday 08:00 Europe/Amsterdam, with DST. A later completed review uses shareNow. No local computer or separate OpenAI API key is needed for this delivery.
+The owner authorized authenticated editorial approval to trigger publication to the EFI organization page only. The cloud review backend sends approved text and assets/banner.png to Buffer channel 6adb1036778b240e2f9a379c. Every item must be approved or excluded, at least one approved, text below 3,000 UTF16 code units and DOI-only links. Before the target, Buffer schedules Monday 08:00 Europe/Amsterdam, with DST. A later completed review uses shareNow. No local computer or separate OpenAI API key is needed for this delivery.
 
 Text editing returns an item to Pending. The backend returns a scheduled post to draft until review is complete again; after actual delivery further edits never create a duplicate. An ambiguous API result is held for manual investigation, not retried automatically. The site displays the submission status; Buffer remains the delivery-status authority. Check Buffer for failed or disconnected-channel posts. The key expires 23 October 2027 and may require renewal; LinkedIn can also require reconnection. Runtime credentials live only in Sites secrets. Backend implementation and operational guidance are in ../review-store/PUBLICATION.md.
 
@@ -57,3 +57,11 @@ The intended publisher is the European Federation for Immunogenetics (EFI) organ
 ## Publication timing
 
 Friday research remains Friday 07:00 Europe/Amsterdam. An edition is intended for the following Monday 08:00 Europe/Amsterdam. The website approval triggers Buffer submission; Buffer handles the unattended scheduled delivery. A review completed after its target is submitted immediately, subject to Buffer and LinkedIn processing time. publication-plan.mjs contains the DST-aware time calculation. API checks and mock publication tests live in the backend project.
+
+## Accounts and four-week duties
+
+The owner uses e.spierings@umcutrecht.nl as administrator. Only the ten supplied committee/office addresses plus the owner are allowlisted in secret backend configuration. Pietro has year-round review access, not administration. Other reviewers must be active and assigned to the current four-week ISO-week block. All accounts initially require an administrator-issued, private, single-use activation link; users choose their own passwords. There is no open signup.
+
+Administration lets the owner activate/deactivate users, generate activation/reset links and assign each block of any year. The initial rotation follows the supplied list, excludes the owner and repeats as needed; the last ISO-year block may contain fewer than four weeks. It is generated for each year until customized. Roster changes and deactivation take effect on the next authenticated request, including existing sessions. All 2026/2027 blocks can be changed by the administrator. No email invitations are sent automatically.
+
+Sessions last up to 12 hours in the current browser tab. Passwords are salted and derived server-side with a separate runtime secret. The backend rejects anonymous PUT requests regardless of the frontend. Friday cloud research and already queued Buffer publications do not need a reviewer login.

@@ -1,10 +1,11 @@
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
 const tags='#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub';
 let editions,current,state,etag='"0"',seq=0,savedSeq=0,saving=false,syncError='',timer,record;
 const backup=()=>{try{localStorage.setItem('efi-review-draft-'+current.id,JSON.stringify(state))}catch{}};
-const request=async(id,options={})=>{const r=await fetch(API+'/reviews/'+id,{cache:'no-store',...options});const body=await r.json();if(!r.ok)throw Error(body.error||'Shared storage unavailable');return {body,etag:JSON.stringify(String(body.revision))}};
+const request=async(id,options={})=>{const r=await fetch(API+'/reviews/'+id,{cache:'no-store',...options,headers:{...(options.headers||{}),...authHeaders()}});const body=await r.json();if(!r.ok){if(r.status===401)expireLogin();throw Error(body.error||'Shared storage unavailable')};return {body,etag:JSON.stringify(String(body.revision))}};
 function text(){const approved=current.items.filter(i=>state.items[i.id].decision==='approved');return approved.length?current.header+'\n\n'+approved.map(i=>state.items[i.id].text.trim()).join('\n\n────────────────\n\n')+'\n\n'+tags:''}
 function update(){if(!state)return;publicationStatus();const values=current.items.map(i=>state.items[i.id]);const reviewed=values.filter(i=>i.decision!=='pending').length;const yes=values.filter(i=>i.decision==='approved').length;const output=text();const clean=seq===savedSeq&&!saving&&!syncError;const invalidLinks=disallowedLinks(output);const ready=reviewed===values.length&&yes>0&&output.length<3000&&clean&&!invalidLinks.length;
  $('progress').textContent=reviewed+' / '+values.length+' reviewed';$('preview').textContent=output;$('count').textContent=output.length+' / 2,999 characters';$('copy').disabled=$('download').disabled=$('linkedin').disabled=!ready;
@@ -14,7 +15,7 @@ function update(){if(!state)return;publicationStatus();const values=current.item
  document.querySelectorAll('article').forEach(a=>a.dataset.state=state.items[a.dataset.id].decision);
 }
 function changed(){seq++;backup();clearTimeout(timer);timer=setTimeout(flush,650);update()}
-async function flush(){clearTimeout(timer);if(saving||seq===savedSeq)return;const id=current.id,version=seq,snapshot=structuredClone(state);saving=true;syncError='';update();
+async function flush(){if(!currentUser())return;clearTimeout(timer);if(saving||seq===savedSeq)return;const id=current.id,version=seq,snapshot=structuredClone(state);saving=true;syncError='';update();
  try{const result=await request(id,{method:'PUT',headers:{'Content-Type':'application/json','If-Match':etag},body:JSON.stringify(snapshot)});etag=result.etag;record=result.body;savedSeq=version;historyOptions();}
  catch(error){syncError=error.message+' Your draft is retained in this browser. Reload the central version before resolving a conflict.';}
  finally{saving=false;update();if(!syncError&&seq!==savedSeq)timer=setTimeout(flush,100)}
@@ -36,8 +37,10 @@ $('import').addEventListener('click',()=>{if(record.revision>0){$('message').tex
 $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(assertPostLinks(text()));$('message').textContent='LinkedIn text copied.'}catch{$('message').textContent='Clipboard unavailable. Download the text file instead.'}});
 $('download').addEventListener('click',()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([assertPostLinks(text())+'\n'],{type:'text/plain;charset=utf-8'}));a.download='EFI_Journal_Club_Edition_'+current.id+'_'+current.date+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)});
 window.addEventListener('beforeunload',e=>{if(seq!==savedSeq||saving){e.preventDefault();e.returnValue=''}});
-setInterval(async()=>{if(!current||saving||seq!==savedSeq||syncError||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;try{const result=await request(current.id);if(result.etag===etag){record.publication=result.body.publication;publicationStatus()}if(result.etag!==etag){record=result.body;etag=result.etag;state={edition:current.id,reviewer:record.reviewer,items:structuredClone(record.items)};render();$('message').textContent='Updated with centrally saved changes.'}}catch{}},15000);
-try{const r=await fetch('data/editions.json',{cache:'no-store'});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);for(const e of editions)$('edition').append(new Option('Edition '+e.id+' · '+e.date,e.id));await load(new URLSearchParams(location.search).get('edition')||editions[0].id)}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}
+setInterval(async()=>{if(!currentUser()||!current||saving||seq!==savedSeq||syncError||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;try{const result=await request(current.id);if(result.etag===etag){record.publication=result.body.publication;publicationStatus()}if(result.etag!==etag){record=result.body;etag=result.etag;state={edition:current.id,reviewer:record.reviewer,items:structuredClone(record.items)};render();$('message').textContent='Updated with centrally saved changes.'}}catch{}},15000);
+await initAuth();
+let authEmail=currentUser()?.email;onAuthChange(async u=>{if(u?.email===authEmail)return;authEmail=u?.email;if(!u){clearTimeout(timer);if(current)backup();return}if(editions?.length)await load(current?.id||editions[0].id)});
+try{const r=await fetch('data/editions.json',{cache:'no-store'});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);for(const e of editions)$('edition').append(new Option('Edition '+e.id+' · '+e.date,e.id));if(currentUser())await load(new URLSearchParams(location.search).get('edition')||editions[0].id);else $('edition').disabled=true}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}
 
 $('linkedin').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(assertPostLinks(text()));const tab=window.open('https://www.linkedin.com/company/109535533/admin/dashboard/','_blank');if(tab)tab.opener=null;$('message').textContent='Text copied. Paste it into LinkedIn, attach the downloaded banner, and publish there.'}catch{$('message').textContent='Could not copy. Download the text file and paste it into LinkedIn.'}});
 
