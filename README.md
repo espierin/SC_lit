@@ -47,3 +47,7 @@ A future Publish to LinkedIn action requires a LinkedIn developer application, O
 ## LinkedIn URL policy
 
 Announcement and weekly post text must never contain GitHub, repository, project website, review-store or banner links. Only canonical article URLs matching https://doi.org/10.… are allowed. The announcement currently has no URLs. url-policy.mjs validates post text before clipboard or TXT export; non-DOI URLs block exports. The scheduled cloud task has the same rule and must validate generated TXT files before writing them. Administrative site navigation and task-report links are outside the LinkedIn post text.
+
+## Confirmed LinkedIn destination
+
+The intended publisher is the European Federation for Immunogenetics (EFI) organization page, organization ID 109535533 (urn:li:organization:109535533). This is a company/organization page, not a LinkedIn Group. The user has administrator access; its dashboard was observed on 23 October 2026 at https://www.linkedin.com/company/109535533/admin/dashboard/. Handoff buttons open that dashboard after copying the post. Other SC members need their own page administration rights to publish there. This destination is administrative metadata and must NEVER be inserted in the post text. Future API publication needs organization-authorized access (w_organization_social); page administration alone does not supply an API token. No automated LinkedIn publication is enabled.
