@@ -43,3 +43,7 @@ announcement.html contains the announcement post (data/announcement.txt), clipbo
 Copy & open LinkedIn copies the export and opens https://www.linkedin.com/feed/. The user pastes it, attaches the banner and publishes in LinkedIn. It does not prefill the composer, upload the banner or publish automatically.
 
 A future Publish to LinkedIn action requires a LinkedIn developer application, OAuth consent, and the applicable scope: w_member_social for a personal profile, or w_organization_social plus an eligible organization-page role and API access for an EFI page. Image publication also requires image upload and an image URN. Tokens must remain server-side. Publication must require publisher authentication/authorization even though article review is anonymous, plus a final preview, explicit publish action and duplicate-post prevention. No LinkedIn credentials or publishing endpoints are configured.
+
+## LinkedIn URL policy
+
+Announcement and weekly post text must never contain GitHub, repository, project website, review-store or banner links. Only canonical article URLs matching https://doi.org/10.… are allowed. The announcement currently has no URLs. url-policy.mjs validates post text before clipboard or TXT export; non-DOI URLs block exports. The scheduled cloud task has the same rule and must validate generated TXT files before writing them. Administrative site navigation and task-report links are outside the LinkedIn post text.
