@@ -37,7 +37,7 @@ function renderAdmin(){
  }
  const body=el('duty-rows');body.replaceChildren();
  for(const block of adminState.schedule.blocks){const tr=make('tr'),period=make('td','Weeks '+block.startWeek+'–'+block.endWeek),choice=make('select');choice.setAttribute('aria-label','Duty reviewer for weeks '+block.startWeek+' to '+block.endWeek);
-  for(const p of adminState.people.filter(p=>p.role!=='admin'))choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;
+  for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;
   const cell=make('td');cell.append(choice);tr.append(period,cell);body.append(tr);
  }
  el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Pietro and the administrator always retain review access.';
