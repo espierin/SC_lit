@@ -65,3 +65,11 @@ The owner uses e.spierings@umcutrecht.nl as administrator. Only the ten supplied
 Administration lets the owner activate/deactivate users, generate activation/reset links and assign each block of any year. The owner is also selectable as a duty reviewer while retaining administrator access. Existing saved assignments are preserved. Default rotations for unconfigured years follow the supplied list with the owner appended and repeat as needed; the last ISO-year block may contain fewer than four weeks. It is generated for each year until customized. Roster changes and deactivation take effect on the next authenticated request, including existing sessions. All 2026/2027 blocks can be changed by the administrator. No email invitations are sent automatically.
 
 Sessions last up to 12 hours in the current browser tab. Passwords are salted and derived server-side with a separate runtime secret. The backend rejects anonymous PUT requests regardless of the frontend. Friday cloud research and already queued Buffer publications do not need a reviewer login.
+
+
+## Workspaces and contextual help
+The reviewer desk is index.html. Administration is admin.html and loads account, roster and workflow settings only for the authenticated administrator. The server enforces these permissions on every mutation. Contextual ? help supports hover, keyboard focus, tap and Escape. help.html provides the English guide, FAQ and downloadable workflow diagram.
+
+Publication settings are stored in the private backend, with Amsterdam weekday/time and a pause flag. Saving synchronizes existing unsent edition posts through Buffer; pausing returns them to draft. Published posts and the separate announcement are unchanged. A partial synchronization failure is shown explicitly and requires checking Buffer.
+
+Search settings record a desired weekday/time. They cannot directly alter the ChatGPT Work cloud trigger: apply timing changes separately in ChatGPT Scheduled. The cloud task checks /settings before research and again before GitHub writes, skipping work while query.paused is true and failing closed if settings cannot be read. The existing actual trigger remains Friday 07:00 Amsterdam. Do not claim desired settings are an automatically applied trigger.
