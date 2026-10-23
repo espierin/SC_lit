@@ -1,4 +1,4 @@
-import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=members4';
+import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=access6';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];let settings,loadedEmail=null;
 for(const id of ['query-day','posting-day'])days.forEach((day,i)=>$(id).append(new Option(day,String(i))));
@@ -9,3 +9,5 @@ async function save(event){event?.preventDefault();if(!settings)return;const b=$
 $('automation-save').disabled=$('automation-retry').disabled=true;
 $('automation-form').addEventListener('submit',save);$('automation-retry').addEventListener('click',save);
 onAuthChange(u=>{if(u?.role!=='admin'){loadedEmail=null;return}if(loadedEmail===u.email)return;loadedEmail=u.email;load()});await initAuth();
+
+if(currentUser()?.role==='admin'&&loadedEmail!==currentUser().email){loadedEmail=currentUser().email;await load()}

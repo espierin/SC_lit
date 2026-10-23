@@ -1,4 +1,4 @@
-import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=members4';
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=access6';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
@@ -39,8 +39,10 @@ $('download').addEventListener('click',()=>{const a=document.createElement('a');
 window.addEventListener('beforeunload',e=>{if(seq!==savedSeq||saving){e.preventDefault();e.returnValue=''}});
 setInterval(async()=>{if(!currentUser()||!current||saving||seq!==savedSeq||syncError||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;try{const result=await request(current.id);if(result.etag===etag){record.publication=result.body.publication;publicationStatus()}if(result.etag!==etag){record=result.body;etag=result.etag;state={edition:current.id,reviewer:record.reviewer,items:structuredClone(record.items)};render();$('message').textContent='Updated with centrally saved changes.'}}catch{}},15000);
 await initAuth();
-let authEmail=currentUser()?.email;onAuthChange(async u=>{if(u?.email===authEmail)return;authEmail=u?.email;if(!u){clearTimeout(timer);if(current)backup();return}if(editions?.length)await load(current?.id||editions[0].id)});
-try{const r=await fetch('data/editions.json',{cache:'no-store'});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);for(const e of editions)$('edition').append(new Option('Edition '+e.id+' · '+e.date,e.id));if(currentUser())await load(new URLSearchParams(location.search).get('edition')||editions[0].id);else $('edition').disabled=true}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}
+let authEmail=currentUser()?.email;onAuthChange(async u=>{if(u?.email===authEmail)return;authEmail=u?.email;if(!u){clearTimeout(timer);if(current)backup();return}if(!editions?.length)await loadDefinitions();else await load(current?.id||editions[0].id)});
+async function loadDefinitions(){try{const r=await fetch(API+'/editions',{cache:'no-store',headers:authHeaders()});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);$('edition').replaceChildren();for(const e of editions)$('edition').append(new Option('Edition '+e.id+' · '+e.date,e.id));if(currentUser())await load(new URLSearchParams(location.search).get('edition')||editions[0].id)}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}}
+if(currentUser())await loadDefinitions();else $('edition').disabled=true;
+
 
 $('linkedin').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(assertPostLinks(text()));const tab=window.open('https://www.linkedin.com/company/109535533/admin/dashboard/','_blank');if(tab)tab.opener=null;$('message').textContent='Text copied. Paste it into LinkedIn, attach the downloaded banner, and publish there.'}catch{$('message').textContent='Could not copy. Download the text file and paste it into LinkedIn.'}});
 

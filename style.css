@@ -12,3 +12,5 @@
 /* Help page uses the shared site shell and controls. */
 .workflow-image{display:block;width:100%;max-width:860px;height:auto;margin:30px auto}.help-actions{display:flex;gap:15px;flex-wrap:wrap}.help-actions .button{width:auto} .help-copy{margin-top:36px}@media print{.site-nav,.help-actions,header{display:none}main{padding:0}.workflow-image{max-height:95vh;width:auto;max-width:100%;margin:0 auto}.help-copy{display:none}}
 .help-actions button{width:auto}
+:root{--locked-blue:#687f93}.site-nav a.access-locked,a.access-locked{color:var(--locked-blue);border-color:#b9c9d6}.site-nav a.access-locked:hover,a.access-locked:hover{color:#526e84;text-decoration:underline}.button.access-locked{background:#edf2f6;color:var(--locked-blue);border-color:#cbd7e1}.archive-post .post-text{max-height:none;overflow:visible}.archive-post .asset-preview{max-width:650px;margin-top:16px}#access-notice{background:#eaf0f5;border-left:3px solid #a7bbcd;padding:16px 20px;color:#526b80}
+html[data-auth=guest] .site-nav a:not([href^="history.html"]){color:var(--locked-blue);border-color:#b9c9d6}
