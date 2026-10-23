@@ -1,5 +1,5 @@
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
-let session=null,user=null,authListeners=[],activation=null,adminState=null,adminEmail=null;
+let session=null,user=null,authListeners=[],activation=null,adminState=null,adminEmail=null,deleteTarget=null;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
 export const currentUser=()=>user;
 export const authHeaders=()=>session?.token?{Authorization:'Bearer '+session.token}:{};
@@ -17,7 +17,7 @@ function renderAuth(){
  const signed=!!user;const adminPage=document.body.dataset.page==='admin';el('login-open').hidden=signed;el('logout').hidden=!signed;el('admin-open').hidden=user?.role!=='admin';
  el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Pietro · year-round reviewer':'Duty reviewer')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
- if(adminPage){const allowed=user?.role==='admin';el('admin-panel').hidden=!allowed;el('automation-panel').hidden=!allowed;el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
+ if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog').open)el('member-delete-dialog').close();el('admin-panel').hidden=!allowed;el('automation-panel').hidden=!allowed;el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
 }
 async function refreshUser(){if(!session){renderAuth();return}try{user=await authRequest('/auth/me');renderAuth();notify()}catch(e){forget();el('login-message').textContent=e.message}}
 function invitation(result,person){
@@ -28,17 +28,26 @@ function invitation(result,person){
 async function personAction(person,action){
  try{el('admin-message').textContent='Saving account…';const result=await authRequest('/auth/admin/person',{email:person.email,action});el('admin-message').textContent=action==='deactivate'?'Account deactivated. Existing sessions no longer have access.':'Account updated.';invitation(result,person);await loadAdmin();}catch(e){el('admin-message').textContent=e.message}
 }
+async function addMember(event){
+ event.preventDefault();const b=el('member-add');b.disabled=true;
+ try{const result=await authRequest('/auth/admin/member',{action:'add',name:el('member-name').value.trim(),email:el('member-email').value.trim(),rosterRevision:adminState.rosterRevision});el('member-message').textContent=result.message;el('member-add-form').reset();await loadAdmin()}catch(e){el('member-message').textContent=e.message}finally{b.disabled=false}
+}
+function openDeleteMember(person){deleteTarget=person;el('member-delete-person').textContent=person.name+' · '+person.email;el('member-delete-email').value='';el('member-delete-error').textContent='';el('member-delete-confirm').disabled=true;el('member-delete-dialog').showModal();el('member-delete-email').focus()}
+async function deleteMember(event){
+ event.preventDefault();if(!deleteTarget||el('member-delete-email').value!==deleteTarget.email)return;const b=el('member-delete-confirm');b.disabled=true;
+ try{const result=await authRequest('/auth/admin/member',{action:'delete',email:deleteTarget.email,confirmEmail:el('member-delete-email').value,rosterRevision:adminState.rosterRevision});el('member-delete-dialog').close();deleteTarget=null;el('admin-invitation').replaceChildren();el('member-message').textContent=result.message;await loadAdmin()}catch(e){el('member-delete-error').textContent=e.message}finally{b.disabled=!deleteTarget||el('member-delete-email').value!==deleteTarget.email}
+}
 function renderAdmin(){
  const people=el('admin-people');people.replaceChildren();
  for(const person of adminState.people){const card=make('div');card.className='person-card';card.append(make('strong',person.name),make('p',person.email),make('p',(person.active?'Active':'Inactive')+(person.hasPassword?' · password set':' · password not set')+(person.role==='admin'?' · administrator':person.role==='backup'?' · year-round reviewer':'')));
   const buttons=make('div');buttons.className='account-actions';
   const add=(label,action)=>{const b=make('button',label);b.type='button';b.className='secondary';b.dataset.help=action==='deactivate'?'Immediately revoke this member’s access, including existing sessions.':action==='reset'?'Create a private, one-use password reset link valid for seven days. The previous link and sessions are revoked.':'Activate this account. New users receive a private, one-use setup link; existing passwords are retained.';b.onclick=()=>personAction(person,action);buttons.append(b)};
   if(person.role!=='admin')add(person.active?'Deactivate':'Activate',person.active?'deactivate':'activate');
-  add(person.hasPassword?'Create password reset link':'Create activation link',person.hasPassword?'reset':'activate');card.append(buttons);people.append(card);
+  add(person.hasPassword?'Create password reset link':'Create activation link',person.hasPassword?'reset':'activate');if(person.role!=='admin'){const remove=make('button','Permanently remove');remove.type='button';remove.className='danger';remove.dataset.help='Delete this member’s account and revoke access. Assigned duty blocks become unassigned. Earlier reviews remain. You must type the email address to confirm.';remove.onclick=()=>openDeleteMember(person);buttons.append(remove)}card.append(buttons);people.append(card);
  }
  const body=el('duty-rows');body.replaceChildren();
  for(const block of adminState.schedule.blocks){const tr=make('tr'),period=make('td','Weeks '+block.startWeek+'–'+block.endWeek),choice=make('select');choice.setAttribute('aria-label','Duty reviewer for weeks '+block.startWeek+' to '+block.endWeek);
-  for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;choice.dataset.help='Assign a reviewer to this four-week ISO-week block. Inactive accounts must be activated before they can sign in. Save the roster to apply changes.';
+  choice.append(new Option('Unassigned — choose a reviewer',''));for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;choice.dataset.help='Assign a reviewer to this four-week ISO-week block. Inactive accounts must be activated before they can sign in. Save the roster to apply changes.';
   const cell=make('td');cell.append(choice);tr.append(period,cell);body.append(tr);
  }
  el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Pietro and the administrator always retain review access.';
@@ -56,6 +65,7 @@ export async function initAuth(){
  }catch(e){el('login-message').textContent=e.message}finally{b.disabled=false}};
  el('logout').onclick=async()=>{try{await authRequest('/auth/logout',{})}finally{forget();el('login-form').hidden=true}};
  if(el('duty-year')){
+ el('member-add-form').onsubmit=addMember;el('member-delete-form').onsubmit=deleteMember;el('member-delete-cancel').onclick=()=>el('member-delete-dialog').close();el('member-delete-dialog').addEventListener('close',()=>{deleteTarget=null});el('member-delete-email').oninput=()=>{el('member-delete-confirm').disabled=!deleteTarget||el('member-delete-email').value!==deleteTarget.email};
  el('duty-year').value=String(new Date().getFullYear());el('duty-year').onchange=async()=>{try{await loadAdmin()}catch(e){el('admin-message').textContent=e.message}};
  el('duty-save').onclick=async()=>{const b=el('duty-save');b.disabled=true;try{const blocks=adminState.schedule.blocks.map(block=>({...block,email:el('duty-rows').querySelector('[data-block="'+block.id+'"]').value}));adminState.schedule=await authRequest('/auth/admin/schedule',{year:adminState.schedule.year,revision:adminState.schedule.revision,blocks});el('admin-message').textContent='Duty roster saved. Access restrictions apply immediately.';await refreshUser();}catch(e){el('admin-message').textContent=e.message}finally{b.disabled=false}};
  }

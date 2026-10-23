@@ -1,4 +1,9 @@
 const help={
+'member-name':'The name displayed on the member list, duty roster and future reviews.',
+'member-email':'The member’s sign-in email address. Addresses are stored privately and must be unique.',
+'member-add':'Add an inactive reviewer. Create an activation link afterwards; no email is sent automatically.',
+'member-delete-email':'Type the exact email address shown above to enable permanent removal.',
+'member-delete-confirm':'Permanently remove the account. Access and activation links are revoked; assigned duties become unassigned. Review history is retained.',
 'login-open':'Open the sign-in form. Only activated, allowlisted accounts can sign in.',
 'login-email':'Use the email address for which Eric issued your activation link.',
 'login-password':'Enter your password. During activation choose at least 12 characters.',

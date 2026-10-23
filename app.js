@@ -1,4 +1,4 @@
-import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=desk3';
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=members4';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
