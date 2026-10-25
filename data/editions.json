@@ -3,7 +3,7 @@
     {
       "id": 1,
       "date": "2026-10-23",
-      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\nEdition 1\n23 October 2026",
+      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\n23 October 2026",
       "items": [
         {
           "id": "edition-1-0",
@@ -20,7 +20,9 @@
           "text": "From our Journal HLA Immune Response Genetics:\n• 𝗔𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗲𝗽𝗶𝘁𝗼𝗽𝗲𝘀 & 𝗮𝘀𝘀𝗮𝘆 𝗶𝗻𝘁𝗲𝗿𝗽𝗿𝗲𝘁𝗮𝘁𝗶𝗼𝗻\nMeng et al. - Concentration-Dependent Reactivity Profiles of a Human Monoclonal Antibody Recognising HLA-DQB1*04/05/06 and at Reduced Intensities to DQB1*03 Antigens. HLA, 2026;108:e70889.\nOnline: 21 Oct 2026.\n\nEngineered HLA-DQ variants supported contributions from residues 46V and 55R, while higher antibody concentrations revealed weaker reactivity, including to self antigens. A useful challenge for epitope assignment and bead-assay interpretation; evidence comes from one monoclonal antibody, with clinical significance unresolved.\n\nhttps://doi.org/10.1111/tan.70889",
           "doi": "https://doi.org/10.1111/tan.70889"
         }
-      ]
+      ],
+      "status": "draft",
+      "publicationNumber": null
     }
   ]
 }

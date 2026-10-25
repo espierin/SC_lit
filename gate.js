@@ -1,2 +1,2 @@
-import {initAuth} from './auth.js?v=access6';
+import {initAuth} from './auth.js?v=hold7';
 await initAuth();

@@ -1,4 +1,4 @@
-import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=access6';
+import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=hold7';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];let settings,loadedEmail=null;
 for(const id of ['query-day','posting-day'])days.forEach((day,i)=>$(id).append(new Option(day,String(i))));
