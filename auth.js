@@ -1,4 +1,4 @@
-import {applyAccess} from './access.js?v=hold7';
+import {applyAccess} from './access.js?v=newsletter8';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
@@ -48,8 +48,8 @@ function renderAdmin(){
   add(person.hasPassword?'Create password reset link':'Create activation link',person.hasPassword?'reset':'activate');if(person.role!=='admin'){const remove=make('button','Permanently remove');remove.type='button';remove.className='danger';remove.dataset.help='Delete this member’s account and revoke access. Assigned duty blocks become unassigned. Earlier reviews remain. You must type the email address to confirm.';remove.onclick=()=>openDeleteMember(person);buttons.append(remove)}card.append(buttons);people.append(card);
  }
  const body=el('duty-rows');body.replaceChildren();
- for(const block of adminState.schedule.blocks){const tr=make('tr'),period=make('td','Weeks '+block.startWeek+'–'+block.endWeek),choice=make('select');choice.setAttribute('aria-label','Duty reviewer for weeks '+block.startWeek+' to '+block.endWeek);
-  choice.append(new Option('Unassigned — choose a reviewer',''));for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;choice.dataset.help='Assign a reviewer to this four-week ISO-week block. Inactive accounts must be activated before they can sign in. Save the roster to apply changes.';
+ for(const block of adminState.schedule.blocks){const tr=make('tr'),period=make('td','Weeks '+block.startWeek+' - '+block.endWeek),choice=make('select');choice.setAttribute('aria-label','Duty reviewer for weeks '+block.startWeek+' to '+block.endWeek);
+  choice.append(new Option('Unassigned  -  choose a reviewer',''));for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;choice.dataset.help='Assign a reviewer to this four-week ISO-week block. Inactive accounts must be activated before they can sign in. Save the roster to apply changes.';
   const cell=make('td');cell.append(choice);tr.append(period,cell);body.append(tr);
  }
  el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Pietro and the administrator always retain review access.';

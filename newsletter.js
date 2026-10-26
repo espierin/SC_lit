@@ -1,0 +1,6 @@
+import {authHeaders} from './auth.js?v=newsletter8';
+import {mountNewsletter} from './newsletter-ui.mjs';
+const NL_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
+async function nlRequest(path,body,method){const response=await fetch(NL_API+path,{method:method||(body?'PUT':'GET'),cache:'no-store',headers:{...authHeaders(),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const data=await response.json();if(!response.ok)throw Error(data.error||'Newsletter unavailable');return data;}
+const nlCoverResponse=await fetch('assets/newsletter-linkedin-cover.png');const nlCover=nlCoverResponse.ok?await new Promise(resolve=>{nlCoverResponse.blob().then(blob=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.readAsDataURL(blob);});}):'';
+await mountNewsletter({cover:nlCover,example:()=>nlRequest('/newsletter/format-example'),addDoi:(record,doi)=>nlRequest('/newsletter/'+record.period.id+'/articles',{revision:record.revision,doi},'POST'),status:()=>nlRequest('/newsletter/status'),periods:async()=>{const value=await nlRequest('/newsletter/periods');return value.periods;},load:id=>nlRequest('/newsletter/'+id),save:(record,data)=>nlRequest('/newsletter/'+record.period.id,data)});
