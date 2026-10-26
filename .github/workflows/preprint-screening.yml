@@ -8,7 +8,7 @@ on:
       radar_mode:
         description: 'On the radar for this run'
         type: choice
-        options: [use_repository_setting, on, off]
+        options: [use_repository_setting, 'on', 'off']
         default: use_repository_setting
         required: true
       as_of:
@@ -35,7 +35,7 @@ jobs:
         id: clock
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || [[ "$(TZ=Europe/Amsterdam date +%H)" == "07" ]]; then
+          if [[ "${{ github.event_name }}" != "schedule" ]] || [[ "$(TZ=Europe/Amsterdam date +%H)" == "07" ]]; then
             echo 'run=true' >> "$GITHUB_OUTPUT"
           else
             echo 'run=false' >> "$GITHUB_OUTPUT"
