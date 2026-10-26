@@ -1,0 +1,69 @@
+name: Screen preprints for internal review
+
+on:
+  push:
+    branches: [feat/preprint-screening-20261026, main]
+  workflow_dispatch:
+    inputs:
+      radar_mode:
+        description: 'On the radar for this run'
+        type: choice
+        options: [use_repository_setting, on, off]
+        default: use_repository_setting
+        required: true
+      as_of:
+        description: 'Screening cutoff (YYYY-MM-DD); leave blank for today'
+        required: false
+        type: string
+  schedule:
+    # 07:00 Amsterdam, accounting for summer and winter time in the guard below.
+    - cron: '0 5,6 * * 5'
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RADAR_ENABLED: ${{ inputs.radar_mode == 'on' && 'true' || inputs.radar_mode == 'off' && 'false' || vars.ON_THE_RADAR_ENABLED || 'false' }}
+      SCREEN_DATE: ${{ inputs.as_of }}
+    steps:
+      - name: Check Amsterdam screening time
+        id: clock
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || [[ "$(TZ=Europe/Amsterdam date +%H)" == "07" ]]; then
+            echo 'run=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'run=false' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.clock.outputs.run == 'true'
+      - name: Validate access rules and parser
+        if: steps.clock.outputs.run == 'true'
+        run: python -m unittest discover -s tests -p 'test_preprint_screen.py'
+      - name: Screen abstracts, then inspect selected full texts
+        if: steps.clock.outputs.run == 'true'
+        shell: bash
+        run: |
+          args=()
+          if [[ -n "$SCREEN_DATE" ]]; then args+=(--as-of "$SCREEN_DATE"); fi
+          if [[ "${RADAR_ENABLED,,}" == 'true' ]]; then args+=(--radar-enabled); fi
+          python scripts/preprint_screen.py "${args[@]}" --output preprint-report
+      - name: Deliver private report to the review desk
+        if: steps.clock.outputs.run == 'true' && github.ref == 'refs/heads/main'
+        run: |
+          python - <<'PY'
+          import json, os, urllib.parse, urllib.request
+          audience='https://efi-journal-club-review-store.espierin.chatgpt.site'
+          url=os.environ['ACTIONS_ID_TOKEN_REQUEST_URL']+'&audience='+urllib.parse.quote(audience,safe='')
+          request=urllib.request.Request(url,headers={'Authorization':'Bearer '+os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']})
+          token=json.load(urllib.request.urlopen(request,timeout=20))['value']
+          body=open('preprint-report/candidates.json','rb').read()
+          request=urllib.request.Request(audience+'/preprint-screening',data=body,headers={'Authorization':'Bearer '+token,'Content-Type':'application/json'},method='POST')
+          with urllib.request.urlopen(request,timeout=30) as response:
+              print('Internal report delivered:',response.status)
+          PY
