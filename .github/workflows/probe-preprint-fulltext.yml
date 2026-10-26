@@ -1,0 +1,50 @@
+name: Probe preprint full text access
+on:
+  push:
+    branches: [probe/preprint-fulltext-20261026]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  access:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check official metadata and full text routes
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          import urllib.error
+
+          doi = "10.64898/2026.10.09.757444"
+          urls = {
+              "bioRxiv metadata": f"https://api.biorxiv.org/details/biorxiv/{doi}/na/json",
+              "Europe PMC metadata": f"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A{doi.replace('/', '%2F')}&format=json",
+              "bioRxiv HTML": f"https://www.biorxiv.org/content/{doi}v1.full",
+              "bioRxiv JATS": "https://www.biorxiv.org/content/early/2026/10/16/2026.10.09.757444.source.xml",
+          }
+          for label, url in urls.items():
+              try:
+                  request = urllib.request.Request(url, headers={"User-Agent": "EFI-Journal-Club/0.1 (literature access probe)"})
+                  with urllib.request.urlopen(request, timeout=20) as response:
+                      body = response.read(5_000_000)
+                      text = body.decode("utf-8", "replace").lower()
+                      if label == "bioRxiv metadata":
+                          record = json.loads(body)["collection"][0]
+                          print(label, response.status, "abstract:", bool(record.get("abstract")), "JATS path:", bool(record.get("jatsxml")))
+                      elif label == "Europe PMC metadata":
+                          record = json.loads(body)["resultList"]["result"][0]
+                          print(label, response.status, "inEPMC:", record.get("inEPMC"), "hasPDF:", record.get("hasPDF"))
+                      else:
+                          checks = {
+                              "results": "results" in text,
+                              "methods": "materials and methods" in text or "<sec" in text and "methods" in text,
+                              "figure": "fig. 1" in text or "<fig" in text,
+                          }
+                          print(label, response.status, "bytes:", len(body), "checks:", checks)
+              except urllib.error.HTTPError as exc:
+                  print(label, "HTTP", exc.code)
+              except Exception as exc:
+                  print(label, type(exc).__name__, str(exc)[:120])
+          PY
