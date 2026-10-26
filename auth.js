@@ -17,7 +17,7 @@ async function authRequest(path,body){
 function renderAuth(){
  applyAccess(user);
  const signed=!!user;const adminPage=document.body.dataset.page==='admin';el('login-open').hidden=signed;el('logout').hidden=!signed;el('admin-open').hidden=user?.role!=='admin';
- el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Pietro · year-round reviewer':'Duty reviewer')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
+ el('account-status').textContent=signed?user.name+' · '+(user.canReview?'Decision access':'Read-only member')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to view the shortlist and reviews.';
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
  if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog')?.open)el('member-delete-dialog').close();if(el('admin-panel'))el('admin-panel').hidden=!allowed;if(el('automation-panel'))el('automation-panel').hidden=!allowed;if(el('admin-access'))el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
 }
