@@ -8,4 +8,14 @@ The existing cloud literature task writes weekly source editions to data/edition
 
 No credentials, account allowlist or activation links belong in this repository. Removing a current file does not erase older Git commits.
 
-Publication is on hold, including the announcement. The series has not started. Internal draft IDs are not published edition numbers. Read the backend /numbering endpoint and verified published history before assigning a public number; never derive it from calendar weeks or draft count. While paused, drafts retain publicationNumber: null and omit the Edition line.
+Weekly preparation starts Friday 04:00 Central European local time, targeting shortlist readiness by 07:00. Weekly publication is enabled for the following Tuesday at 06:00 Europe/Amsterdam (CET in winter, CEST in summer), after complete reviewer approval. A later completed review is submitted immediately. Newsletter automation remains disabled.
+
+The announcement has independent administrator date/time controls and includes the existing banner. Its authorized launch time is Wednesday 28 October 2026 at 06:00 CET. Check its saved scheduling status and Buffer for confirmation.
+
+The unpublished 23 October draft was withdrawn. Preserve retiredDraftIds and nextInternalId; never reuse retired internal ID 1. Fresh preparation starts Friday 30 October 2026. The first published edition will be number 1, intended for Tuesday 3 November after review. Read /numbering and verified published history before assigning a number. Drafts, announcements, skipped weeks and calendar time consume no edition numbers. While paused, drafts retain publicationNumber:null and omit the Edition line.
+
+All activated members can inspect the shortlist. Weekly article decisions require the duty reviewer, Eric or Pietro. General administration and the restricted newsletter pilot have separate server-enforced permissions.
+
+EFI and reviewers provide neutral information without clinical, medical or scientific advice or endorsement. Post bodies contain article DOI links only and #Scientific #Committee, stay below 3,000 UTF-16 code units and avoid em/en dashes. Attribution uses the verified saved reviewer name. Clickable mentions require a separately resolved and verified Buffer profile identifier; a typed @name or profile URL is insufficient.
+
+Saving research timing on the website does not update the ChatGPT cloud trigger. Apply and verify that schedule separately. The help page and private backend OPERATIONS.md document the current workflow. Older screenshots and exported files are historical records, not current instructions.

@@ -1,2 +1,2 @@
-import {initAuth} from './auth.js?v=schedule11';
+import {initAuth} from './auth.js?v=launch12';
 await initAuth();

@@ -1,5 +1,5 @@
 import {reviewerAttribution} from './post-attribution.mjs';
-import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=schedule11';
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=launch12';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
