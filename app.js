@@ -1,4 +1,5 @@
-import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=newsletter8';
+import {reviewerAttribution} from './post-attribution.mjs';
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=profiles9';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
@@ -6,7 +7,7 @@ const tags='#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #Jou
 let editions,current,state,etag='"0"',seq=0,savedSeq=0,saving=false,syncError='',timer,record;
 const backup=()=>{try{localStorage.setItem('efi-review-draft-'+current.id,JSON.stringify(state))}catch{}};
 const request=async(id,options={})=>{const r=await fetch(API+'/reviews/'+id,{cache:'no-store',...options,headers:{...(options.headers||{}),...authHeaders()}});const body=await r.json();if(!r.ok){if(r.status===401)expireLogin();throw Error(body.error||'Shared storage unavailable')};return {body,etag:JSON.stringify(String(body.revision))}};
-function text(){const approved=current.items.filter(i=>state.items[i.id].decision==='approved');return approved.length?current.header+'\n\n'+approved.map(i=>state.items[i.id].text.trim()).join('\n\n────────────────\n\n')+'\n\n'+tags:''}
+function text(){const approved=current.items.filter(i=>state.items[i.id].decision==='approved');return approved.length?current.header+'\n\n'+approved.map(i=>state.items[i.id].text.trim()).join('\n\n────────────────\n\n')+(reviewerAttribution(record)?'\n\n'+reviewerAttribution(record):'')+'\n\n'+tags:''}
 function update(){if(!state)return;publicationStatus();const values=current.items.map(i=>state.items[i.id]);const reviewed=values.filter(i=>i.decision!=='pending').length;const yes=values.filter(i=>i.decision==='approved').length;const output=text();const clean=seq===savedSeq&&!saving&&!syncError;const invalidLinks=disallowedLinks(output);const ready=reviewed===values.length&&yes>0&&output.length<3000&&clean&&!invalidLinks.length;
  $('progress').textContent=reviewed+' / '+values.length+' reviewed';$('preview').textContent=output;$('count').textContent=output.length+' / 2,999 characters';$('copy').disabled=$('download').disabled=!ready;$('linkedin').disabled=!ready||record?.publication?.status==='paused';
  $('status').textContent=invalidLinks.length?'Export blocked: remove all links except article DOI links.':!clean?'Save the central review before exporting.':reviewed<values.length?'Review every article to enable export.':!yes?'No articles approved.':output.length>=3000?'Shorten the approved text to fewer than 3,000 characters.':yes+' articles approved. Ready to copy or download.';

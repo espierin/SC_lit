@@ -1,6 +1,6 @@
-import {applyAccess} from './access.js?v=newsletter8';
+import {applyAccess} from './access.js?v=profiles9';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
-let session=null,user=null,authListeners=[],activation=null,adminState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
+let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
 export const currentUser=()=>user;
 export const authHeaders=()=>session?.token?{Authorization:'Bearer '+session.token}:{};
@@ -42,6 +42,11 @@ async function deleteMember(event){
 function renderAdmin(){
  const people=el('admin-people');people.replaceChildren();
  for(const person of adminState.people){const card=make('div');card.className='person-card';card.append(make('strong',person.name),make('p',person.email),make('p',(person.active?'Active':'Inactive')+(person.hasPassword?' · password set':' · password not set')+(person.role==='admin'?' · administrator':person.role==='backup'?' · year-round reviewer':'')));
+  const profile=linkedinState?.profiles?.[person.email]||{status:'confirmation_required'};card.append(make('p','LinkedIn: '+profile.status.replaceAll('_',' ')+' · clickable mention not tested'));
+  if(profile.candidateUrl){const hint=make('a','Inspect unconfirmed candidate profile');hint.href=profile.candidateUrl;hint.target='_blank';hint.rel='noopener';card.append(hint)}
+  const profileLabel=make('label','Confirmed LinkedIn profile URL');const profileInput=make('input');profileInput.type='url';profileInput.value=profile.url||'';profileInput.placeholder='https://www.linkedin.com/in/...';profileLabel.append(profileInput);card.append(profileLabel);
+  const confirmLabel=make('label','I confirm this profile belongs to this SC member');const confirmInput=make('input');confirmInput.type='checkbox';confirmInput.style.width='auto';confirmLabel.prepend(confirmInput);card.append(confirmLabel);
+  const profileSave=make('button','Save LinkedIn profile');profileSave.type='button';profileSave.className='secondary';profileSave.onclick=async()=>{try{await authRequest('/auth/admin/linkedin',{email:person.email,url:profileInput.value,confirmed:confirmInput.checked,revision:linkedinState.revision});el('admin-message').textContent='Profile saved. Clickable mentioning still requires a Buffer check.';await loadAdmin()}catch(error){el('admin-message').textContent=error.message}};card.append(profileSave);
   const buttons=make('div');buttons.className='account-actions';
   const add=(label,action)=>{const b=make('button',label);b.type='button';b.className='secondary';b.dataset.help=action==='deactivate'?'Immediately revoke this member’s access, including existing sessions.':action==='reset'?'Create a private, one-use password reset link valid for seven days. The previous link and sessions are revoked.':'Activate this account. New users receive a private, one-use setup link; existing passwords are retained.';b.onclick=()=>personAction(person,action);buttons.append(b)};
   if(person.role!=='admin')add(person.active?'Deactivate':'Activate',person.active?'deactivate':'activate');
@@ -54,7 +59,7 @@ function renderAdmin(){
  }
  el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Pietro and the administrator always retain review access.';
 }
-async function loadAdmin(){const year=el('duty-year').value;adminState=await authRequest('/auth/admin?year='+year);renderAdmin()}
+async function loadAdmin(){const year=el('duty-year').value;adminState=await authRequest('/auth/admin?year='+year);linkedinState=await authRequest('/auth/admin/linkedin');renderAdmin()}
 function bindAdminControls(){
  if(el('duty-year')&&!el('duty-year').dataset.bound){
  el('duty-year').dataset.bound='true';
