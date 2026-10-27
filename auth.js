@@ -1,4 +1,4 @@
-import {applyAccess} from './access.js?v=profiles9';
+import {applyAccess} from './access.js?v=fresh10';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}

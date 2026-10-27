@@ -1,28 +1,5 @@
 {
-  "editions": [
-    {
-      "id": 1,
-      "date": "2026-10-23",
-      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\n23 October 2026",
-      "items": [
-        {
-          "id": "edition-1-0",
-          "text": "• 𝗛𝗦𝗖𝗧 𝗱𝗼𝗻𝗼𝗿 𝘀𝗲𝗹𝗲𝗰𝘁𝗶𝗼𝗻\nTurner et al. - HLA-DPB1 TCE mismatch vector differentially affects HCT outcomes in 10/10 and ≤9/10 HLA matched patients in the UK. Transplantation and Cellular Therapy, 2026.\nOnline: 18 Sep 2026.\n\nAmong 1,743 unrelated-donor transplants, DPB1 mismatch direction distinguished outcome associations within T-cell epitope groups: host-versus-graft mismatches were associated with better survival in ≤9/10 pairs. This could refine donor selection, but the retrospective 1996 - 2020 cohort requires validation in contemporary practice.\n\nhttps://doi.org/10.1016/j.jtct.2026.09.033",
-          "doi": "https://doi.org/10.1016/j.jtct.2026.09.033"
-        },
-        {
-          "id": "edition-1-1",
-          "text": "• 𝗣𝗼𝗽𝘂𝗹𝗮𝘁𝗶𝗼𝗻 𝗱𝗶𝘃𝗲𝗿𝘀𝗶𝘁𝘆 & 𝗛𝗟𝗔 𝗿𝗲𝗳𝗲𝗿𝗲𝗻𝗰𝗲 𝗱𝗮𝘁𝗮\nda Silva et al. - GERBase: an online tool for high-resolution HLA allele and haplotype frequencies and linkage disequilibrium analysis in a Brazilian population. Frontiers in Genetics, 2026;17:1973772.\nOnline: 14 Oct 2026.\n\nAn open resource provides 17,260 family-phased haplotypes; 9,026 span all nine classical loci. Directly observed haplotypes support laboratory plausibility checks and population-aware donor searches, but this transplant-candidate cohort is not a nationally representative reference.\n\nhttps://doi.org/10.3389/fgene.2026.1973772",
-          "doi": "https://doi.org/10.3389/fgene.2026.1973772"
-        },
-        {
-          "id": "edition-1-2",
-          "text": "From our Journal HLA Immune Response Genetics:\n• 𝗔𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗲𝗽𝗶𝘁𝗼𝗽𝗲𝘀 & 𝗮𝘀𝘀𝗮𝘆 𝗶𝗻𝘁𝗲𝗿𝗽𝗿𝗲𝘁𝗮𝘁𝗶𝗼𝗻\nMeng et al. - Concentration-Dependent Reactivity Profiles of a Human Monoclonal Antibody Recognising HLA-DQB1*04/05/06 and at Reduced Intensities to DQB1*03 Antigens. HLA, 2026;108:e70889.\nOnline: 21 Oct 2026.\n\nEngineered HLA-DQ variants supported contributions from residues 46V and 55R, while higher antibody concentrations revealed weaker reactivity, including to self antigens. A useful challenge for epitope assignment and bead-assay interpretation; evidence comes from one monoclonal antibody, with clinical significance unresolved.\n\nhttps://doi.org/10.1111/tan.70889",
-          "doi": "https://doi.org/10.1111/tan.70889"
-        }
-      ],
-      "status": "draft",
-      "publicationNumber": null
-    }
-  ]
+  "editions": [],
+  "retiredDraftIds": [1],
+  "nextInternalId": 2
 }

@@ -1,11 +1,11 @@
 import {reviewerAttribution} from './post-attribution.mjs';
-import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=profiles9';
+import {initAuth,currentUser,authHeaders,onAuthChange,expireLogin} from './auth.js?v=fresh10';
 import {disallowedLinks,assertPostLinks} from './url-policy.mjs';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id);
 const tags='#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub';
 let editions,current,state,etag='"0"',seq=0,savedSeq=0,saving=false,syncError='',timer,record;
-const backup=()=>{try{localStorage.setItem('efi-review-draft-'+current.id,JSON.stringify(state))}catch{}};
+const backup=()=>{if(!current||!state)return;try{localStorage.setItem('efi-review-draft-'+current.id,JSON.stringify(state))}catch{}};
 const request=async(id,options={})=>{const r=await fetch(API+'/reviews/'+id,{cache:'no-store',...options,headers:{...(options.headers||{}),...authHeaders()}});const body=await r.json();if(!r.ok){if(r.status===401)expireLogin();throw Error(body.error||'Shared storage unavailable')};return {body,etag:JSON.stringify(String(body.revision))}};
 function text(){const approved=current.items.filter(i=>state.items[i.id].decision==='approved');return approved.length?current.header+'\n\n'+approved.map(i=>state.items[i.id].text.trim()).join('\n\n────────────────\n\n')+(reviewerAttribution(record)?'\n\n'+reviewerAttribution(record):'')+'\n\n'+tags:''}
 function update(){if(!state)return;publicationStatus();const values=current.items.map(i=>state.items[i.id]);const reviewed=values.filter(i=>i.decision!=='pending').length;const yes=values.filter(i=>i.decision==='approved').length;const output=text();const clean=seq===savedSeq&&!saving&&!syncError;const invalidLinks=disallowedLinks(output);const ready=reviewed===values.length&&yes>0&&output.length<3000&&clean&&!invalidLinks.length;
@@ -30,7 +30,7 @@ function render(){ $('reviewer').value=state.reviewer;$('articles').replaceChild
 async function load(id){const next=editions.find(e=>String(e.id)===String(id))||editions[0];$('edition').disabled=true;try{const result=await request(next.id);current=next;record=result.body;etag=result.etag;state={edition:current.id,reviewer:record.reviewer,items:structuredClone(record.items)};seq=savedSeq=0;syncError='';$('edition').value=current.id;render()}catch(e){$('message').textContent='Cannot load central reviews: '+e.message;syncError=e.message;if(current)$('edition').value=current.id;update()}finally{$('edition').disabled=false}}
 $('reviewer').addEventListener('input',()=>{state.reviewer=$('reviewer').value;changed()});
 $('edition').addEventListener('change',async()=>{const id=$('edition').value;await flush();if(saving||syncError||seq!==savedSeq){$('edition').value=current.id;return}await load(id)});
-$('reload').addEventListener('click',async()=>{backup();await load(current?.id||editions[0].id)});
+$('reload').addEventListener('click',async()=>{backup();await loadDefinitions()});
 $('retry').addEventListener('click',flush);
 $('history').addEventListener('change',()=>{$('restore').disabled=!$('history').value});
 $('restore').addEventListener('click',()=>{const old=record.history.find(h=>String(h.revision)===$('history').value);if(!old)return;state.reviewer=$('reviewer').value;state.items=structuredClone(old.items);changed();render();$('message').textContent='Earlier version restored as a new revision. Saving centrally…';flush()});
@@ -41,7 +41,8 @@ window.addEventListener('beforeunload',e=>{if(seq!==savedSeq||saving){e.preventD
 setInterval(async()=>{if(!currentUser()||!current||saving||seq!==savedSeq||syncError||['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName))return;try{const result=await request(current.id);if(result.etag===etag){record.publication=result.body.publication;publicationStatus()}if(result.etag!==etag){record=result.body;etag=result.etag;state={edition:current.id,reviewer:record.reviewer,items:structuredClone(record.items)};render();$('message').textContent='Updated with centrally saved changes.'}}catch{}},15000);
 await initAuth();
 let authEmail=currentUser()?.email;onAuthChange(async u=>{if(u?.email===authEmail)return;authEmail=u?.email;if(!u){clearTimeout(timer);if(current)backup();return}if(!editions?.length)await loadDefinitions();else await load(current?.id||editions[0].id)});
-async function loadDefinitions(){try{const r=await fetch(API+'/editions',{cache:'no-store',headers:authHeaders()});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);$('edition').replaceChildren();for(const e of editions)$('edition').append(new Option((e.status==='draft'||e.publicationNumber===null?'Draft':'Edition '+(e.publicationNumber||e.id))+' · '+e.date,e.id));if(currentUser())await load(new URLSearchParams(location.search).get('edition')||editions[0].id)}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}}
+function emptyDesk(){clearTimeout(timer);current=state=record=null;seq=savedSeq=0;syncError='';$('articles').replaceChildren();$('preview').textContent='';$('reviewer').value='';$('history').replaceChildren();$('progress').textContent='No current draft';$('count').textContent='';$('sync').textContent='';$('publication').textContent='No weekly post is ready for publication.';$('message').textContent='';$('status').textContent='The previous draft has been removed. A fresh selection is planned for Friday 30 October 2026. The first published edition will be number 1.';for(const id of ['edition','reviewer','history','restore','import','retry','copy','download','linkedin'])$(id).disabled=true;}
+async function loadDefinitions(){try{const r=await fetch(API+'/editions',{cache:'no-store',headers:authHeaders()});if(!r.ok)throw Error('Edition data unavailable');editions=(await r.json()).editions.sort((a,b)=>b.id-a.id);$('edition').replaceChildren();if(!editions.length){emptyDesk();return}for(const id of ['edition','reviewer','history','import','retry'])$(id).disabled=false;for(const e of editions)$('edition').append(new Option((e.status==='draft'||e.publicationNumber===null?'Draft':'Edition '+(e.publicationNumber||e.id))+' · '+e.date,e.id));if(currentUser())await load(new URLSearchParams(location.search).get('edition')||editions[0].id)}catch(e){$('status').textContent='Cannot load editions. Please reload.';console.error(e)}}
 if(currentUser())await loadDefinitions();else $('edition').disabled=true;
 
 
