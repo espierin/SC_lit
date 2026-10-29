@@ -1,7 +1,9 @@
+import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=session22';
 import {applyAccess} from './access.js?v=ux19';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
-let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
+let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false,connectionWarning=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
+user=cachedIdentity(session);
 export const currentUser=()=>user;
 export const authHeaders=()=>session?.token?{Authorization:'Bearer '+session.token}:{};
 export const onAuthChange=fn=>authListeners.push(fn);
@@ -21,7 +23,7 @@ function renderAuth(){
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
  if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog')?.open)el('member-delete-dialog').close();if(el('admin-panel'))el('admin-panel').hidden=!allowed;if(el('automation-panel'))el('automation-panel').hidden=!allowed;if(el('admin-access'))el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
 }
-async function refreshUser(){if(!session){renderAuth();return}try{user=await authRequest('/auth/me');renderAuth();notify()}catch(e){if(!session||e.status===401){if(session)forget();el('login-message').textContent='Your session has ended. Sign in again to continue.';}else{el('login-message').textContent='The connection is temporarily unavailable. Your session and local edits are retained. The connection will be checked again automatically.';}}}
+async function refreshUser(){if(!session){renderAuth();return}try{user=await authRequest('/auth/me');session=withIdentity(session,user);try{sessionStorage.setItem('efi-session',JSON.stringify(session))}catch{};if(connectionWarning){el('login-message').textContent='';connectionWarning=false;}renderAuth();notify()}catch(e){if(!session||e.status===401){if(session)forget();el('login-message').textContent='Your session has ended. Sign in again to continue.';}else{connectionWarning=true;if(!user)renderAuth();el('login-message').textContent='The connection is temporarily unavailable. Your session and local edits are retained. The connection will be checked again automatically.';}}}
 function invitation(result,person){
  if(!result.activationUrl)return;const box=el('admin-invitation');box.replaceChildren(make('p','Activation link for '+person.name+' (valid for 7 days). Share this link privately with that person.'));
  const input=make('input');input.type='text';input.readOnly=true;input.value=result.activationUrl;input.setAttribute('aria-label','Private activation link');const copy=make('button','Copy activation link');copy.type='button';copy.onclick=async()=>{await navigator.clipboard.writeText(result.activationUrl);el('admin-message').textContent='Private activation link copied.'};box.append(input,copy);
@@ -85,5 +87,5 @@ export async function initAuth(){
  }catch(e){el('login-message').textContent=e.message}finally{b.disabled=false}};
  el('logout').onclick=async()=>{try{await authRequest('/auth/logout',{})}finally{forget();el('login-form').hidden=true}};
  bindAdminControls();
- await refreshUser();setInterval(refreshUser,60000);renderAuth();return user;
+ if(!user)await refreshUser();renderAuth();const wait=Math.max(0,IDENTITY_FRESH_MS-(Date.now()-(session?.profileCheckedAt||0)));setTimeout(()=>{refreshUser();setInterval(refreshUser,IDENTITY_FRESH_MS)},wait);return user;
 }

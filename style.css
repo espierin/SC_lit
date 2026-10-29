@@ -91,3 +91,9 @@ main:focus{outline:none}
 main{padding-top:24px}
 
 @media(max-width:850px){main,body[data-page=review] main,body[data-page=admin] main{padding-top:20px;padding-inline:18px}}
+
+/* Retain the account bar while a valid existing session is restored. */
+html[data-auth=pending] #login-open,html[data-auth=pending] #access-notice{visibility:hidden}
+.back-to-top{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:90;display:grid;place-items:center;width:48px;height:48px;min-height:48px;margin:0;padding:0;border:1px solid var(--blue);border-radius:50%;background:var(--blue);color:#fff;box-shadow:0 4px 16px #18304733}
+.back-to-top svg{display:block;pointer-events:none}
+@media print{.back-to-top{display:none!important}}

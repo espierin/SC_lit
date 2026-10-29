@@ -1,4 +1,4 @@
-import {currentUser,authHeaders,onAuthChange} from './auth.js?v=ux19';
+import {currentUser,authHeaders,onAuthChange} from './auth.js?v=session22';
 let saved;
 const el=id=>document.getElementById(id);
 async function request(body){
