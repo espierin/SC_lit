@@ -1,5 +1,5 @@
 import {deliveryIssueLabels,formatAmsterdam} from './reviewer-guidance.mjs?v=ux19';
-import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=banner30';
+import {initAuth,currentUser,authHeaders,onAuthChange} from './auth.js?v=banner31';
 const API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 const $=id=>document.getElementById(id),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];let settings,loadedEmail=null;
 for(const id of ['query-day','posting-day'])days.forEach((day,i)=>$(id).append(new Option(day,String(i))));
