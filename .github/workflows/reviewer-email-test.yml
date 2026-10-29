@@ -1,0 +1,23 @@
+name: Test both reviewer emails to owner
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: efi-reviewer-email-tests
+  cancel-in-progress: false
+jobs:
+  test-emails:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Send two marked tests exclusively to the owner
+        env:
+          REMINDER_RUN_TOKEN: ${{ secrets.REMINDER_RUN_TOKEN }}
+          BREVO_SMTP_USER: ${{ secrets.BREVO_SMTP_USER }}
+          BREVO_SMTP_PASSWORD: ${{ secrets.BREVO_SMTP_PASSWORD }}
+          BREVO_SMTP_SENDER: ${{ secrets.BREVO_SMTP_SENDER }}
+        run: python3 scripts/test_reviewer_emails.py
