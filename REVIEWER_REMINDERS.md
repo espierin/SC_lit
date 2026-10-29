@@ -36,3 +36,18 @@ The recipient and message content are never written to public Actions logs.
 
 This workflow does not edit reviews, publish posts, change Buffer schedules,
 change selection criteria, or enable the newsletter.
+
+## Activation and delivery verification
+
+Activated 29 October 2026 after the owner created a dedicated EFI SMTP key
+and stored it directly in GitHub Secrets. Both production gates are enabled.
+Two clearly marked owner-only tests were sent through the actual SMTP route;
+Brevo reported Delivered to the owner UMC address for both ready and overdue
+templates. This confirms receiving-server acceptance, not inbox placement.
+
+Test run: https://github.com/espierin/SC_lit/actions/runs/40951964641
+
+The verified existing pilot sender is used with display name EFI Journal Club;
+Brevo rewrites its Gmail sender domain to brevosend.com. No institutional DNS
+or EPT configuration was changed. Test messages use the same backend templates
+as production, do not claim reminders, and cannot target other recipients.
