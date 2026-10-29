@@ -1,0 +1,44 @@
+name: Reviewer email reminder
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+      timezone: Europe/Amsterdam
+    - cron: '*/15 7-11 * * 5'
+      timezone: Europe/Amsterdam
+  push:
+    paths:
+      - 'data/editions.json'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Notification type (day and time checks still apply)'
+        type: choice
+        options: [auto, ready, overdue]
+        default: auto
+      dry_run:
+        description: 'Only check eligibility; do not send email'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: efi-reviewer-reminder
+  cancel-in-progress: false
+jobs:
+  reminder:
+    if: vars.REVIEWER_REMINDERS_ENABLED == 'true' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Check review and send at most one reminder
+        env:
+          REMINDER_MODE: ${{ inputs.mode || 'auto' }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && 'true' || 'false' }}
+          REMINDER_RUN_TOKEN: ${{ secrets.REMINDER_RUN_TOKEN }}
+          BREVO_SMTP_USER: ${{ secrets.BREVO_SMTP_USER }}
+          BREVO_SMTP_PASSWORD: ${{ secrets.BREVO_SMTP_PASSWORD }}
+          BREVO_SMTP_SENDER: ${{ secrets.BREVO_SMTP_SENDER }}
+        run: python3 scripts/reviewer_reminder.py
