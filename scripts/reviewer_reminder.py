@@ -13,7 +13,7 @@ def api(action, payload=None):
     request = urllib.request.Request(BASE + '/reminders/' + action,
         data=json.dumps(payload or {}).encode(), method='POST',
         headers={'Authorization': 'Bearer ' + os.environ['REMINDER_RUN_TOKEN'],
-                 'Content-Type': 'application/json'})
+                 'Content-Type': 'application/json', 'User-Agent':'EFI-Reviewer-Reminder/1.0'})
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
 
@@ -72,5 +72,5 @@ if __name__ == '__main__':
         run()
     except Exception as error:
         # SMTP exception details may contain addresses. Keep public Actions logs private-data free.
-        print('::error::Reviewer reminder could not complete (' + type(error).__name__ + '). Check protected settings and Brevo; do not resend blindly.')
+        print('::error::Reviewer reminder could not complete (' + type(error).__name__ + (':' + str(error.code) if hasattr(error, 'code') else '') + '). Check protected settings and Brevo; do not resend blindly.')
         raise SystemExit(1)
