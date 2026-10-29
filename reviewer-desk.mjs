@@ -1,0 +1,41 @@
+import {reviewPresentation,accessLabels} from './reviewer-ui.mjs';
+const $=id=>document.getElementById(id);
+const formatTime=value=>new Date(value).toLocaleString('en-GB',{timeZone:'Europe/Amsterdam',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})+' Amsterdam';
+export function evidenceCard(item,evidence){
+ const e=evidence[item.id]||{},box=document.createElement('section');box.className='evidence-card';box.setAttribute('aria-label','Evidence for this article');
+ const facts=document.createElement('div');facts.className='evidence-facts';for(const [label,value] of [['First online',e.firstOnline||'Not recorded'],['Source access',accessLabels[e.fullTextStatus]||'Access not recorded']]){const p=document.createElement('p'),b=document.createElement('strong');b.textContent=label;p.append(b,document.createTextNode(value));facts.append(p)}box.append(facts);
+ const detail=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Evidence and sources';detail.append(summary);
+ for(const [label,value] of [['Key finding',e.finding],['Material limitation',e.limitation],['Reason for selection',e.selectionReason],['Checked',e.checkedAt]]){const p=document.createElement('p'),b=document.createElement('strong');b.textContent=label+': ';p.append(b,document.createTextNode(value||'Not recorded'));detail.append(p)}
+ for(const source of e.sources||[]){const a=document.createElement('a');a.href=source.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=source.label||source.url;detail.append(a,document.createElement('br'))}
+ const note=document.createElement('p');note.className='help';note.textContent='Source notes support review. They do not certify study quality and are not included in the post.';detail.append(note);box.append(detail);return box;
+}
+export function publicationPanel(context){
+ const {record,state,current,saving,seq,savedSeq,syncError,user}=context,p=record?.publication||{},m=reviewPresentation({items:current?.items.map(i=>state?.items[i.id])||[],publication:p,dirty:saving||seq!==savedSeq,error:syncError,canReview:user?.canReview===true});
+ $('publication-heading').textContent=m.title;$('publication-heading').dataset.tone=m.tone;$('publication-next').textContent=m.next;
+ $('publication').textContent=!current?'There is no current post awaiting publication.':p.error||(p.status==='scheduled'?(p.dueAt||p.scheduledAt?'Buffer time: '+formatTime(p.dueAt||p.scheduledAt):'Buffer has accepted the post.'):p.status==='sent'?(p.sentAt?'Published: '+formatTime(p.sentAt):'Buffer reports this post as sent.'):'Every article needs a decision. At least one must be approved.');
+ if(p.externalLink){try{const u=new URL(p.externalLink);if(u.protocol==='https:'&&['www.linkedin.com','linkedin.com'].includes(u.hostname)){const a=document.createElement('a');a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';a.textContent='View published LinkedIn post';a.className='source published-link';$('publication').append(a)}}catch{}}
+ return m;
+}
+export function installDesk(getContext){
+ let articleFilter='all';
+ function access(){const allowed=!!getContext().current&&getContext().user?.canReview===true;for(const control of document.querySelectorAll('#articles input,#articles textarea'))control.disabled=!allowed;for(const id of ['restore','import'])if($(id))$(id).disabled=!allowed||(id==='restore'&&!$('history').value)}
+ function filter(){const {state,current}=getContext();let visible=0;for(const card of document.querySelectorAll('#articles article')){card.hidden=articleFilter!=='all'&&state.items[card.dataset.id].decision!==articleFilter;if(!card.hidden)visible++;else if(card.contains(document.activeElement))document.querySelector('[data-filter="'+articleFilter+'"]').focus()}$('filter-empty').hidden=visible>0||!current;}
+ function refresh(){
+  const context=getContext(),{current,state,user}=context,model=publicationPanel(context),{counts}=model;
+  $('review-role').textContent=user?.canReview?'YOUR REVIEW WORKSPACE':'READ-ONLY ACCESS';
+  $('review-brief-title').textContent=!counts.all?'No selection ready yet':counts.pending?counts.pending+' article'+(counts.pending===1?' needs':'s need')+' a decision':counts.approved?'Review complete · '+counts.approved+' approved':'Review complete · all excluded';
+  $('review-brief-copy').textContent=!counts.all?'Return after the next search. No editorial action is needed yet.':user?.canReview?'Check the original source, wording and limitation, then approve or exclude. Decisions save automatically.':'You can inspect the selection and evidence. Decisions are reserved for the duty reviewer, Eric or Pietro.';
+  $('review-duty').textContent='On duty: '+(user?.onDuty||'Not available')+(user?.name?' · Signed in as '+user.name:'');
+  $('next-pending').disabled=!counts.pending;$('next-pending').textContent=counts.pending?'Go to next pending article':'No pending articles';
+  const labels=['Search','Selection ready','Review','In Buffer','Published'],root=$('review-process');root.replaceChildren();labels.forEach((label,index)=>{const li=document.createElement('li'),n=document.createElement('span'),text=document.createElement('span');n.className='step-number';n.textContent=index<model.stage?'✓':String(index+1);text.textContent=label;li.className=index<model.stage?'complete':index===model.stage?'current':'upcoming';if(index===model.stage)li.setAttribute('aria-current','step');li.append(n,text);root.append(li)});
+  for(const b of document.querySelectorAll('[data-filter]')){const key=b.dataset.filter;b.querySelector('span').textContent=String(counts[key]);b.setAttribute('aria-pressed',String(key===articleFilter))}
+  for(const badge of document.querySelectorAll('[data-decision-badge]')){const decision=state?.items[badge.dataset.decisionBadge]?.decision;badge.textContent=decision==='pending'?'Needs review':decision==='approved'?'Approved':'Excluded';badge.dataset.state=decision}
+  for(const panel of document.querySelectorAll('.manual-options,.review-history,.post-preview'))panel.hidden=!current;for(const id of ['auto-save-note'])$(id).hidden=!current;if(!current){$('review-workspace').hidden=!user;$('sync').textContent='No decisions to save.'}access();filter();
+ }
+ for(const button of document.querySelectorAll('[data-filter]'))button.addEventListener('click',()=>{articleFilter=button.dataset.filter;refresh()});
+ $('history').addEventListener('change',access);
+ let lastPending=-1;
+ $('next-pending').addEventListener('click',()=>{const {current,state}=getContext();if(!current)return;const cards=[...document.querySelectorAll('#articles article')],pending=cards.filter(c=>state.items[c.dataset.id].decision==='pending');if(!pending.length)return;const next=pending.find(c=>cards.indexOf(c)>lastPending)||pending[0];lastPending=cards.indexOf(next);articleFilter='pending';refresh();next.focus();next.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})});
+ async function schedule(){try{const r=await fetch('https://efi-journal-club-review-store.espierin.chatgpt.site/settings',{cache:'no-store'});if(!r.ok)throw Error();const s=await r.json(),days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];$('review-schedule').textContent='Search: '+days[s.query.day]+' '+s.query.time+(s.query.paused?' (paused)':'')+' · Buffer publication: '+days[s.posting.day]+' '+s.posting.time+(s.posting.paused?' (paused)':'')+' · Saved schedule; search execution is confirmed separately.'}catch{$('review-schedule').textContent='Saved schedule unavailable. Do not assume that a search or publication is paused.'}}
+ schedule();setInterval(schedule,60000);return{refresh,access};
+}
