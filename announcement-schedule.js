@@ -1,4 +1,4 @@
-import {currentUser,authHeaders,onAuthChange} from './auth.js?v=banner26';
+import {currentUser,authHeaders,onAuthChange} from './auth.js?v=banner27';
 let saved;
 const el=id=>document.getElementById(id);
 async function request(body){

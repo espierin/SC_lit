@@ -1,2 +1,2 @@
-import {initAuth} from './auth.js?v=banner26';
+import {initAuth} from './auth.js?v=banner27';
 await initAuth();
