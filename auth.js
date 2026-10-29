@@ -1,5 +1,5 @@
-import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=banner29';
-import {applyAccess} from './access.js?v=banner29';
+import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=banner30';
+import {applyAccess} from './access.js?v=banner30';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false,connectionWarning=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
