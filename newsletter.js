@@ -1,4 +1,4 @@
-import {authHeaders} from './auth.js?v=announcement24';
+import {authHeaders} from './auth.js?v=banner25';
 import {mountNewsletter} from './newsletter-ui.mjs';
 const NL_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 async function nlRequest(path,body,method){const response=await fetch(NL_API+path,{method:method||(body?'PUT':'GET'),cache:'no-store',headers:{...authHeaders(),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});const data=await response.json();if(!response.ok)throw Error(data.error||'Newsletter unavailable');return data;}

@@ -1,5 +1,5 @@
-import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=announcement24';
-import {applyAccess} from './access.js?v=announcement24';
+import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=banner25';
+import {applyAccess} from './access.js?v=banner25';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false,connectionWarning=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
@@ -18,8 +18,13 @@ async function authRequest(path,body){
 }
 function renderAuth(){
  applyAccess(user);for(const link of document.querySelectorAll('[data-announcement-nav]'))link.hidden=user?.canAnnouncement!==true;for(const link of document.querySelectorAll('[data-admin-nav]'))link.hidden=user?.role!=='admin';
- const signed=!!user;const adminPage=document.body.dataset.page==='admin';el('login-open').hidden=signed;el('logout').hidden=!signed;el('admin-open').hidden=user?.role!=='admin';
- el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Year-round reviewer':user.canReview?'Reviewer':'Read-only member')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
+ const signed=!!user;const adminPage=document.body.dataset.page==='admin';
+ el('login-open').hidden=signed;el('account-name').hidden=!signed;
+ const firstName=name=>String(name||'').trim().split(/\s+/)[0]||'Unassigned';
+ el('banner-first-name').textContent=signed?firstName(user.name):'';
+ el('banner-duty').textContent=signed?'Duty in week '+user.week+': '+firstName(user.onDuty):'';
+ el('account-name').setAttribute('aria-label',signed?firstName(user.name)+', account options. Duty in week '+user.week+': '+firstName(user.onDuty):'Account options');
+ if(!signed){el('account-menu').hidden=true;el('account-name').setAttribute('aria-expanded','false');}
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
  if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog')?.open)el('member-delete-dialog').close();if(el('admin-panel'))el('admin-panel').hidden=!allowed;if(el('automation-panel'))el('automation-panel').hidden=!allowed;if(el('admin-access'))el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
 }
@@ -77,15 +82,22 @@ function bindAdminControls(){
 export async function initAuth(){
  if(authInitialized){bindAdminControls();renderAuth();return user}authInitialized=true;
  const params=new URLSearchParams(location.hash.slice(1));if(params.has('activate')){
-  activation={token:params.get('activate'),email:params.get('email')||''};history.replaceState(null,'',location.pathname+location.search);el('login-form').hidden=false;el('login-email').value=activation.email;el('login-email').readOnly=true;el('login-password').autocomplete='new-password';el('password-confirm-label').hidden=false;el('login-submit').textContent='Set my password';el('login-heading').textContent='Activate your account';el('login-message').textContent='Choose a password of at least 12 characters. Your password is never stored in GitHub.';
+  activation={token:params.get('activate'),email:params.get('email')||''};history.replaceState(null,'',location.pathname+location.search);el('login-dialog').showModal();el('login-email').value=activation.email;el('login-email').readOnly=true;el('login-password').autocomplete='new-password';el('password-confirm-label').hidden=false;el('login-submit').textContent='Set my password';el('login-heading').textContent='Activate your account';el('login-message').textContent='Choose a password of at least 12 characters. Your password is never stored in GitHub.';
  }
- el('login-open').onclick=()=>{el('login-form').hidden=!el('login-form').hidden;if(!el('login-form').hidden)el('login-email').focus()};
+ el('login-open').onclick=()=>{el('login-dialog').showModal();el('login-email').focus()};
+ el('login-close').onclick=()=>el('login-dialog').close();
+ const closeAccount=()=>{el('account-menu').hidden=true;el('account-name').setAttribute('aria-expanded','false')};
+ el('account-name').onclick=()=>{const open=el('account-menu').hidden;el('account-menu').hidden=!open;el('account-name').setAttribute('aria-expanded',String(open));if(open)el('logout').focus()};
+ document.addEventListener('click',event=>{if(!event.target.closest('.banner-account'))closeAccount()});
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!el('account-menu').hidden){closeAccount();el('account-name').focus()}});
+ document.addEventListener('focusin',event=>{if(!event.target.closest('.banner-account'))closeAccount()});
+
  el('login-form').onsubmit=async event=>{event.preventDefault();const b=el('login-submit');b.disabled=true;try{
   const email=el('login-email').value.trim(),password=el('login-password').value;
   if(activation){if(password!==el('login-confirm').value)throw Error('The passwords do not match.');const result=await authRequest('/auth/activate',{email,password,token:activation.token});activation=null;el('password-confirm-label').hidden=true;el('login-email').readOnly=false;el('login-password').autocomplete='current-password';el('login-submit').textContent='Sign in';el('login-heading').textContent='Sign in';el('login-message').textContent=result.message;el('login-password').value=el('login-confirm').value='';}
-  else{session=await authRequest('/auth/login',{email,password});sessionStorage.setItem('efi-session',JSON.stringify(session));el('login-password').value='';el('login-message').textContent='';el('login-form').hidden=true;await refreshUser();}
+  else{session=await authRequest('/auth/login',{email,password});sessionStorage.setItem('efi-session',JSON.stringify(session));el('login-password').value='';el('login-message').textContent='';el('login-dialog').close();await refreshUser();}
  }catch(e){el('login-message').textContent=e.message}finally{b.disabled=false}};
- el('logout').onclick=async()=>{try{await authRequest('/auth/logout',{})}finally{forget();el('login-form').hidden=true}};
+ el('logout').onclick=async()=>{try{await authRequest('/auth/logout',{})}finally{forget();el('login-dialog').close()}};
  bindAdminControls();
  if(!user)await refreshUser();renderAuth();const wait=Math.max(0,IDENTITY_FRESH_MS-(Date.now()-(session?.profileCheckedAt||0)));setTimeout(()=>{refreshUser();setInterval(refreshUser,IDENTITY_FRESH_MS)},wait);return user;
 }
