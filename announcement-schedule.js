@@ -1,4 +1,4 @@
-import {currentUser,authHeaders,onAuthChange} from './auth.js?v=session22';
+import {currentUser,authHeaders,onAuthChange} from './auth.js?v=announcement24';
 let saved;
 const el=id=>document.getElementById(id);
 async function request(body){
@@ -6,7 +6,7 @@ async function request(body){
  const result=await r.json();if(!r.ok)throw Error(result.error||'Announcement scheduling unavailable.');return result;
 }
 async function setup(user){
- const panel=el('announcement-scheduling');if(!panel)return;panel.hidden=user?.role!=='admin';if(panel.hidden||panel.dataset.ready)return;panel.dataset.ready='true';
+ const panel=el('announcement-scheduling');if(!panel)return;panel.hidden=user?.canAnnouncement!==true;if(panel.hidden||panel.dataset.ready)return;panel.dataset.ready='true';
  const status=el('announcement-schedule-status');
  try{
   saved=await request();const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const tomorrow=new Date(today+'T12:00:00Z');tomorrow.setUTCDate(tomorrow.getUTCDate()+1);

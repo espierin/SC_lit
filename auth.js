@@ -1,5 +1,5 @@
-import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=session22';
-import {applyAccess} from './access.js?v=ux19';
+import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=announcement24';
+import {applyAccess} from './access.js?v=announcement24';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false,connectionWarning=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
@@ -17,7 +17,7 @@ async function authRequest(path,body){
  const data=await r.json();if(!r.ok){if(r.status===401&&session)forget();const error=Error(data.error||'Authentication service unavailable');error.status=r.status;throw error}return data;
 }
 function renderAuth(){
- applyAccess(user);for(const link of document.querySelectorAll('[data-admin-nav]'))link.hidden=user?.role!=='admin';
+ applyAccess(user);for(const link of document.querySelectorAll('[data-announcement-nav]'))link.hidden=user?.canAnnouncement!==true;for(const link of document.querySelectorAll('[data-admin-nav]'))link.hidden=user?.role!=='admin';
  const signed=!!user;const adminPage=document.body.dataset.page==='admin';el('login-open').hidden=signed;el('logout').hidden=!signed;el('admin-open').hidden=user?.role!=='admin';
  el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Year-round reviewer':user.canReview?'Reviewer':'Read-only member')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
