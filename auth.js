@@ -1,5 +1,5 @@
-import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=banner25';
-import {applyAccess} from './access.js?v=banner25';
+import {cachedIdentity,withIdentity,IDENTITY_FRESH_MS} from './session-view.mjs?v=banner26';
+import {applyAccess} from './access.js?v=banner26';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false,connectionWarning=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
@@ -22,8 +22,8 @@ function renderAuth(){
  el('login-open').hidden=signed;el('account-name').hidden=!signed;
  const firstName=name=>String(name||'').trim().split(/\s+/)[0]||'Unassigned';
  el('banner-first-name').textContent=signed?firstName(user.name):'';
- el('banner-duty').textContent=signed?'Duty in week '+user.week+': '+firstName(user.onDuty):'';
- el('account-name').setAttribute('aria-label',signed?firstName(user.name)+', account options. Duty in week '+user.week+': '+firstName(user.onDuty):'Account options');
+ el('banner-duty').textContent=signed?'Duty this week: '+firstName(user.onDuty):'';
+ el('account-name').setAttribute('aria-label',signed?firstName(user.name)+', account options. Duty this week: '+firstName(user.onDuty):'Account options');
  if(!signed){el('account-menu').hidden=true;el('account-name').setAttribute('aria-expanded','false');}
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
  if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog')?.open)el('member-delete-dialog').close();if(el('admin-panel'))el('admin-panel').hidden=!allowed;if(el('automation-panel'))el('automation-panel').hidden=!allowed;if(el('admin-access'))el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
