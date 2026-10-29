@@ -11,3 +11,13 @@ $('automation-form').addEventListener('submit',save);$('automation-retry').addEv
 onAuthChange(u=>{if(u?.role!=='admin'){loadedEmail=null;return}if(loadedEmail===u.email)return;loadedEmail=u.email;load()});await initAuth();
 
 if(currentUser()?.role==='admin'&&loadedEmail!==currentUser().email){loadedEmail=currentUser().email;await load()}
+
+async function processStatus(){
+ const root=$('process-status');if(!root||currentUser()?.role!=='admin')return;
+ try{const r=await fetch(API+'/process/status',{cache:'no-store',headers:authHeaders()});if(!r.ok)throw Error('Process status unavailable');const v=await r.json();root.replaceChildren();
+ const date=x=>x?new Date(x).toLocaleString('en-GB',{timeZone:v.timezone})+' (Amsterdam)':'Paused';
+ for(const [label,value] of [['Next desired search',date(v.query.nextAt)],['ChatGPT trigger',v.trigger.status+' - '+v.trigger.message+' Last verified: '+(v.trigger.verifiedAt||'not recorded')],['Next publication via Buffer',date(v.posting.nextAt)],['Publication hold',v.publicationHold?'On':'Off'],['Newsletter',v.newsletter.enabled?'Enabled (check configuration)':'Disabled']]){const p=document.createElement('p'),b=document.createElement('strong');b.textContent=label+': ';p.append(b,document.createTextNode(value));root.append(p)}
+ root.classList.toggle('notice',v.trigger.status!=='last_verified');const d=v.delivery;$('delivery-status').textContent=d?'Last delivery check: '+date(d.checkedAt)+'. '+(d.partial?'Check incomplete. ':'')+(d.issues.length?d.issues.map(i=>'Draft '+i.edition+': '+i.code.replaceAll('_',' ')).join('; '):'No delivery issues recorded.'):'No delivery check recorded yet.';
+ }catch(e){root.textContent=e.message}
+}
+$('process-refresh')?.addEventListener('click',processStatus);onAuthChange(u=>{if(u?.role==='admin')processStatus()});await processStatus();

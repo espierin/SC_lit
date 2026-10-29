@@ -19,3 +19,10 @@ All activated members can inspect the shortlist. Weekly article decisions requir
 EFI and reviewers provide neutral information without clinical, medical or scientific advice or endorsement. Post bodies contain article DOI links only and #Scientific #Committee, stay below 3,000 UTF-16 code units and avoid em/en dashes. Attribution uses the verified saved reviewer name. Clickable mentions require a separately resolved and verified Buffer profile identifier; a typed @name or profile URL is insufficient.
 
 Saving research timing on the website does not update the ChatGPT cloud trigger. Apply and verify that schedule separately. The help page and private backend OPERATIONS.md document the current workflow. Older screenshots and exported files are historical records, not current instructions.
+
+
+## Reviewer evidence metadata
+
+Each selected item may include an `evidence` object alongside `id`, `text` and `doi`: `firstOnline` (verified YYYY-MM-DD or null), `fullTextStatus` (`read`, `partial`, `abstract_only`, `unavailable`, `not_recorded`), `finding`, `limitation`, `selectionReason`, `checkedAt` and `sources` (`[{url,label}]`). Keep unknown fields null; never infer full-text review from metadata. Evidence cards do not enter LinkedIn text or TXT and do not change selection criteria. Existing editions without evidence are explicitly labelled Not recorded.
+
+Administration displays desired next times and a dated scheduler verification, never claims a live scheduler connection. A separate daily 06:15 Amsterdam delivery observer reads Buffer status only. It cannot publish, retry or reschedule. Confirmed sent posts gain a validated LinkedIn link in the archive. The newsletter remains off; search and posting times are unchanged.
