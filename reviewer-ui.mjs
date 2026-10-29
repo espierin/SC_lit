@@ -3,6 +3,7 @@ export function reviewPresentation({items=[],publication={},dirty=false,error=''
  const counts={all:items.length,pending:0,approved:0,excluded:0};for(const i of items){const decision=['pending','approved','excluded'].includes(i?.decision)?i.decision:'pending';counts[decision]++;}
  const complete=counts.all>0&&counts.pending===0,selected=counts.approved>0,p=publication;
  let stage=items.length?2:0,title=items.length?'Review in progress':'Waiting for a selection',next=items.length?'Check each article and record Approve or Exclude.':'The next saved selection will appear here.',tone='neutral';
+ if(items.length&&!canReview)next='The duty reviewer, Eric or Pietro records the decisions. You can inspect the articles and source notes.';
  if(complete){title=selected?'Review complete':'All articles excluded';next=selected?'Wait for the saved Buffer confirmation.':'No post will be published from this selection.'}
  if(p.status==='scheduled'){stage=3;title=now>=Date.parse(p.dueAt||p.scheduledAt)?'Awaiting delivery confirmation':'Scheduled in Buffer';next='Buffer handles publication. Wait for confirmation before considering a manual post.';tone='info'}
  if(p.status==='sent'){stage=4;title='Publication confirmed';next='The post is published. Further review edits do not publish another copy.';tone='success'}

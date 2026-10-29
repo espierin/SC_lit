@@ -1,4 +1,4 @@
-import {currentUser,authHeaders,onAuthChange} from './auth.js?v=launch12';
+import {currentUser,authHeaders,onAuthChange} from './auth.js?v=ux19';
 let saved;
 const el=id=>document.getElementById(id);
 async function request(body){
@@ -11,6 +11,7 @@ async function setup(user){
  try{
   saved=await request();const today=new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Amsterdam',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());const tomorrow=new Date(today+'T12:00:00Z');tomorrow.setUTCDate(tomorrow.getUTCDate()+1);
   el('announcement-date').value=saved.date||tomorrow.toISOString().slice(0,10);el('announcement-time').value=saved.time||'06:00';
+  const archive=await fetch('https://efi-journal-club-review-store.espierin.chatgpt.site/archive',{cache:'no-store'});if(archive.ok&&(await archive.json()).posts?.some(post=>post.key==='announcement')){status.textContent='This announcement has already been published. You can find it in the year archive. Scheduling it again is not available.';el('announcement-schedule-form').hidden=true;el('announcement-linkedin').disabled=true;return;}
   status.textContent=saved.status==='scheduled'?'Scheduled with banner for '+saved.date+' at '+saved.time+' CET/CEST. Check Buffer for delivery.':'Current status: '+saved.status+'. Choose a future date and time.';
   el('announcement-schedule-form').addEventListener('submit',async event=>{
    event.preventDefault();el('announcement-schedule').disabled=true;

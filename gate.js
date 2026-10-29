@@ -1,2 +1,2 @@
-import {initAuth} from './auth.js?v=launch12';
+import {initAuth} from './auth.js?v=ux19';
 await initAuth();

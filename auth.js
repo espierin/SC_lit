@@ -1,4 +1,4 @@
-import {applyAccess} from './access.js?v=launch12';
+import {applyAccess} from './access.js?v=ux19';
 const AUTH_API='https://efi-journal-club-review-store.espierin.chatgpt.site';
 let session=null,user=null,authListeners=[],activation=null,adminState=null,linkedinState=null,adminEmail=null,deleteTarget=null,authInitialized=false;
 try{session=JSON.parse(sessionStorage.getItem('efi-session')||'null');if(session?.expiresAt<Date.now())session=null}catch{}
@@ -12,16 +12,16 @@ function forget(){session=user=null;sessionStorage.removeItem('efi-session');ren
 export function expireLogin(){if(session)forget()}
 async function authRequest(path,body){
  const r=await fetch(AUTH_API+path,{cache:'no-store',method:body?'POST':'GET',headers:{...authHeaders(),...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})});
- const data=await r.json();if(!r.ok){if(r.status===401&&session)forget();throw Error(data.error||'Authentication service unavailable')}return data;
+ const data=await r.json();if(!r.ok){if(r.status===401&&session)forget();const error=Error(data.error||'Authentication service unavailable');error.status=r.status;throw error}return data;
 }
 function renderAuth(){
- applyAccess(user);
+ applyAccess(user);for(const link of document.querySelectorAll('[data-admin-nav]'))link.hidden=user?.role!=='admin';
  const signed=!!user;const adminPage=document.body.dataset.page==='admin';el('login-open').hidden=signed;el('logout').hidden=!signed;el('admin-open').hidden=user?.role!=='admin';
- el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Pietro · year-round reviewer':'Duty reviewer')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
+ el('account-status').textContent=signed?user.name+' · '+(user.role==='admin'?'Administrator':user.role==='backup'?'Year-round reviewer':user.canReview?'Reviewer':'Read-only member')+' · Week '+user.week+' · On duty: '+user.onDuty:'Sign in to review articles and approve publication.';
  if(el('review-workspace'))el('review-workspace').hidden=!signed;
  if(adminPage){const allowed=user?.role==='admin';if(!allowed&&el('member-delete-dialog')?.open)el('member-delete-dialog').close();if(el('admin-panel'))el('admin-panel').hidden=!allowed;if(el('automation-panel'))el('automation-panel').hidden=!allowed;if(el('admin-access'))el('admin-access').textContent=allowed?'Administrator access confirmed.':signed?'This account can review articles but cannot manage administration. Use the reviewer desk.':'Sign in with your administrator account to manage the Journal Club.';}
 }
-async function refreshUser(){if(!session){renderAuth();return}try{user=await authRequest('/auth/me');renderAuth();notify()}catch(e){forget();el('login-message').textContent=e.message}}
+async function refreshUser(){if(!session){renderAuth();return}try{user=await authRequest('/auth/me');renderAuth();notify()}catch(e){if(!session||e.status===401){if(session)forget();el('login-message').textContent='Your session has ended. Sign in again to continue.';}else{el('login-message').textContent='The connection is temporarily unavailable. Your session and local edits are retained. The connection will be checked again automatically.';}}}
 function invitation(result,person){
  if(!result.activationUrl)return;const box=el('admin-invitation');box.replaceChildren(make('p','Activation link for '+person.name+' (valid for 7 days). Share this link privately with that person.'));
  const input=make('input');input.type='text';input.readOnly=true;input.value=result.activationUrl;input.setAttribute('aria-label','Private activation link');const copy=make('button','Copy activation link');copy.type='button';copy.onclick=async()=>{await navigator.clipboard.writeText(result.activationUrl);el('admin-message').textContent='Private activation link copied.'};box.append(input,copy);
@@ -55,9 +55,10 @@ function renderAdmin(){
  const body=el('duty-rows');body.replaceChildren();
  for(const block of adminState.schedule.blocks){const tr=make('tr'),period=make('td','Weeks '+block.startWeek+' - '+block.endWeek),choice=make('select');choice.setAttribute('aria-label','Duty reviewer for weeks '+block.startWeek+' to '+block.endWeek);
   choice.append(new Option('Unassigned  -  choose a reviewer',''));for(const p of adminState.people)choice.append(new Option(p.name+(p.active?'':' (inactive)'),p.email));choice.value=block.email;choice.dataset.block=block.id;choice.dataset.help='Assign a reviewer to this four-week ISO-week block. Inactive accounts must be activated before they can sign in. Save the roster to apply changes.';
+  if(adminState.schedule.year===user?.year&&user.week>=block.startWeek&&user.week<=block.endWeek){tr.className='current-duty';period.append(make('strong',' · Current duty'));}
   const cell=make('td');cell.append(choice);tr.append(period,cell);body.append(tr);
  }
- el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Pietro and the administrator always retain review access.';
+ el('admin-year-note').textContent='ISO week numbers · '+adminState.schedule.year+'. Each assignment covers four weeks; the final block may be shorter. Inactive reviewers cannot sign in or receive reviewer reminders; activate them before their duty. Pietro and the administrator always retain review access.';
 }
 async function loadAdmin(){const year=el('duty-year').value;adminState=await authRequest('/auth/admin?year='+year);linkedinState=await authRequest('/auth/admin/linkedin');renderAdmin()}
 function bindAdminControls(){
