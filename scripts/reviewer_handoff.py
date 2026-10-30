@@ -1,4 +1,5 @@
 """Wait for the cloud search handoff. Never research, approve, email or publish."""
+import base64
 import json
 import os
 import time
@@ -17,6 +18,8 @@ def attempt():
         'Authorization': 'Bearer ' + os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']})
     with urllib.request.urlopen(request, timeout=45) as response:
         identity = json.load(response)['value']
+    claims = json.loads(base64.urlsafe_b64decode(identity.split('.')[1] + '=='))
+    print('Workflow identity: ' + json.dumps({key: claims.get(key) for key in ['iss', 'aud', 'repository', 'ref', 'sub', 'workflow_ref']}), flush=True)
     request = urllib.request.Request(ORIGIN + '/reviewer-handoff', data=b'{}', method='POST', headers={
         'Authorization': 'Bearer ' + identity, 'Content-Type': 'application/json'})
     with urllib.request.urlopen(request, timeout=60) as response:
@@ -31,7 +34,7 @@ def wait_for_handoff(check=attempt, sleep=time.sleep, clock=time.monotonic, max_
             result = check()
         except urllib.error.HTTPError as error:
             if error.code in (401, 403, 404):
-                raise RuntimeError('Handoff endpoint or workflow identity is not configured') from None
+                raise RuntimeError('Handoff endpoint or workflow identity rejected: HTTP ' + str(error.code)) from None
             result = {'status': 'waiting', 'reason': 'Temporary service error'}
         except (urllib.error.URLError, TimeoutError):
             result = {'status': 'waiting', 'reason': 'Temporary connection error'}
