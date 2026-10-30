@@ -20,9 +20,15 @@ test('missing or revoked credentials stop without exposing tokens or raw respons
   await assert.rejects(refreshAccessToken(env,async()=>({ok:false,status:400,json:async()=>env})),error=>error.message.includes('400')&&!error.message.includes('private'));
   await assert.rejects(refreshAccessToken(env,async()=>{throw Error('private-secret')}),error=>!error.message.includes('private'));
 });
-test('invalid responses, unexpected rotation and reduced permissions stop before social actions',async()=>{
+test('invalid responses and reduced permissions stop before social actions',async()=>{
   await assert.rejects(refreshAccessToken(env,async()=>success({access_token:null})),/usable/);
-  await assert.rejects(refreshAccessToken(env,async()=>success({refresh_token:'different'})),/changed refresh token/);
   await assert.rejects(refreshAccessToken(env,async()=>success({scope:'r_organization_social'})),/missing required/);
   await assert.rejects(refreshAccessToken(env,async()=>({ok:true,json:async()=>{throw Error('private')}})),/Invalid LinkedIn/);
+});
+test('the original authorization can be reused and returned token encodings are not persisted',async()=>{
+  const request=async(url,options)=>{
+    assert.equal(options.body.get('refresh_token'),env.LINKEDIN_REFRESH_TOKEN);
+    return success({refresh_token:'different-encoding'});
+  };
+  await refreshAccessToken(env,request); await refreshAccessToken(env,request);
 });
