@@ -9,13 +9,13 @@ export const freshState = () => ({version:1, since:SINCE, postStart:0, threads:{
 const hash = urn => createHash('sha256').update(urn).digest('hex');
 const encode = value => encodeURIComponent(value).replace(/[!'()*]/g, c => '%'+c.charCodeAt(0).toString(16).toUpperCase());
 const postUrn = value => /^urn:li:(share|ugcPost):\d+$/.test(value);
-const commentUrn = value => /^urn:li:comment:\((?:urn:li:)?activity:\d+,\d+\)$/.test(value);
+const commentUrn = value => /^urn:li:comment:\((?:urn:li:)?(?:activity|ugcPost|share):\d+,\d+\)$/.test(value);
 const isThread = value => postUrn(value) || commentUrn(value);
 
 export function collectComments(state, parent, comments) {
   for (const comment of comments) {
     const urn = comment.commentUrn;
-    if (!commentUrn(urn)) throw Error('Invalid comment identity ('+String(urn).replace(/\d/g,'#').slice(0,120)+'); no reaction sent');
+    if (!commentUrn(urn)) throw Error('Invalid comment identity; no reaction sent');
     if (comment.commentsSummary?.totalFirstLevelComments > 0 || comment.commentsSummary?.totalComments > 0) {
       state.threads[urn] ??= {start:0, scanned:0};
     }

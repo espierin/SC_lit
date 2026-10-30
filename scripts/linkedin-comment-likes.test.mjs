@@ -62,3 +62,10 @@ test('malformed comment, wrong cutoff and HTTP errors stop safely without leakin
   const request=client('PRIVATE',async()=>({status:401,ok:false}));
   await assert.rejects(request('/posts'),error=>error.message.includes('401')&&!error.message.includes('PRIVATE'));
 });
+test('live LinkedIn ugcPost comment identities are preserved unchanged for reactions',async()=>{
+  const identity='urn:li:comment:(urn:li:ugcPost:123,456)';
+  const api=mock([comment(1,{commentUrn:identity})]);
+  const stats=await run(freshState(),{...api,now:SINCE+100});
+  assert.equal(stats.liked,1);
+  assert.deepEqual(api.calls.find(c=>c.method==='POST').body,{root:identity,reactionType:'LIKE'});
+});
