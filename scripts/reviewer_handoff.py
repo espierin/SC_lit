@@ -1,4 +1,5 @@
 """Wait for the cloud search handoff. Never research, approve, email or publish."""
+import base64
 import json
 import os
 import time
@@ -17,10 +18,21 @@ def attempt():
         'Authorization': 'Bearer ' + os.environ['ACTIONS_ID_TOKEN_REQUEST_TOKEN']})
     with urllib.request.urlopen(request, timeout=45) as response:
         identity = json.load(response)['value']
+    claims = json.loads(base64.urlsafe_b64decode(identity.split('.')[1] + '=='))
+    header = json.loads(base64.urlsafe_b64decode(identity.split('.')[0] + '=='))
+    print(json.dumps({'algorithm': header.get('alg'), 'repository_id': claims.get('repository_id'), 'owner_id': claims.get('repository_owner_id'), 'issued_at': claims.get('iat'), 'runner_now': int(time.time())}), flush=True)
     request = urllib.request.Request(ORIGIN + '/reviewer-handoff', data=b'{}', method='POST', headers={
         'Authorization': 'Bearer ' + identity, 'Content-Type': 'application/json'})
-    with urllib.request.urlopen(request, timeout=60) as response:
-        return json.load(response)
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response:
+            return json.load(response)
+    except urllib.error.HTTPError as error:
+        try:
+            reason = json.load(error).get('reason', 'unavailable')
+        except (ValueError, OSError):
+            reason = 'unavailable'
+        print('Identity rejection: ' + str(reason)[:80], flush=True)
+        raise
 
 
 def wait_for_handoff(check=attempt, sleep=time.sleep, clock=time.monotonic, max_seconds=19800):
