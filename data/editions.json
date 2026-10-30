@@ -1,5 +1,97 @@
 {
-  "editions": [],
-  "retiredDraftIds": [1],
-  "nextInternalId": 2
+  "editions": [
+    {
+      "id": 2,
+      "date": "2026-10-30",
+      "status": "draft",
+      "publicationNumber": 1,
+      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\nEdition 1\n30 October 2026",
+      "items": [
+        {
+          "id": "edition-2-0",
+          "text": "• 𝗠𝗼𝗹𝗲𝗰𝘂𝗹𝗮𝗿 𝗺𝗮𝘁𝗰𝗵𝗶𝗻𝗴 & 𝗴𝗿𝗮𝗳𝘁 𝗶𝗻𝗷𝘂𝗿𝘆\nToth et al. - Association of eplet mismatch load and allograft injury in kidney transplant recipients. Clinical Kidney Journal, 2026;19:sfag341.\nOnline: 26 Sep 2026.\n\nIn 657 kidney recipients, higher class II eplet load was associated with first-year injury, but discrimination did not exceed antigen matching. Single-centre retrospective data, mixed typing resolution and internally derived thresholds limit generalisability.\n\nhttps://doi.org/10.1093/ckj/sfag341",
+          "doi": "https://doi.org/10.1093/ckj/sfag341",
+          "evidence": {
+            "firstOnline": "2026-09-26",
+            "fullTextStatus": "read",
+            "finding": "In 657 kidney recipients, higher class II eplet load was associated with first-year injury, but discrimination did not exceed antigen matching.",
+            "limitation": "Single-centre retrospective data, mixed typing resolution and internally derived thresholds limit generalisability.",
+            "selectionReason": "Direct head-to-head benchmark and integration of DSA, biopsy, MMDx and dd-cfDNA separate association from incremental predictive utility.",
+            "checkedAt": "2026-10-30T00:26:04.668Z",
+            "sources": [
+              {
+                "url": "https://academic.oup.com/ckj/article/19/10/sfag341/8836579",
+                "label": "Publisher main text: first-online history; Methods (typing, outcomes, statistics); Results, Tables 3-4 and Figures 5-7 captions; Discussion limitations. Supplement not reviewed."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-2-1",
+          "text": "• 𝗡𝗞 𝗲𝗱𝘂𝗰𝗮𝘁𝗶𝗼𝗻 & 𝗛𝗦𝗖𝗧 𝗲𝗻𝗴𝗿𝗮𝗳𝘁𝗺𝗲𝗻𝘁\nDing et al. - Donor-derived unlicensed NK cells promote hematopoietic engraftment and survival after allogeneic HSCT. Science Bulletin, 2026.\nOnline: 11 Oct 2026.\n\nIn 976 haploidentical HSCT recipients, donor unlicensed NK status was associated with faster recovery and better survival; experiments supported a role in progenitor expansion. Propensity matching does not establish clinical benefit from selecting donors or infusing these cells.\n\nhttps://doi.org/10.1016/j.scib.2026.10.003",
+          "doi": "https://doi.org/10.1016/j.scib.2026.10.003",
+          "evidence": {
+            "firstOnline": "2026-10-11",
+            "fullTextStatus": "abstract_only",
+            "finding": "In 976 haploidentical HSCT recipients, donor unlicensed NK status was associated with faster recovery and better survival; experiments supported a role in progenitor expansion.",
+            "limitation": "Propensity matching does not establish clinical benefit from selecting donors or infusing these cells.",
+            "selectionReason": "Large clinical cohort plus experimental work links NK education to engraftment, beyond graft-versus-leukaemia associations.",
+            "checkedAt": "2026-10-30T00:26:04.668Z",
+            "sources": [
+              {
+                "url": "https://www.sciencedirect.com/science/article/pii/S2095927326012144",
+                "label": "Publisher indexed abstract and PubMed record PMID 42919759 reviewed; direct full text returned 403. First-online date verified in PubMed article-date metadata; publisher date could not be independently read."
+              },
+              {
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42919759/",
+                "label": "Primary bibliographic record; article date, author list, journal-article status and abstract."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-2-2",
+          "text": "• 𝗧𝗖𝗥 𝗿𝗲𝗰𝗼𝗴𝗻𝗶𝘁𝗶𝗼𝗻 & 𝘀𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗮𝗹 𝗶𝗺𝗺𝘂𝗻𝗼𝗴𝗲𝗻𝗲𝘁𝗶𝗰𝘀\nAkıl et al. - Unveiling structural determinants of peptide recognition by public and private SARS-CoV-2-specific T-cell receptors. Nature Communications, 2026;17:11026.\nOnline: 22 Sep 2026.\n\nTwo TCRs with near-identical beta chains but different alpha chains used distinct peptide-HLA contacts despite similar affinity. Cryo-EM and mutagenesis expose limits of beta-chain-only inference; the study addresses one viral epitope, not alloreactivity.\n\nhttps://doi.org/10.1038/s41467-026-77827-z",
+          "doi": "https://doi.org/10.1038/s41467-026-77827-z",
+          "evidence": {
+            "firstOnline": "2026-09-22",
+            "fullTextStatus": "abstract_only",
+            "finding": "Two TCRs with near-identical beta chains but different alpha chains used distinct peptide-HLA contacts despite similar affinity.",
+            "limitation": "Cryo-EM and mutagenesis expose limits of beta-chain-only inference; the study addresses one viral epitope, not alloreactivity.",
+            "selectionReason": "Paired-chain structural evidence challenges beta-chain-based specificity assumptions relevant across infection, cancer and alloimmune repertoire research; nearing window expiry.",
+            "checkedAt": "2026-10-30T00:26:04.668Z",
+            "sources": [
+              {
+                "url": "https://www.nature.com/articles/s41467-026-77827-z",
+                "label": "Publisher indexed abstract and publication history; PubMed PMID 42907447. Full HTML/PDF access failed at Nature identity redirect. No figure-level or supplement audit claimed."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-2-3",
+          "text": "From our Journal HLA Immune Response Genetics:\n• 𝗔𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗲𝗽𝗶𝘁𝗼𝗽𝗲𝘀 & 𝗮𝘀𝘀𝗮𝘆 𝗱𝗲𝘀𝗶𝗴𝗻\nMeng et al. - AminoAcid3D: designing HLA single antigen panels and predicting essential epitope regions from antibody reactivity. HLA, 2026;108:e71049.\nOnline: 21 Oct 2026.\n\nAA3D combines HLA sequence, structure and SAB reactivity to nominate candidate antibody-contact residues with variable patch size. These are epitope hypotheses, not verified binding sites or clinical specificity; independent validation remains to be assessed.\n\nhttps://doi.org/10.1111/tan.71049",
+          "doi": "https://doi.org/10.1111/tan.71049",
+          "evidence": {
+            "firstOnline": "2026-10-21",
+            "fullTextStatus": "abstract_only",
+            "finding": "AA3D combines HLA sequence, structure and SAB reactivity to nominate candidate antibody-contact residues with variable patch size.",
+            "limitation": "These are epitope hypotheses, not verified binding sites or clinical specificity; independent validation remains to be assessed.",
+            "selectionReason": "Substantive house-journal methods contribution relevant to antibody specificity and SAB-panel coverage; manufacturer-authored work, independent benchmarking not audited.",
+            "checkedAt": "2026-10-30T00:26:04.668Z",
+            "sources": [
+              {
+                "url": "https://onlinelibrary.wiley.com/doi/10.1111/tan.71049",
+                "label": "Publisher abstract, original-article status, authors/affiliations and first-online date read via publisher abstract page; PubMed PMID 42908172. Full request redirected to abstract."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "retiredDraftIds": [
+    1
+  ],
+  "nextInternalId": 3
 }
