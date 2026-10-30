@@ -1,6 +1,7 @@
 import {readFile, writeFile, mkdir, appendFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
+import {refreshAccessToken} from './linkedin-refresh.mjs';
 
 // This integration can only act as the verified EFI Page, never as a member.
 export const EFI = 'urn:li:organization:109535533';
@@ -110,7 +111,14 @@ async function main() {
   let state;
   try {state=JSON.parse(await readFile(filename,'utf8'));} catch(error) {if(error.code!=='ENOENT')throw error; state=freshState();}
   try {
-    const stats=await run(state,{request:client(process.env.LINKEDIN_ACCESS_TOKEN),dryRun:process.env.DRY_RUN!=='false'});
+    const auth=await refreshAccessToken();
+    if(process.env.GITHUB_ACTIONS==='true')console.log('::add-mask::'+auth.accessToken);
+    const authSummary=`LinkedIn OAuth refresh succeeded. Access token lifetime: ${Math.floor(auth.expiresIn/86400)} days. Refresh authorization remaining: ${auth.refreshExpiresIn===null?'not returned':Math.floor(auth.refreshExpiresIn/86400)+' days'}.`;
+    console.log(authSummary);
+    if(auth.refreshExpiresIn!==null && auth.refreshExpiresIn<30*86400)
+      console.log('::warning::LinkedIn authorization expires within 30 days. Reauthorize the EFI app and replace its refresh-token secret.');
+    if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,authSummary+'\n');
+    const stats=await run(state,{request:client(auth.accessToken),dryRun:process.env.DRY_RUN!=='false'});
     const summary=`EFI LinkedIn comment likes: ${JSON.stringify(stats)}`;
     console.log(summary);
     if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,summary+'\n');
