@@ -18,7 +18,8 @@ def attempt():
     with urllib.request.urlopen(request, timeout=45) as response:
         identity = json.load(response)['value']
     request = urllib.request.Request(ORIGIN + '/reviewer-handoff', data=b'{}', method='POST', headers={
-        'X-GitHub-OIDC': 'Bearer ' + identity, 'Content-Type': 'application/json'})
+        'X-GitHub-OIDC': 'Bearer ' + identity, 'Content-Type': 'application/json',
+        'User-Agent': 'EFI-Reviewer-Handoff/1.0'})
     try:
         with urllib.request.urlopen(request, timeout=60) as response:
             return json.load(response)
