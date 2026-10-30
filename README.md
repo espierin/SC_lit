@@ -31,3 +31,8 @@ Administration displays desired next times and a dated scheduler verification, n
 ## Reviewer desk layout
 
 The process strip and current duty summary lead into the review selection. Filters and next-pending navigation only affect the view. First-online date and source access are always visible; findings, limitations and sources expand separately. Saving status and Buffer scheduling/delivery are distinct. Manual copying, downloads and opening LinkedIn are collapsed with duplicate-post guidance. An empty desk asks for no decision; read-only accounts have disabled editing and recovery controls. Administration settings, accounts and the disabled newsletter remain separate collapsible sections. Search, posting, eligibility and server authorization are unchanged.
+
+
+## Automatic search handoff
+
+The ChatGPT search remains at Friday 01:00 Amsterdam time. The separate reviewer-handoff workflow starts at 01:15, waits for a complete current-Friday edition and its matching draft TXT, and prepares pending central reviews exactly once. Source-data and draft pushes also trigger it, so later search completion resumes automatically. Concurrent triggers share one queue and the backend keeps a permanent per-Friday completion record. Existing reviewer decisions are never overwritten; no Buffer or newsletter actions occur. Fresh editions and Friday email eligibility wait for confirmed handoff. A waiting run times out after 5.5 hours with a visible failure; later data/TXT pushes can still complete the handoff.

@@ -1,0 +1,26 @@
+name: Wait for literature search and prepare review
+on:
+  schedule:
+    - cron: '15 1 * * 5'
+      timezone: Europe/Amsterdam
+  push:
+    paths:
+      - 'data/editions.json'
+      - 'drafts/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: efi-reviewer-handoff
+  cancel-in-progress: false
+jobs:
+  wait-and-prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Wait for completed search and prepare once
+        run: python3 scripts/reviewer_handoff.py
