@@ -1,0 +1,45 @@
+𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯
+Weekly literature highlights for the H&I community
+Edition 1
+30 October 2026
+
+• 𝗠𝗼𝗹𝗲𝗰𝘂𝗹𝗮𝗿 𝗺𝗮𝘁𝗰𝗵𝗶𝗻𝗴 & 𝗴𝗿𝗮𝗳𝘁 𝗶𝗻𝗷𝘂𝗿𝘆
+Toth et al. - Association of eplet mismatch load and allograft injury in kidney transplant recipients. Clinical Kidney Journal, 2026;19:sfag341.
+Online: 26 Sep 2026.
+
+In 657 kidney recipients, higher class II eplet load was associated with first-year injury, but discrimination did not exceed antigen matching. Single-centre retrospective data, mixed typing resolution and internally derived thresholds limit generalisability.
+
+https://doi.org/10.1093/ckj/sfag341
+
+────────────────
+
+• 𝗡𝗞 𝗲𝗱𝘂𝗰𝗮𝘁𝗶𝗼𝗻 & 𝗛𝗦𝗖𝗧 𝗲𝗻𝗴𝗿𝗮𝗳𝘁𝗺𝗲𝗻𝘁
+Ding et al. - Donor-derived unlicensed NK cells promote hematopoietic engraftment and survival after allogeneic HSCT. Science Bulletin, 2026.
+Online: 11 Oct 2026.
+
+In 976 haploidentical HSCT recipients, donor unlicensed NK status was associated with faster recovery and better survival; experiments supported a role in progenitor expansion. Propensity matching does not establish clinical benefit from selecting donors or infusing these cells.
+
+https://doi.org/10.1016/j.scib.2026.10.003
+
+────────────────
+
+• 𝗧𝗖𝗥 𝗿𝗲𝗰𝗼𝗴𝗻𝗶𝘁𝗶𝗼𝗻 & 𝘀𝘁𝗿𝘂𝗰𝘁𝘂𝗿𝗮𝗹 𝗶𝗺𝗺𝘂𝗻𝗼𝗴𝗲𝗻𝗲𝘁𝗶𝗰𝘀
+Akıl et al. - Unveiling structural determinants of peptide recognition by public and private SARS-CoV-2-specific T-cell receptors. Nature Communications, 2026;17:11026.
+Online: 22 Sep 2026.
+
+Two TCRs with near-identical beta chains but different alpha chains used distinct peptide-HLA contacts despite similar affinity. Cryo-EM and mutagenesis expose limits of beta-chain-only inference; the study addresses one viral epitope, not alloreactivity.
+
+https://doi.org/10.1038/s41467-026-77827-z
+
+────────────────
+
+From our Journal HLA Immune Response Genetics:
+• 𝗔𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗲𝗽𝗶𝘁𝗼𝗽𝗲𝘀 & 𝗮𝘀𝘀𝗮𝘆 𝗱𝗲𝘀𝗶𝗴𝗻
+Meng et al. - AminoAcid3D: designing HLA single antigen panels and predicting essential epitope regions from antibody reactivity. HLA, 2026;108:e71049.
+Online: 21 Oct 2026.
+
+AA3D combines HLA sequence, structure and SAB reactivity to nominate candidate antibody-contact residues with variable patch size. These are epitope hypotheses, not verified binding sites or clinical specificity; independent validation remains to be assessed.
+
+https://doi.org/10.1111/tan.71049
+
+#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub
