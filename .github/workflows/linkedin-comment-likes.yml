@@ -1,0 +1,43 @@
+name: EFI LinkedIn comment likes
+on:
+  schedule:
+    - cron: '23 */4 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Read-only check (no likes)
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: efi-linkedin-comment-likes
+  cancel-in-progress: false
+jobs:
+  like:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Restore cursors and request budget
+        uses: actions/cache/restore@v4
+        with:
+          path: .linkedin-state
+          key: linkedin-comment-likes-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: linkedin-comment-likes-v1-
+      - name: Like new comments as EFI
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && 'true' || 'false' }}
+        run: node scripts/linkedin-comment-likes.mjs
+      - name: Save progress even if LinkedIn failed
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .linkedin-state
+          key: linkedin-comment-likes-v1-${{ github.run_id }}-${{ github.run_attempt }}
