@@ -306,10 +306,6 @@
       "reason": "First-online 3 September 2026; outside 42-day window."
     },
     {
-      "doi": "10.1016/j.trim.2026.102412",
-      "reason": "Older August issue; not treated as new."
-    },
-    {
       "doi": "10.1016/j.jtct.2026.09.033",
       "reason": "Retired draft candidate at 42-day boundary; do not restore old selection; newer topics ranked above it."
     }
