@@ -5,6 +5,9 @@ on:
       timezone: Europe/Amsterdam
     - cron: '*/15 7-11 * * 5'
       timezone: Europe/Amsterdam
+  workflow_run:
+    workflows: ["Wait for literature search and prepare review"]
+    types: [completed]
   push:
     paths:
       - 'data/editions.json'
@@ -26,16 +29,22 @@ concurrency:
   cancel-in-progress: false
 jobs:
   reminder:
-    if: vars.REVIEWER_REMINDERS_ENABLED == 'true' || github.event_name == 'workflow_dispatch'
+    if: >-
+      (vars.REVIEWER_REMINDERS_ENABLED == 'true' || github.event_name == 'workflow_dispatch') &&
+      (github.event_name != 'workflow_run' ||
+       (github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == github.repository))
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           persist-credentials: false
       - name: Check review and send at most one reminder
         env:
-          REMINDER_MODE: ${{ inputs.mode || 'auto' }}
+          REMINDER_MODE: ${{ github.event_name == 'workflow_run' && 'ready' || inputs.mode || 'auto' }}
+          WAIT_FOR_READY_WINDOW: ${{ github.event_name == 'workflow_run' && 'true' || 'false' }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && 'true' || 'false' }}
           REMINDER_RUN_TOKEN: ${{ secrets.REMINDER_RUN_TOKEN }}
           BREVO_SMTP_USER: ${{ secrets.BREVO_SMTP_USER }}

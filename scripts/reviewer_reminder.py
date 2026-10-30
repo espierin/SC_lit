@@ -3,6 +3,9 @@ import json
 import os
 import smtplib
 import ssl
+import time
+from datetime import datetime
+from zoneinfo import ZoneInfo
 import urllib.request
 from email.message import EmailMessage
 from email.utils import parseaddr
@@ -17,24 +20,40 @@ def api(action, payload=None):
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
 
+def wait_until_ready_window(now=lambda: datetime.now(ZoneInfo('Europe/Amsterdam')), sleep=time.sleep):
+    current = now()
+    if current.weekday() != 4:
+        return False
+    target = current.replace(hour=7, minute=0, second=0, microsecond=0)
+    if (target - current).total_seconds() > 5 * 3600 + 50 * 60:
+        return False  # Keep within the runner limit; the normal clock trigger remains enabled.
+    if current < target:
+        print('Search handoff complete. Waiting until Friday 07:00 Amsterdam for the ready email.', flush=True)
+    while current < target:
+        sleep(min(60, (target - current).total_seconds()))
+        current = now()
+    return current.weekday() == 4 and 7 <= current.hour < 12
+
+
 def run():
     dry_run = os.environ.get('DRY_RUN', 'true').lower() != 'false'
     required = ['REMINDER_RUN_TOKEN'] + ([] if dry_run else ['BREVO_SMTP_USER', 'BREVO_SMTP_PASSWORD', 'BREVO_SMTP_SENDER'])
     if any(not os.environ.get(key) for key in required):
         raise RuntimeError('Required protected settings are missing')
+    if os.environ.get('WAIT_FOR_READY_WINDOW') == 'true' and not wait_until_ready_window():
+        print('Outside ready notification window. No email sent.')
+        return
     mode = os.environ.get('REMINDER_MODE', 'auto')
     if mode == 'auto':
-        from datetime import datetime
-        from zoneinfo import ZoneInfo
         mode = 'ready' if datetime.now(ZoneInfo('Europe/Amsterdam')).weekday() == 4 else 'overdue'
     preview = api('prepare', {'mode':mode})
     if not preview.get('eligible'):
         if preview.get('needsAttention'):
             raise RuntimeError('No active reviewer is assigned; check administration')
-        print('No reminder required. No email sent.')
+        print('No email sent: ' + str(preview.get('reason', 'not eligible')) + '.')
         return
     if dry_run:
-        print('An incomplete review is eligible. Dry run: no claim and no email sent.')
+        print('A reviewer notification is eligible. Dry run: no claim and no email sent.')
         return
     sender = parseaddr(os.environ['BREVO_SMTP_SENDER'])[1]
     if '@' not in sender or '\n' in sender or '\r' in sender:

@@ -3,8 +3,7 @@
 Prepared for Friday morning when a new selection is ready (from 07:00 until 12:00), and Monday 09:00 Europe/Amsterdam (including daylight saving).
 A push of data/editions.json triggers a readiness check; polling every 15 minutes on Friday morning catches delayed availability. Each notification type is sent at most once. Friday notifications require an edition dated that Friday.
 Only the latest edition from the preceding seven days is considered. The
-current duty reviewer must have an active account and an incomplete review.
-No reminder is sent for a completed review, absent shortlist, or sent edition.
+current duty reviewer must have an active account. Friday announces the new completed search handoff even if the reviewer has already finished; its message states that no further action is needed in that case. Monday still requires an incomplete review. No notification is sent for an absent shortlist or sent edition.
 
 Provider: Brevo SMTP, STARTTLS on port 2525, matching the EPT infrastructure.
 The EPT application and its credentials have not been changed.
@@ -51,3 +50,8 @@ The verified existing pilot sender is used with display name EFI Journal Club;
 Brevo rewrites its Gmail sender domain to brevosend.com. No institutional DNS
 or EPT configuration was changed. Test messages use the same backend templates
 as production, do not claim reminders, and cannot target other recipients.
+
+
+## Friday delivery recovery (30 October 2026)
+
+Successful completion of the trusted main-branch search handoff also starts the mail workflow. It waits until Friday 07:00 Amsterdam before attempting delivery, so morning delivery does not rely solely on GitHub cron. Existing Friday 07:00-12:00 checks and Monday 09:00 remain unchanged. All push, scheduled, manual and handoff-triggered runs use the same per-mode/date/edition/recipient conditional claim. Claims and uncertain SMTP outcomes are never cleared or retried automatically. Dry runs never claim or send. The notification remains due when review was completed before the Friday email window.

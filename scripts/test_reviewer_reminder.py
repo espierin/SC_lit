@@ -1,4 +1,6 @@
 import os
+from datetime import datetime, timedelta
+from zoneinfo import ZoneInfo
 import unittest
 from unittest.mock import MagicMock, patch
 import reviewer_reminder as reminder
@@ -48,6 +50,19 @@ class ReminderTests(unittest.TestCase):
             reminder.run()
         connection.send_message.assert_called_once()
         self.assertEqual(api.call_args.args, ('ack', {'id':'a'*64, 'status':'uncertain'}))
+
+class ReadyWindowTests(unittest.TestCase):
+    def test_handoff_waits_for_seven_in_winter_and_summer(self):
+        for date in ['2026-10-30T01:28:00', '2027-07-02T01:28:00']:
+            current = [datetime.fromisoformat(date).replace(tzinfo=ZoneInfo('Europe/Amsterdam'))]
+            def sleep(seconds): current[0] += timedelta(seconds=seconds)
+            self.assertTrue(reminder.wait_until_ready_window(lambda: current[0], sleep))
+            self.assertEqual(current[0].hour, 7)
+            self.assertEqual(current[0].minute, 0)
+
+    def test_wrong_day_or_closed_window_never_waits(self):
+        for date in ['2026-10-29T07:00:00', '2026-10-30T12:00:00', '2026-10-30T00:30:00']:
+            self.assertFalse(reminder.wait_until_ready_window(lambda: datetime.fromisoformat(date).replace(tzinfo=ZoneInfo('Europe/Amsterdam')), lambda _: self.fail('must not wait')))
 
 if __name__ == '__main__':
     unittest.main()
