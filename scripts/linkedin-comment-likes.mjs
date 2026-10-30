@@ -15,7 +15,7 @@ const isThread = value => postUrn(value) || commentUrn(value);
 export function collectComments(state, parent, comments) {
   for (const comment of comments) {
     const urn = comment.commentUrn;
-    if (!commentUrn(urn)) throw Error('Invalid comment identity; no reaction sent');
+    if (!commentUrn(urn)) throw Error('Invalid comment identity ('+String(urn).replace(/\d/g,'#').slice(0,120)+'); no reaction sent');
     if (comment.commentsSummary?.totalFirstLevelComments > 0 || comment.commentsSummary?.totalComments > 0) {
       state.threads[urn] ??= {start:0, scanned:0};
     }
