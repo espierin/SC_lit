@@ -1,15 +1,10 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-30T00:27:00.319Z",
+  "updatedAt": "2026-11-06T00:19:36.519Z",
   "coverage": {
-    "windowStart": "2026-09-18",
-    "cutoff": "2026-10-30T00:22:30Z",
-    "status": "targeted_search",
-    "limitations": [
-      "PubMed plugin script could not execute because requests dependency is absent; PubMed primary records screened through web retrieval.",
-      "Full EFI 2026 oral/poster collection still redirects to abstract; qualitative ten-domain profile retained; no percentages or abstract counts asserted.",
-      "Three selected journal articles reviewed from primary abstracts/metadata only; evidence cards explicitly record access, without full-method claims."
-    ]
+    "windowStart": "2026-09-25",
+    "windowEnd": "2026-11-06",
+    "scope": "Targeted PubMed and publisher screening across EFI topics; not exhaustive. Full EFI bundle unavailable; qualitative balance only."
   },
   "retrospectiveExclusions": [
     "10.1038/s41467-026-76184-1",
@@ -225,18 +220,51 @@
           ]
         }
       ]
+    },
+    {
+      "id": 3,
+      "date": "2026-11-06",
+      "publicationDate": "2026-11-10",
+      "publicationNumber": null,
+      "selection": [
+        {
+          "doi": "10.1182/bloodadvances.2026020173",
+          "firstOnline": "2026-09-30",
+          "expiry": "2026-11-11",
+          "category": 4,
+          "assessment": "Functional evidence for a KIR-HLA interaction paired with an independent clinical cohort.",
+          "sources": [
+            "https://pubmed.ncbi.nlm.nih.gov/42815159/"
+          ],
+          "access": "Publisher abstract only"
+        },
+        {
+          "doi": "10.1016/j.mcpro.2026.101684",
+          "firstOnline": "2026-10-20",
+          "expiry": "2026-12-01",
+          "category": 3,
+          "assessment": "Matched tissue and plasma address whether circulating HLA can reflect tumour antigen presentation.",
+          "sources": [
+            "https://www.sciencedirect.com/science/article/pii/S1535947626001805"
+          ],
+          "access": "Publisher abstract only"
+        },
+        {
+          "doi": "10.1111/tan.70992",
+          "firstOnline": "2026-10-13",
+          "expiry": "2026-11-24",
+          "category": 7,
+          "assessment": "Individual agreement matters even when population-level calculator rankings agree.",
+          "sources": [
+            "https://pubmed.ncbi.nlm.nih.gov/42867209/"
+          ],
+          "access": "Publisher abstract only",
+          "section": "HLA pick"
+        }
+      ]
     }
   ],
   "waiting": [
-    {
-      "doi": "10.1016/j.mcpro.2026.101684",
-      "firstOnlineProvisional": "2026-10-20",
-      "category": 3,
-      "assessment": "High-interest soluble HLA peptidomics in five matched melanoma patients. DEFER until exact first-online date verified on primary metadata; publisher fulltext indexed but direct access blocked. Do not treat provisional date as verified.",
-      "sources": [
-        "https://www.mcponline.org/article/S1535-9476(26)00180-5/fulltext"
-      ]
-    },
     {
       "doi": "10.1186/s12864-026-13481-5",
       "firstOnline": "2026-10-21",
@@ -245,16 +273,6 @@
       "assessment": "MSIPep pipeline. Defer: need full methods/benchmarks and independent/functional validation assessment; accessible Springer extraction predominantly abstract and back matter.",
       "sources": [
         "https://link.springer.com/article/10.1186/s12864-026-13481-5"
-      ]
-    },
-    {
-      "doi": "10.1111/tan.70992",
-      "firstOnline": "2026-10-13",
-      "expiry": "2026-11-24",
-      "category": 5,
-      "assessment": "Saudi cPRA, 675 donors and 250 antibody profiles; defer for full-text validation assessment and topic balance. High aggregate correlations can coexist with individual discrepancies of 46–48 percentage points.",
-      "sources": [
-        "https://onlinelibrary.wiley.com/doi/10.1111/tan.70992"
       ]
     },
     {
@@ -329,7 +347,15 @@
       }
     ],
     "publishedEditions": [],
-    "nextPriority": "Prioritise strong HSCT donor-selection/PTCy, population diversity, disease immunogenetics, and cross-domain laboratory validation in subsequent editions; no quotas or lowering quality."
+    "nextPriority": "Prioritise strong HSCT donor-selection/PTCy, population diversity, disease immunogenetics, and cross-domain laboratory validation in subsequent editions; no quotas or lowering quality.",
+    "latestDraft": {
+      "id": 3,
+      "categories": [
+        4,
+        3,
+        7
+      ]
+    }
   },
   "journalMetrics": [
     {
