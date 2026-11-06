@@ -1,0 +1,34 @@
+𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯
+Weekly literature highlights for the H&I community
+10 November 2026
+
+• 𝗡𝗞 𝗿𝗲𝗰𝗲𝗽𝘁𝗼𝗿𝘀 & 𝘀𝘁𝗲𝗺 𝗰𝗲𝗹𝗹 𝘁𝗿𝗮𝗻𝘀𝗽𝗹𝗮𝗻𝘁𝗮𝘁𝗶𝗼𝗻
+Gottschalk et al. - Novel KIR2DS4:HLA-B*35 interaction predicts HLA-B*35 positive patient survival post hematopoietic stem cell transplant. Blood Advances, 2026.
+Online: 30 Sep 2026.
+
+Cell avidity and cytotoxicity assays supported a KIR2DS4 interaction with HLA-B*35. Donor KIR2DS4 genotype was associated with survival in an NK cell addback cohort and an independent matched HCT cohort. These observational comparisons do not establish benefit from genotype-guided donor selection.
+
+https://doi.org/10.1182/bloodadvances.2026020173
+
+────────────────
+
+• 𝗦𝗼𝗹𝘂𝗯𝗹𝗲 𝗛𝗟𝗔 & 𝘁𝘂𝗺𝗼𝘂𝗿 𝗮𝗻𝘁𝗶𝗴𝗲𝗻𝘀
+Goncalves et al. - The soluble HLA repertoire captures neoantigenic, cryptic, and tumour-associated peptides in melanoma. Molecular & Cellular Proteomics, 2026;101684.
+Online: 20 Oct 2026.
+
+In five matched melanoma cases, plasma soluble HLA recovered tumour-associated peptides and a candidate patient-specific neoepitope also found in tumour tissue. This proof of concept does not establish diagnostic sensitivity or specificity.
+
+https://doi.org/10.1016/j.mcpro.2026.101684
+
+────────────────
+
+From our Journal HLA Immune Response Genetics:
+• 𝗦𝗲𝗻𝘀𝗶𝘁𝗶𝘀𝗮𝘁𝗶𝗼𝗻 & 𝗱𝗼𝗻𝗼𝗿 𝗽𝗼𝗽𝘂𝗹𝗮𝘁𝗶𝗼𝗻𝘀
+Saleh et al. - Development and Comparative Evaluation of a Saudi cPRA Calculator for Transplant Sensitisation Assessment. HLA, 2026;108:e70992.
+Online: 13 Oct 2026.
+
+A calculator based on 675 Saudi living donors was compared with three international systems across 250 antibody profiles. Despite strong rank correlations, individual estimates differed by up to 48 percentage points. The comparison did not validate estimates against transplant outcomes.
+
+https://doi.org/10.1111/tan.70992
+
+#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub
