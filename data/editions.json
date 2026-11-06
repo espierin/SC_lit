@@ -88,10 +88,77 @@
           }
         }
       ]
+    },
+    {
+      "id": 3,
+      "date": "2026-11-06",
+      "publicationDate": "2026-11-10",
+      "status": "draft",
+      "publicationNumber": null,
+      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\n10 November 2026",
+      "items": [
+        {
+          "id": "edition-3-0",
+          "text": "• 𝗡𝗞 𝗿𝗲𝗰𝗲𝗽𝘁𝗼𝗿𝘀 & 𝘀𝘁𝗲𝗺 𝗰𝗲𝗹𝗹 𝘁𝗿𝗮𝗻𝘀𝗽𝗹𝗮𝗻𝘁𝗮𝘁𝗶𝗼𝗻\nGottschalk et al. - Novel KIR2DS4:HLA-B*35 interaction predicts HLA-B*35 positive patient survival post hematopoietic stem cell transplant. Blood Advances, 2026.\nOnline: 30 Sep 2026.\n\nCell avidity and cytotoxicity assays supported a KIR2DS4 interaction with HLA-B*35. Donor KIR2DS4 genotype was associated with survival in an NK cell addback cohort and an independent matched HCT cohort. These observational comparisons do not establish benefit from genotype-guided donor selection.\n\nhttps://doi.org/10.1182/bloodadvances.2026020173",
+          "doi": "https://doi.org/10.1182/bloodadvances.2026020173",
+          "evidence": {
+            "firstOnline": "2026-09-30",
+            "fullTextStatus": "abstract_only",
+            "finding": "Cell avidity and cytotoxicity assays supported a KIR2DS4 interaction with HLA-B*35. Donor KIR2DS4 genotype was associated with survival in an NK cell addback cohort and an independent matched HCT cohort.",
+            "limitation": "These observational comparisons do not establish benefit from genotype-guided donor selection.",
+            "selectionReason": "Functional evidence for a KIR-HLA interaction paired with an independent clinical cohort.",
+            "checkedAt": "2026-11-06T00:19:36.519Z",
+            "sources": [
+              {
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42815159/",
+                "label": "Publisher-supplied abstract and online-first metadata; ASH full text inaccessible."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-3-1",
+          "text": "• 𝗦𝗼𝗹𝘂𝗯𝗹𝗲 𝗛𝗟𝗔 & 𝘁𝘂𝗺𝗼𝘂𝗿 𝗮𝗻𝘁𝗶𝗴𝗲𝗻𝘀\nGoncalves et al. - The soluble HLA repertoire captures neoantigenic, cryptic, and tumour-associated peptides in melanoma. Molecular & Cellular Proteomics, 2026;101684.\nOnline: 20 Oct 2026.\n\nIn five matched melanoma cases, plasma soluble HLA recovered tumour-associated peptides and a candidate patient-specific neoepitope also found in tumour tissue. This proof of concept does not establish diagnostic sensitivity or specificity.\n\nhttps://doi.org/10.1016/j.mcpro.2026.101684",
+          "doi": "https://doi.org/10.1016/j.mcpro.2026.101684",
+          "evidence": {
+            "firstOnline": "2026-10-20",
+            "fullTextStatus": "abstract_only",
+            "finding": "In five matched melanoma cases, plasma soluble HLA recovered tumour-associated peptides and a candidate patient-specific neoepitope also found in tumour tissue.",
+            "limitation": "This proof of concept does not establish diagnostic sensitivity or specificity.",
+            "selectionReason": "Matched tissue and plasma address whether circulating HLA can reflect tumour antigen presentation.",
+            "checkedAt": "2026-11-06T00:19:36.519Z",
+            "sources": [
+              {
+                "url": "https://www.sciencedirect.com/science/article/pii/S1535947626001805",
+                "label": "Publisher abstract, highlights and online date; full text inaccessible."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-3-2",
+          "text": "From our Journal HLA Immune Response Genetics:\n• 𝗦𝗲𝗻𝘀𝗶𝘁𝗶𝘀𝗮𝘁𝗶𝗼𝗻 & 𝗱𝗼𝗻𝗼𝗿 𝗽𝗼𝗽𝘂𝗹𝗮𝘁𝗶𝗼𝗻𝘀\nSaleh et al. - Development and Comparative Evaluation of a Saudi cPRA Calculator for Transplant Sensitisation Assessment. HLA, 2026;108:e70992.\nOnline: 13 Oct 2026.\n\nA calculator based on 675 Saudi living donors was compared with three international systems across 250 antibody profiles. Despite strong rank correlations, individual estimates differed by up to 48 percentage points. The comparison did not validate estimates against transplant outcomes.\n\nhttps://doi.org/10.1111/tan.70992",
+          "doi": "https://doi.org/10.1111/tan.70992",
+          "evidence": {
+            "firstOnline": "2026-10-13",
+            "fullTextStatus": "abstract_only",
+            "finding": "A calculator based on 675 Saudi living donors was compared with three international systems across 250 antibody profiles. Despite strong rank correlations, individual estimates differed by up to 48 percentage points.",
+            "limitation": "The comparison did not validate estimates against transplant outcomes.",
+            "selectionReason": "Individual agreement matters even when population-level calculator rankings agree.",
+            "checkedAt": "2026-11-06T00:19:36.519Z",
+            "sources": [
+              {
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42867209/",
+                "label": "Publisher-supplied abstract and comparative-study record; first-online date from previously verified candidate record; Wiley full text inaccessible."
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "retiredDraftIds": [
     1
   ],
-  "nextInternalId": 3
+  "nextInternalId": 4
 }
