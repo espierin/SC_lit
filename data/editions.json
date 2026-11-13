@@ -155,10 +155,128 @@
           }
         }
       ]
+    },
+    {
+      "id": 4,
+      "date": "2026-11-13",
+      "publicationDate": "2026-11-17",
+      "status": "draft",
+      "publicationNumber": 3,
+      "header": "𝐄𝐅𝐈’𝐬 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐟𝐢𝐜 𝐂𝐨𝐦𝐦𝐢𝐭𝐭𝐞𝐞 𝐉𝐨𝐮𝐫𝐧𝐚𝐥 𝐂𝐥𝐮𝐛\nWeekly literature highlights for the H&I community\nEdition 3\n17 November 2026",
+      "items": [
+        {
+          "id": "edition-4-0",
+          "text": "• 𝐃𝐢𝐬𝐞𝐚𝐬𝐞 𝐢𝐦𝐦𝐮𝐧𝐨𝐠𝐞𝐧𝐞𝐭𝐢𝐜𝐬\nLiu et al. - Genome-wide studies define genetic mechanisms of IgA vasculitis. Nature Communications, 2026.\nOnline: 15 Oct 2026.\n\nIn 2,170 cases and 5,928 controls, HLA fine-mapping prioritized DRβ1 position 11 alongside FCAR and INPP5D signals. HLA was imputed; linkage disequilibrium limits causal attribution.\n\nhttps://doi.org/10.1038/s41467-026-78026-6",
+          "doi": "https://doi.org/10.1038/s41467-026-78026-6",
+          "evidence": {
+            "firstOnline": "2026-10-15",
+            "fullTextStatus": "read",
+            "finding": "In 2,170 cases and 5,928 controls, HLA fine-mapping prioritized DRβ1 position 11 alongside non-HLA FCAR and INPP5D signals.",
+            "limitation": "HLA was imputed; linkage disequilibrium limits causal attribution.",
+            "selectionReason": "Substantial multi-cohort disease-immunogenetics study connects HLA peptide-binding variation to myeloid pathways, broadening the recent transplant-heavy selection.",
+            "checkedAt": "2026-11-13T00:20:14.543Z",
+            "sources": [
+              {
+                "url": "https://www.nature.com/articles/s41467-026-78026-6",
+                "label": "Publisher first-online record and peer-reviewed early article status"
+              },
+              {
+                "url": "https://www.nature.com/articles/s41467-026-78026-6_reference.pdf",
+                "label": "Full journal PDF: cohort/QC methods, HLA imputation and conditional testing, Results, Fig. 3, Fig. 6 captions, Discussion limitations"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1038/s41467-026-78026-6",
+                "label": "Publisher-deposited first-online date"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-4-1",
+          "text": "• 𝐏𝐞𝐩𝐭𝐢𝐝𝐞 𝐬𝐭𝐫𝐮𝐜𝐭𝐮𝐫𝐞𝐬\nBalogh et al. - Predicted structure of the self-immunopeptidome across globally common HLA-I alleles. Scientific Data, 2026.\nOnline: 12 Nov 2026.\n\n392,976 predicted self-peptide/HLA structures provide a reusable reference for three class I alleles. Head-to-head benchmarking used only 17 independent complexes; natural presentation and T-cell recognition remain untested.\n\nhttps://doi.org/10.1038/s41597-026-08626-w",
+          "doi": "https://doi.org/10.1038/s41597-026-08626-w",
+          "evidence": {
+            "firstOnline": "2026-11-12",
+            "fullTextStatus": "read",
+            "finding": "392,976 predicted self-peptide/HLA structures cover three class I alleles; MHC-Fine was compared with APE-Gen 2.0 and AlphaFold 3 on 17 independent complexes.",
+            "limitation": "Three alleles and predicted strong-binding nonamers only; structural accuracy does not establish natural presentation or T-cell recognition.",
+            "selectionReason": "Reproducible structural resource with training-set exclusions and comparative benchmarking; relevant across alloimmunity, cancer and infection without claiming a validated immunogenicity model.",
+            "checkedAt": "2026-11-13T00:20:14.543Z",
+            "sources": [
+              {
+                "url": "https://www.nature.com/articles/s41597-026-08626-w",
+                "label": "Publisher first-online date and accepted peer-reviewed Data Descriptor status"
+              },
+              {
+                "url": "https://www.nature.com/articles/s41597-026-08626-w_reference.pdf",
+                "label": "Full journal PDF: Methods, Data Records, Technical Validation, Tables 1-3, Figs. 2-7 and captions, data/code availability"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1038/s41597-026-08626-w",
+                "label": "Publisher-deposited first-online date"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-4-2",
+          "text": "• 𝐌𝐨𝐥𝐞𝐜𝐮𝐥𝐚𝐫 𝐦𝐚𝐭𝐜𝐡𝐢𝐧𝐠\nTrezeguet Renatti et al. - HLA-DQ molecular mismatch predicts acute rejection and donor-specific antibody development after pediatric liver transplantation. Frontiers in Immunology, 2026.\nOnline: 02 Nov 2026.\n\nIn 114 pediatric liver recipients, weighted DQ eplet scores discriminated rejection and dnDQ-DSA better than mismatch counts within the derivation cohort. No independent validation or DQA1 typing; scores remain exploratory.\n\nhttps://doi.org/10.3389/fimmu.2026.1996061",
+          "doi": "https://doi.org/10.3389/fimmu.2026.1996061",
+          "evidence": {
+            "firstOnline": "2026-11-02",
+            "fullTextStatus": "read",
+            "finding": "In 114 pediatric liver recipients, outcome-weighted DQ eplet scores had higher in-cohort discrimination than mismatch counts for biopsy-proven acute rejection and dnDQ-DSA.",
+            "limitation": "Single-center derivation without independent validation or DQA1 typing; missing donor DNA and selective serum testing introduce selection and ascertainment concerns.",
+            "selectionReason": "Clinically relevant test of mismatch composition versus burden with prospective follow-up; selected as hypothesis-generating original evidence, not a clinical implementation recommendation.",
+            "checkedAt": "2026-11-13T00:20:14.543Z",
+            "sources": [
+              {
+                "url": "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1996061/full",
+                "label": "Full publisher main text: 2.1-2.6 Methods, Results, Figs. 2-4/captions, Tables 2-3, Discussion; supplement-specific methods not independently audited"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.3389/fimmu.2026.1996061",
+                "label": "Publisher-deposited first-online date and author"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-4-3",
+          "text": "From our Journal HLA Immune Response Genetics:\n• 𝐀𝐧𝐭𝐢𝐛𝐨𝐝𝐲 𝐝𝐢𝐚𝐠𝐧𝐨𝐬𝐭𝐢𝐜𝐬\nCampos et al. - MARCo: an interactive tool for HLA antibody reactivity in single antigen bead assays. HLA, 2026;108:e71061.\nOnline: 05 Nov 2026.\n\nMARCo links 70,955 SAB results with serological and molecular comparisons to explore discordant reactivity. Single-laboratory data and limited recent-lot coverage constrain generalizability; clinical utility is unvalidated.\n\nhttps://doi.org/10.1111/tan.71061",
+          "doi": "https://doi.org/10.1111/tan.71061",
+          "evidence": {
+            "firstOnline": "2026-11-05",
+            "fullTextStatus": "read",
+            "finding": "MARCo integrates 70,955 SAB results with pairwise correlations, HATS serological mapping and HLA-EMMA molecular comparisons across two manufacturers.",
+            "limitation": "Single-laboratory retrospective dataset selecting the most positive serum per patient/class/manufacturer; recent lots underrepresented and no external clinical validation.",
+            "selectionReason": "Substantial EFI house-journal contribution directly useful for research on SAB interpretation, with explicit limitations of correlation-based inference and platform harmonisation.",
+            "checkedAt": "2026-11-13T00:20:14.543Z",
+            "sources": [
+              {
+                "url": "https://onlinelibrary.wiley.com/doi/10.1111/tan.71061",
+                "label": "Primary publisher DOI target; direct Wiley full text blocked"
+              },
+              {
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13740467/",
+                "label": "PMC identification and open-access journal version metadata"
+              },
+              {
+                "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13740467.1/PMC13740467.1.txt?md5=abb32eed0f9cb59e5981bb86e8959851",
+                "label": "Complete PMC journal text actually retrieved: Methods 2.1-2.4, Results, Figs. 1-4/captions, Discussion/limitations; supplementary heatmaps not independently audited"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1111/tan.71061",
+                "label": "Publisher-deposited online date 5 November 2026"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "retiredDraftIds": [
     1
   ],
-  "nextInternalId": 4
+  "nextInternalId": 5
 }
