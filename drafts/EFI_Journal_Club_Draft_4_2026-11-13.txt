@@ -1,0 +1,45 @@
+𝐄𝐅𝐈’𝐬 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐟𝐢𝐜 𝐂𝐨𝐦𝐦𝐢𝐭𝐭𝐞𝐞 𝐉𝐨𝐮𝐫𝐧𝐚𝐥 𝐂𝐥𝐮𝐛
+Weekly literature highlights for the H&I community
+Edition 3
+17 November 2026
+
+• 𝐃𝐢𝐬𝐞𝐚𝐬𝐞 𝐢𝐦𝐦𝐮𝐧𝐨𝐠𝐞𝐧𝐞𝐭𝐢𝐜𝐬
+Liu et al. - Genome-wide studies define genetic mechanisms of IgA vasculitis. Nature Communications, 2026.
+Online: 15 Oct 2026.
+
+In 2,170 cases and 5,928 controls, HLA fine-mapping prioritized DRβ1 position 11 alongside FCAR and INPP5D signals. HLA was imputed; linkage disequilibrium limits causal attribution.
+
+https://doi.org/10.1038/s41467-026-78026-6
+
+────────────────
+
+• 𝐏𝐞𝐩𝐭𝐢𝐝𝐞 𝐬𝐭𝐫𝐮𝐜𝐭𝐮𝐫𝐞𝐬
+Balogh et al. - Predicted structure of the self-immunopeptidome across globally common HLA-I alleles. Scientific Data, 2026.
+Online: 12 Nov 2026.
+
+392,976 predicted self-peptide/HLA structures provide a reusable reference for three class I alleles. Head-to-head benchmarking used only 17 independent complexes; natural presentation and T-cell recognition remain untested.
+
+https://doi.org/10.1038/s41597-026-08626-w
+
+────────────────
+
+• 𝐌𝐨𝐥𝐞𝐜𝐮𝐥𝐚𝐫 𝐦𝐚𝐭𝐜𝐡𝐢𝐧𝐠
+Trezeguet Renatti et al. - HLA-DQ molecular mismatch predicts acute rejection and donor-specific antibody development after pediatric liver transplantation. Frontiers in Immunology, 2026.
+Online: 02 Nov 2026.
+
+In 114 pediatric liver recipients, weighted DQ eplet scores discriminated rejection and dnDQ-DSA better than mismatch counts within the derivation cohort. No independent validation or DQA1 typing; scores remain exploratory.
+
+https://doi.org/10.3389/fimmu.2026.1996061
+
+────────────────
+
+From our Journal HLA Immune Response Genetics:
+• 𝐀𝐧𝐭𝐢𝐛𝐨𝐝𝐲 𝐝𝐢𝐚𝐠𝐧𝐨𝐬𝐭𝐢𝐜𝐬
+Campos et al. - MARCo: an interactive tool for HLA antibody reactivity in single antigen bead assays. HLA, 2026;108:e71061.
+Online: 05 Nov 2026.
+
+MARCo links 70,955 SAB results with serological and molecular comparisons to explore discordant reactivity. Single-laboratory data and limited recent-lot coverage constrain generalizability; clinical utility is unvalidated.
+
+https://doi.org/10.1111/tan.71061
+
+#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub
