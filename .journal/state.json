@@ -1,10 +1,17 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-06T00:19:36.519Z",
+  "updatedAt": "2026-11-13T00:22:02.841Z",
   "coverage": {
-    "windowStart": "2026-09-25",
-    "windowEnd": "2026-11-06",
-    "scope": "Targeted PubMed and publisher screening across EFI topics; not exhaustive. Full EFI bundle unavailable; qualitative balance only."
+    "windowStart": "2026-10-02",
+    "windowEnd": "2026-11-13T00:22:02.841Z",
+    "scope": "Broad 42-day PubMed title/metadata screening (461 records, coarse title exclusions followed by review of relevant records), targeted publisher searches across ten EFI domains, waiting-list re-evaluation. Not an exhaustive systematic review; first-online dates checked separately from PubMed issue dates.",
+    "settingsRevision": 6,
+    "settingsQueryTime": "01:15",
+    "storedTriggerReportedInTask": "Friday 01:00 Europe/Amsterdam",
+    "scheduleMismatch": "Live desired query time is 01:15; task instruction reports actual trigger 01:00. No schedule changed.",
+    "publicationDate": "2026-11-17",
+    "radarPaused": true,
+    "pubmedNote": "461 broad-query records returned. DOI-specific PubMed recheck found the IgA vasculitis article; the newly published Balogh and pediatric liver articles were not yet returned by the DOI search. Eligibility for these two was verified directly from complete publisher journal texts and publisher-deposited first-online metadata; PubMed indexing was not inferred."
   },
   "retrospectiveExclusions": [
     "10.1038/s41467-026-76184-1",
@@ -262,6 +269,83 @@
           "section": "HLA pick"
         }
       ]
+    },
+    {
+      "id": 4,
+      "date": "2026-11-13",
+      "publicationDate": "2026-11-17",
+      "publicationNumber": 3,
+      "status": "draft",
+      "numberingVerification": {
+        "checkedAt": "2026-11-13T00:22:02.841Z",
+        "lastPublishedNumber": 2,
+        "nextNumber": 3,
+        "pendingPublication": false,
+        "source": "https://efi-journal-club-review-store.espierin.chatgpt.site/numbering",
+        "sentHistory": "Actual sent archive checked this run: internal 2 / public 1 on 3 November; internal 3 / public 2 on 10 November. Announcement excluded."
+      },
+      "selection": [
+        {
+          "doi": "10.1038/s41467-026-78026-6",
+          "firstOnline": "2026-10-15",
+          "expiry": "2026-11-26",
+          "category": 8,
+          "section": "main",
+          "assessment": "Substantial multi-cohort disease-immunogenetics study connects HLA peptide-binding variation to myeloid pathways, broadening the recent transplant-heavy selection.",
+          "access": "Main full journal text read; labels in evidence specify parts checked and supplement limits.",
+          "sources": [
+            "https://www.nature.com/articles/s41467-026-78026-6",
+            "https://www.nature.com/articles/s41467-026-78026-6_reference.pdf",
+            "https://api.crossref.org/works/10.1038/s41467-026-78026-6"
+          ],
+          "read": "Fig. 3 and Methods: HLA imputation and testing (SNP2HLA, T1DGC 5,225; Pan-Asian reference 268; imputation R2 >0.8), conditional amino-acid analyses; Fig. 6 and Discussion distinguish network replication from causal HLA evidence."
+        },
+        {
+          "doi": "10.1038/s41597-026-08626-w",
+          "firstOnline": "2026-11-12",
+          "expiry": "2026-12-24",
+          "category": 6,
+          "section": "main",
+          "assessment": "Reproducible structural resource with training-set exclusions and comparative benchmarking; relevant across alloimmunity, cancer and infection without claiming a validated immunogenicity model.",
+          "access": "Main full journal text read; labels in evidence specify parts checked and supplement limits.",
+          "sources": [
+            "https://www.nature.com/articles/s41597-026-08626-w",
+            "https://www.nature.com/articles/s41597-026-08626-w_reference.pdf",
+            "https://api.crossref.org/works/10.1038/s41597-026-08626-w"
+          ],
+          "read": "Table 3 and Fig. 6: common independent benchmark n=17, no significant accuracy difference; Technical Validation separately uses 46 unique complexes for MHC-Fine. Fig. 4: confidence lower at T-cell-facing peptide positions. Data Records for reproducibility."
+        },
+        {
+          "doi": "10.3389/fimmu.2026.1996061",
+          "firstOnline": "2026-11-02",
+          "expiry": "2026-12-14",
+          "category": 1,
+          "section": "main",
+          "assessment": "Clinically relevant test of mismatch composition versus burden with prospective follow-up; selected as hypothesis-generating original evidence, not a clinical implementation recommendation.",
+          "access": "Main full journal text read; labels in evidence specify parts checked and supplement limits.",
+          "sources": [
+            "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1996061/full",
+            "https://api.crossref.org/works/10.3389/fimmu.2026.1996061"
+          ],
+          "read": "Methods 2.1, 2.4.2 and 2.6; Tables 2-3 compare apparent C-indices 0.568 vs 0.641 for BPAR and 0.707 vs 0.827 for dnDQ-DSA; Discussion explicitly notes absent independent internal validation and DQA1 typing."
+        },
+        {
+          "doi": "10.1111/tan.71061",
+          "firstOnline": "2026-11-05",
+          "expiry": "2026-12-17",
+          "category": 5,
+          "section": "HLA pick",
+          "assessment": "Substantial EFI house-journal contribution directly useful for research on SAB interpretation, with explicit limitations of correlation-based inference and platform harmonisation.",
+          "access": "Main full journal text read; labels in evidence specify parts checked and supplement limits.",
+          "sources": [
+            "https://onlinelibrary.wiley.com/doi/10.1111/tan.71061",
+            "https://pmc.ncbi.nlm.nih.gov/articles/PMC13740467/",
+            "https://pmc-oa-opendata.s3.amazonaws.com/PMC13740467.1/PMC13740467.1.txt?md5=abb32eed0f9cb59e5981bb86e8959851",
+            "https://api.crossref.org/works/10.1111/tan.71061"
+          ],
+          "read": "Methods 2.1-2.2: most-positive serum selection and Immucor locus-minimum subtraction; Fig. 1 correlation with discordant samples; Fig. 4 and final Discussion on denatured antigens, recent-lot scarcity and research-only use."
+        }
+      ]
     }
   ],
   "waiting": [
@@ -297,21 +381,150 @@
       "firstOnline": "2026-10-23",
       "expiry": "2026-12-04",
       "category": 4,
-      "reason": "Deferred: promoter/3-UTR reporter experiments interesting; full text unavailable; separate HLA house pick selected for diagnostics balance."
+      "reason": "Rechecked PubMed full abstract and publisher-deposited online date. Promoter reporter effect supports a mechanism; no 3'-UTR genotype effect. Wiley full text still inaccessible. Defer behind MARCo house pick; retain for full-method review.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42924468/",
+        "https://api.crossref.org/works/10.1111/tan.70966"
+      ],
+      "checkedAt": "2026-11-13T00:22:02.841Z"
     },
     {
       "doi": "10.3389/fgene.2026.1960786",
       "firstOnline": "2026-10-20",
       "expiry": "2026-12-01",
       "category": 7,
-      "reason": "Potential population-diversity candidate; not method-audited this run; preserve for comparison next week."
+      "reason": "Publisher abstract/main cohort description rechecked: 606 unrelated clinical referrals, mixed Sanger/NGS two-field typing of A/B/C/DRB1; regional reference rather than population-random sampling. Defer for comparative methods review and diversity balance.",
+      "sources": [
+        "https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2026.1960786/full"
+      ],
+      "checkedAt": "2026-11-13T00:22:02.841Z"
     },
     {
       "doi": "10.3389/fgene.2026.1948784",
       "firstOnline": "2026-10-08",
       "expiry": "2026-11-19",
       "category": 7,
-      "reason": "Potential indigenous HLA diversity candidate; family sampling and population inference require full review."
+      "reason": "Publisher main methods and tables reviewed. Valuable non-classical/family-phased reference but only 80 people, 50 unrelated, across 24 communities; outpatient recruitment and no genomic ancestry markers limit admixture/representativeness claims. Lower priority than selected multi-cohort disease work; expires before next Friday.",
+      "sources": [
+        "https://www.frontiersin.org/journals/genetics/articles/10.3389/fgene.2026.1948784/full"
+      ],
+      "checkedAt": "2026-11-13T00:22:02.841Z"
+    },
+    {
+      "doi": "10.1016/j.celrep.2026.118216",
+      "firstOnline": "2026-11-04",
+      "expiry": "2026-12-16",
+      "category": 4,
+      "reason": "High priority: HLA-E-specific predictor and orthogonal validation of 30 ligands. PubMed abstract and author-institution final-version metadata verified; actual journal PDF blocked at publisher and Dundee repository. Recheck accessible full version and validation/normal-tissue breadth; do not claim cancer specificity or T-cell targeting validated.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42981192/",
+        "https://www.sciencedirect.com/science/article/pii/S2211124726012957",
+        "https://discovery.dundee.ac.uk/en/publications/ehlastic-reveals-an-extended-canonical-and-non-canonical-hla-e-im/"
+      ]
+    },
+    {
+      "doi": "10.1126/scitranslmed.aeh8192",
+      "firstOnline": "2026-11-04",
+      "expiry": "2026-12-16",
+      "category": 9,
+      "reason": "High priority for next edition: ~150,000 clinical genomics samples, 44 TCRs validated across 9 pHLA targets per PubMed abstract. Primary publisher/PDF blocked. Need pairing, independence, HLA restriction, cross-reactivity and functional validation methods before deeper interpretation; not a demonstrated therapy.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42981429/",
+        "https://www.science.org/doi/10.1126/scitranslmed.aeh8192"
+      ]
+    },
+    {
+      "doi": "10.1038/s43588-026-01073-y",
+      "firstOnlineProvisional": "2026-10-26",
+      "category": 6,
+      "reason": "PubMed title/metadata screened: machine-learning dataset/benchmark for TCR-pHLA binding. Compare leakage controls and antigen/allele-generalization with new AF3 work. Publisher first-online and full methods pending; defer structural-model topic to a later edition.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42934405/"
+      ],
+      "provisionalExpiry": "2026-12-07"
+    },
+    {
+      "doi": "10.1126/sciadv.aef5674",
+      "firstOnlineProvisional": "2026-10-30",
+      "category": 6,
+      "reason": "PubMed title/metadata screened: general TCR specificity prediction using AlphaFold 3. Verify primary date, experimental validation and held-out antigen/TCR splits before ranking; preserve alongside competing benchmark.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42962028/"
+      ],
+      "provisionalExpiry": "2026-12-11"
+    },
+    {
+      "doi": "10.1016/j.jtct.2026.11.008",
+      "firstOnlineProvisional": "2026-11-08",
+      "category": 2,
+      "reason": "PubMed abstract read: 321 retrospective PBSC recipients, sequential dose protocols, donor groups confounded with dose/era; absence of significance does not establish equivalence. Publisher in-press page appears 7 November vs PubMed 8 November; resolve earliest online date and inspect full methods.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/43000101/",
+        "https://www.astctjournal.org/inpress"
+      ],
+      "provisionalExpiry": "2026-12-20"
+    },
+    {
+      "doi": "10.1182/bloodadvances.2026021320",
+      "firstOnlineProvisional": "2026-10-23",
+      "category": 2,
+      "reason": "Title/metadata screened: chromosome 6 deletion after allogeneic HCT. Preserve for HLA loss/donor-selection relevance; first-online publisher record, genomic definition and full validation not reviewed.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42913459/"
+      ],
+      "provisionalExpiry": "2026-12-04"
+    },
+    {
+      "doi": "10.1210/clinem/dgag359",
+      "firstOnlineProvisional": "2026-10-27",
+      "category": 8,
+      "reason": "Title/metadata screened: high-resolution MHC sequencing in antithyroid drug agranulocytosis. Potential translational disease-immunogenetics follow-up; publisher date, cohort design and incremental resolution/replication pending.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42944636/"
+      ],
+      "provisionalExpiry": "2026-12-08"
+    },
+    {
+      "doi": "10.1053/j.gastro.2026.09.017",
+      "firstOnlineProvisional": "2026-10-08",
+      "category": 8,
+      "reason": "Title/metadata screened: reproducible DRB1*01:03 colectomy-risk biomarker. Primary date and external model calibration/clinical utility need full review; if first online 8 October, expires 19 November before next Friday. Do not carry beyond verified expiry.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42849764/"
+      ],
+      "provisionalExpiry": "2026-11-19"
+    },
+    {
+      "doi": "10.1111/tan.71082",
+      "firstOnline": null,
+      "expiry": null,
+      "category": 4,
+      "reason": "New HLA house-journal candidate from PubMed: HLA-B leader and BK/CMV after kidney transplantation. First-online date and full text not yet verified; retain for separate HLA screening.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42990099/"
+      ]
+    },
+    {
+      "doi": "10.1111/tan.71060",
+      "firstOnline": null,
+      "expiry": null,
+      "category": 3,
+      "reason": "New HLA house-journal candidate: COMBO-RATE experimentally validated HLA restriction tool. Primary date and full benchmarks need review; not selected from title alone.",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/42964009/"
+      ]
+    },
+    {
+      "doi": "10.3389/fimmu.2026.1986910",
+      "firstOnline": null,
+      "firstOnlineProvisional": "2026-11-09",
+      "expiry": null,
+      "category": 1,
+      "reason": "Accepted 9 November per publisher, but /full redirects to an abstract-only page saying final formatted article forthcoming. Acceptance is not verified first online of a full article. Defer until complete journal article/date can be checked; temporal validation small and estimates imprecise.",
+      "sources": [
+        "https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2026.1986910/abstract"
+      ],
+      "provisionalExpiry": "2026-12-21"
     }
   ],
   "screenedOut": [
@@ -326,13 +539,37 @@
     {
       "doi": "10.1016/j.jtct.2026.09.033",
       "reason": "Retired draft candidate at 42-day boundary; do not restore old selection; newer topics ranked above it."
+    },
+    {
+      "doi": "10.1016/j.ajt.2026.05.2304",
+      "checkedAt": "2026-11-13T00:22:02.841Z",
+      "reason": "PubMed first online 9 June 2026; November issue is not new publication. Outside window.",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/42264037/"
+    },
+    {
+      "doi": "10.1182/blood.2025030909",
+      "checkedAt": "2026-11-13T00:22:02.841Z",
+      "reason": "Earlier first-online publication before current 42-day window; November issue does not reset eligibility.",
+      "source": "https://pubmed.ncbi.nlm.nih.gov/42636145/"
+    },
+    {
+      "doi": "10.64898/2026.10.22.761181",
+      "checkedAt": "2026-11-13T00:22:02.841Z",
+      "reason": "bioRxiv preprint, radar paused; not an eligible peer-reviewed main article."
+    },
+    {
+      "doi": "10.64898/2026.10.22.761185",
+      "checkedAt": "2026-11-13T00:22:02.841Z",
+      "reason": "bioRxiv preprint, radar paused; not an eligible peer-reviewed main article."
     }
   ],
   "profile": {
     "source": "https://doi.org/10.1111/tan.70645",
     "status": "Full 2026 oral/poster collection not fully accessible; qualitative ten-domain scope retained. No exact percentages or unverified abstract counts used.",
     "countMethod": "Count only individually verified oral/poster abstracts, grouped by primary subject, once full collection accessible; session headings are not abstract counts.",
-    "balance": "First live edition: HSCT 1; population genetics 1; diagnostics 1 separate house-journal pick. No artificial quotas; future six-edition balance should prioritize underrepresented categories only among strong eligible candidates."
+    "balance": "First live edition: HSCT 1; population genetics 1; diagnostics 1 separate house-journal pick. No artificial quotas; future six-edition balance should prioritize underrepresented categories only among strong eligible candidates.",
+    "lastCheckedAt": "2026-11-13T00:22:02.841Z",
+    "latestAccess": "13 November: publisher metadata, /full and PDF links checked; full oral/poster text not returned. No new counts or percentages assigned."
   },
   "topicBalance": {
     "drafts": [
@@ -346,14 +583,37 @@
         }
       }
     ],
-    "publishedEditions": [],
-    "nextPriority": "Prioritise strong HSCT donor-selection/PTCy, population diversity, disease immunogenetics, and cross-domain laboratory validation in subsequent editions; no quotas or lowering quality.",
+    "publishedEditions": [
+      {
+        "publicationNumber": 1,
+        "internalId": 2,
+        "date": "2026-11-03",
+        "categories": [
+          1,
+          4,
+          3,
+          5
+        ]
+      },
+      {
+        "publicationNumber": 2,
+        "internalId": 3,
+        "date": "2026-11-10",
+        "categories": [
+          4,
+          3,
+          7
+        ]
+      }
+    ],
+    "nextPriority": "Prioritise strong HSCT/PTCy donor-selection, population diversity, reproductive immunology and cancer TCR work where eligible; preserve HLA-E and TCR-validation candidates. Current draft adds disease immunogenetics and comparative structural resources; no numerical quotas or lowered threshold.",
     "latestDraft": {
-      "id": 3,
+      "id": 4,
       "categories": [
-        4,
-        3,
-        7
+        8,
+        6,
+        1,
+        5
       ]
     }
   },
@@ -372,6 +632,22 @@
       "year": null,
       "source": "https://onlinelibrary.wiley.com/journal/20592310",
       "verification": "Value displayed without reliably verified metric year; no numerical weight assigned."
+    },
+    {
+      "journal": "Scientific Data",
+      "jif": 7.2,
+      "year": 2025,
+      "source": "https://www.nature.com/sdata/journal-impact",
+      "verification": "Publisher indexed metrics checked 13 November 2026",
+      "use": "Secondary reach/selectivity context only; no method-quality override."
+    },
+    {
+      "journal": "Frontiers in Immunology",
+      "jif": 7,
+      "year": 2025,
+      "source": "https://www.frontiersin.org/about/impact",
+      "verification": "Publisher JCR 2025 table/year context checked 13 November 2026",
+      "use": "Context only; lack of independent model validation remains explicit."
     }
   ]
 }
