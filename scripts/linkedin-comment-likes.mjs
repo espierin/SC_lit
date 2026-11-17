@@ -104,7 +104,8 @@ export function client(token, fetcher=fetch) {
       const route=path.split('?')[0].split('/')[1];
       let details={}; try {details=await response.json();}catch{}
       const code=Number.isFinite(details.serviceErrorCode)?`; service code ${details.serviceErrorCode}`:'';
-      throw Error(`LinkedIn ${method} ${route} HTTP ${response.status}${code}; stopped without retry. Check token, permissions or quota.`);
+      const reason=typeof details.message==='string'?details.message.replace(/urn:li:[^\s"']+/g,'[entity]').replace(/\d/g,'#').slice(0,180):'';
+      throw Error(`LinkedIn ${method} ${route} HTTP ${response.status}${code}${reason?'; '+reason:''}; stopped without retry. Check token, permissions or quota.`);
     }
     const text=await response.text(); return text ? JSON.parse(text) : {};
   };
