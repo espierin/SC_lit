@@ -100,7 +100,12 @@ export function client(token, fetcher=fetch) {
       ...(body ? {body:JSON.stringify(body)} : {})
     });
     if (response.status === 404 && allow404) return null;
-    if (!response.ok) throw Error(`LinkedIn HTTP ${response.status}; stopped without retry. Check token, permissions or quota.`);
+    if (!response.ok) {
+      const route=path.split('?')[0].split('/')[1];
+      let details={}; try {details=await response.json();}catch{}
+      const code=Number.isFinite(details.serviceErrorCode)?`; service code ${details.serviceErrorCode}`:'';
+      throw Error(`LinkedIn ${method} ${route} HTTP ${response.status}${code}; stopped without retry. Check token, permissions or quota.`);
+    }
     const text=await response.text(); return text ? JSON.parse(text) : {};
   };
 }
