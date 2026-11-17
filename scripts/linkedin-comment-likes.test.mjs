@@ -4,12 +4,16 @@ import {EFI,SINCE,freshState,run,client} from './linkedin-comment-likes.mjs';
 const post='urn:li:share:123';
 const urn=id=>`urn:li:comment:(urn:li:activity:123,${id})`;
 const comment=(id,extra={})=>({commentUrn:urn(id),actor:'urn:li:person:reader',created:{time:SINCE+1},...extra});
-function mock(comments,{reaction=null,failWrite=false}={}) {
+function mock(comments,{reaction=null,failWrite=false,missing=[]}={}) {
   const calls=[];
   return {calls,request:async(path,options={})=>{
     calls.push({path,...options});
     if(path.startsWith('/posts?'))return {elements:[{id:post,author:EFI,lifecycleState:'PUBLISHED'},{id:'urn:li:share:999',author:'urn:li:organization:999',lifecycleState:'PUBLISHED'}]};
-    if(path.startsWith('/socialActions/'))return {elements:comments};
+    if(path.startsWith('/socialActions/')){
+      const id=path.match(/\/comments\/(\d+)$/)?.[1];
+      if(id)return missing.includes(id)?null:comments.find(c=>c.commentUrn.endsWith(','+id+')'))??null;
+      return {elements:comments};
+    }
     if(options.method==='POST'){if(failWrite)throw Error('uncertain write');return {};}
     if(path.startsWith('/reactions/'))return reaction;
     throw Error('Unexpected request');
@@ -44,11 +48,21 @@ test('uncertain write stays pending; next run checks LinkedIn before any retry',
 });
 test('budget is enforced including manual reruns and unfinished comments resume',async()=>{
   const state=freshState(),api=mock(Array.from({length:10},(_,i)=>comment(i+1)));
-  const result=await run(state,{...api,now:SINCE+100,maxCalls:6});
-  assert.equal(result.calls,6); assert.equal(result.liked,2); assert.equal(result.pending,8);
+  const result=await run(state,{...api,now:SINCE+100,maxCalls:8});
+  assert.equal(result.calls,8); assert.equal(result.liked,2); assert.equal(result.pending,8);
   state.calls=Array(89).fill(SINCE+100);
   const blocked=await run(state,{...api,now:SINCE+200});
   assert.equal(blocked.calls,0); assert.equal(blocked.limited,true);
+});
+test('deleted cached comments are retired and do not block the next valid candidate',async()=>{
+  const state=freshState(),comments=[comment(1),comment(2)];
+  const preview=mock(comments);
+  await run(state,{...preview,now:SINCE+100,dryRun:true});
+  const live=mock(comments,{missing:['1']});
+  const stats=await run(state,{...live,now:SINCE+200});
+  assert.equal(stats.unavailable,1);assert.equal(stats.liked,1);
+  assert.deepEqual(live.calls.filter(c=>c.method==='POST').map(c=>c.body.root),[urn(2)]);
+  assert.equal(Object.keys(state.pending).length,0);
 });
 test('post and comment pagination progress is retained and nested replies are scheduled',async()=>{
   const state=freshState(); const api=mock(Array.from({length:100},(_,i)=>comment(i+1,{created:{time:SINCE-1},commentsSummary:i===0?{totalFirstLevelComments:1}:undefined})));

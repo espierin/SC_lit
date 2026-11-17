@@ -30,7 +30,7 @@ export function collectComments(state, parent, comments) {
 export async function run(state, {request, now=Date.now(), dryRun=false, maxCalls=12}={}) {
   if (state.version !== 1 || state.since !== SINCE) throw Error('State version/cutoff mismatch');
   state.calls = state.calls.filter(time => time > now - 86400000);
-  const stats = {calls:0, liked:0, existing:0, discovered:0, pending:0, dryRun};
+  const stats = {calls:0, liked:0, existing:0, unavailable:0, discovered:0, pending:0, dryRun};
   const budget = Math.min(maxCalls, Math.max(0, 90-state.calls.length));
   async function api(path, options={}) {
     if (stats.calls >= budget) throw Error('INTERNAL_BUDGET');
@@ -57,7 +57,7 @@ export async function run(state, {request, now=Date.now(), dryRun=false, maxCall
 
   async function react() {
     for (const [key, item] of Object.entries(state.pending)) {
-      if (stats.calls+2 > budget) break;
+      if (stats.calls+3 > budget) break;
       if (!commentUrn(item.urn) || !state.threads[item.parent]) throw Error('Unverified pending comment');
       const path = `/reactions/(actor:${encode(EFI)},entity:${encode(item.urn)})`;
       const current = await api(path, {allow404:true});
@@ -66,6 +66,14 @@ export async function run(state, {request, now=Date.now(), dryRun=false, maxCall
         state.done[key]=now; delete state.pending[key]; stats.existing++; continue;
       }
       if (dryRun) continue;
+      // A cached candidate can have been deleted since discovery. A missing
+      // reaction alone cannot distinguish that from an unliked comment.
+      const id=item.urn.match(/,(\d+)\)$/)[1];
+      const live=await api(`/socialActions/${encode(item.parent)}/comments/${id}`,{allow404:true});
+      if(live===null){state.done[key]=now;delete state.pending[key];stats.unavailable++;continue;}
+      if(live.commentUrn!==item.urn || !Number.isFinite(live.created?.time) || live.created.time<state.since)
+        throw Error('Live comment identity or creation time differs from the saved candidate; no reaction sent');
+      if(live.actor===EFI){state.done[key]=now;delete state.pending[key];continue;}
       await api('/reactions?actor='+encode(EFI), {method:'POST', body:{root:item.urn,reactionType:'LIKE'}});
       state.done[key]=now; delete state.pending[key]; stats.liked++;
     }
