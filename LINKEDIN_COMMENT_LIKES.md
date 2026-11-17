@@ -4,6 +4,8 @@ The GitHub workflow `EFI LinkedIn comment likes` polls LinkedIn every four hours
 
 Only comments created at or after **30 October 2026 02:02 UTC** are eligible. EFI's own comments are skipped. Missing timestamps and malformed identifiers never trigger likes. Before each LIKE the script reads EFI's current reaction and preserves any existing reaction type. Uncertain POST outcomes stop the run; the next run checks LinkedIn before retrying. No automated comment text is posted.
 
+Before creating a LIKE the worker also retrieves the current comment by its parent and ID. Deleted or inaccessible comments are retired from the pending queue and counted as `unavailable`, so a stale cached comment cannot block later candidates. Live identity, creation time and actor are checked again. Other API errors still fail the run with the operation and a sanitized LinkedIn error reason.
+
 ## Credentials and operation
 
 Repository Actions secrets: `LINKEDIN_REFRESH_TOKEN`, `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, from the EFI LinkedIn app. Before each run the worker exchanges the refresh token at LinkedIn's official OAuth endpoint for an access token held only in runner memory. It does not store tokens in the polling cache, artifacts or source, and does not need GitHub secret-write privileges. The original `LINKEDIN_ACCESS_TOKEN` secret is no longer used by this workflow.
