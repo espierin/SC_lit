@@ -1,0 +1,35 @@
+𝐄𝐅𝐈’𝐬 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐟𝐢𝐜 𝐂𝐨𝐦𝐦𝐢𝐭𝐭𝐞𝐞 𝐉𝐨𝐮𝐫𝐧𝐚𝐥 𝐂𝐥𝐮𝐛
+Weekly literature highlights for the H&I community
+Edition 4
+24 November 2026
+
+• 𝐇𝐒𝐂𝐓 𝐚𝐧𝐝 𝐢𝐦𝐦𝐮𝐧𝐞 𝐞𝐬𝐜𝐚𝐩𝐞
+Tamaki et al. - Adverse impact of deletion of the chromosome 6 on clinical outcomes after allogeneic hematopoietic transplantation. Blood Advances, 2026.
+Online: 23 Oct 2026.
+
+Diagnostic del6p was associated with relapse after allogeneic HCT (adjusted HR 1.30). Coexisting cytogenetic abnormalities complicate attribution; reduced HLA-dependent graft-versus-leukemia remains a hypothesis.
+
+https://doi.org/10.1182/bloodadvances.2026021320
+
+────────────────
+
+• 𝐂𝐚𝐧𝐜𝐞𝐫 𝐢𝐦𝐦𝐮𝐧𝐨𝐠𝐞𝐧𝐞𝐭𝐢𝐜𝐬
+Jackson et al. - Cancer-specific T cell receptor discovery using 150,000 clinical genomics samples. Science Translational Medicine, 2026;18:eaeh8192.
+Online: 04 Nov 2026.
+
+Mining approximately 150,000 tumor samples yielded public TCR candidates; 44 TCRs recognized nine peptide-HLA targets in validation assays. These selected-target results do not establish clinical efficacy or comprehensive cross-reactivity safety.
+
+https://doi.org/10.1126/scitranslmed.aeh8192
+
+────────────────
+
+From our Journal HLA Immune Response Genetics:
+• 𝐇𝐋𝐀 𝐫𝐞𝐬𝐭𝐫𝐢𝐜𝐭𝐢𝐨𝐧 𝐦𝐚𝐩𝐩𝐢𝐧𝐠
+Nevarez-Mejia et al. - COMBO-RATE: an experimentally validated bioinformatic tool to identify promiscuous HLA restrictions. HLA, 2026;108:e71060.
+Online: 31 Oct 2026.
+
+COMBO-RATE inferred restrictions for 35/43 pertussis epitopes versus 24/43 with RATE; selected new restrictions were confirmed with single-HLA cell lines. Small validation samples and no default multiple-testing correction limit interpretation.
+
+https://doi.org/10.1111/tan.71060
+
+#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub
