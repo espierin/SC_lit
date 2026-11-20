@@ -273,10 +273,93 @@
           }
         }
       ]
+    },
+    {
+      "id": 5,
+      "date": "2026-11-20",
+      "publicationDate": "2026-11-24",
+      "status": "draft",
+      "publicationNumber": 4,
+      "header": "𝐄𝐅𝐈’𝐬 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐟𝐢𝐜 𝐂𝐨𝐦𝐦𝐢𝐭𝐭𝐞𝐞 𝐉𝐨𝐮𝐫𝐧𝐚𝐥 𝐂𝐥𝐮𝐛\nWeekly literature highlights for the H&I community\nEdition 4\n24 November 2026",
+      "items": [
+        {
+          "id": "edition-5-0",
+          "doi": "https://doi.org/10.1182/bloodadvances.2026021320",
+          "text": "• 𝐇𝐒𝐂𝐓 𝐚𝐧𝐝 𝐢𝐦𝐦𝐮𝐧𝐞 𝐞𝐬𝐜𝐚𝐩𝐞\nTamaki et al. - Adverse impact of deletion of the chromosome 6 on clinical outcomes after allogeneic hematopoietic transplantation. Blood Advances, 2026.\nOnline: 23 Oct 2026.\n\nDiagnostic del6p was associated with relapse after allogeneic HCT (adjusted HR 1.30). Coexisting cytogenetic abnormalities complicate attribution; reduced HLA-dependent graft-versus-leukemia remains a hypothesis.\n\nhttps://doi.org/10.1182/bloodadvances.2026021320",
+          "evidence": {
+            "firstOnline": "2026-10-23",
+            "fullTextStatus": "abstract_only",
+            "finding": "A Japanese registry analysis associated diagnostic del6p with relapse after allogeneic HCT (adjusted HR 1.30, 95% CI 1.02-1.65).",
+            "limitation": "Other chromosomal abnormalities confound interpretation; attenuation of HLA-dependent graft-versus-leukemia is a hypothesis, not demonstrated mechanism. Full methods unavailable.",
+            "selectionReason": "Original national-registry evidence on pre-transplant immune escape, adds underrepresented HSCT domain; limited to reported association.",
+            "checkedAt": "2026-11-20T00:36:53.927Z",
+            "sources": [
+              {
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42913459/",
+                "label": "PubMed full abstract and electronic publication date; no full methods audit"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1182/bloodadvances.2026021320",
+                "label": "Publisher-deposited first online date and full journal PDF record; PDF request returned 403"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-5-1",
+          "doi": "https://doi.org/10.1126/scitranslmed.aeh8192",
+          "text": "• 𝐂𝐚𝐧𝐜𝐞𝐫 𝐢𝐦𝐦𝐮𝐧𝐨𝐠𝐞𝐧𝐞𝐭𝐢𝐜𝐬\nJackson et al. - Cancer-specific T cell receptor discovery using 150,000 clinical genomics samples. Science Translational Medicine, 2026;18:eaeh8192.\nOnline: 04 Nov 2026.\n\nMining approximately 150,000 tumor samples yielded public TCR candidates; 44 TCRs recognized nine peptide-HLA targets in validation assays. These selected-target results do not establish clinical efficacy or comprehensive cross-reactivity safety.\n\nhttps://doi.org/10.1126/scitranslmed.aeh8192",
+          "evidence": {
+            "firstOnline": "2026-11-04",
+            "fullTextStatus": "abstract_only",
+            "finding": "Bulk RNA-seq from approximately 150,000 tumors yielded recurrent TCR candidates; 44 paired TCRs were validated for recognition of nine peptide-HLA targets.",
+            "limitation": "Selected targets and in-vitro validation do not establish clinical efficacy or comprehensive cross-reactivity safety. Full pairing, discovery/validation independence and safety methods unavailable.",
+            "selectionReason": "Large-scale discovery with reported functional TCR validation; brings cancer immunogenetics into the main selection. No therapy recommendation.",
+            "checkedAt": "2026-11-20T00:36:53.927Z",
+            "sources": [
+              {
+                "url": "https://pubmed.ncbi.nlm.nih.gov/42981429/",
+                "label": "PubMed full abstract, authors, journal reference and electronic publication date; no full methods audit"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1126/scitranslmed.aeh8192",
+                "label": "Publisher-deposited full journal article and Version-of-Record PDF record"
+              },
+              {
+                "url": "https://www.science.org/doi/10.1126/scitranslmed.aeh8192",
+                "label": "Primary publisher article/PDF targeted; full text returned 403"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-5-2",
+          "doi": "https://doi.org/10.1111/tan.71060",
+          "text": "From our Journal HLA Immune Response Genetics:\n• 𝐇𝐋𝐀 𝐫𝐞𝐬𝐭𝐫𝐢𝐜𝐭𝐢𝐨𝐧 𝐦𝐚𝐩𝐩𝐢𝐧𝐠\nNevarez-Mejia et al. - COMBO-RATE: an experimentally validated bioinformatic tool to identify promiscuous HLA restrictions. HLA, 2026;108:e71060.\nOnline: 31 Oct 2026.\n\nCOMBO-RATE inferred restrictions for 35/43 pertussis epitopes versus 24/43 with RATE; selected new restrictions were confirmed with single-HLA cell lines. Small validation samples and no default multiple-testing correction limit interpretation.\n\nhttps://doi.org/10.1111/tan.71060",
+          "evidence": {
+            "firstOnline": "2026-10-31",
+            "fullTextStatus": "read",
+            "finding": "In a pertussis dataset, COMBO-RATE inferred restrictions for 35/43 dominant CD4 epitopes versus 24/43 with RATE; selected additional restrictions were tested using single-HLA cell lines.",
+            "limitation": "Validation uses few donors/selected epitopes; no default multiple-testing correction, and DPA1 is inferred rather than typed. Prioritization output is not universal experimental validation.",
+            "selectionReason": "EFI house-journal method extends single-allele inference to promiscuous restrictions and includes functional validation; code and web implementation available.",
+            "checkedAt": "2026-11-20T00:36:53.927Z",
+            "sources": [
+              {
+                "url": "https://pmc-oa-opendata.s3.amazonaws.com/PMC13722996.1/PMC13722996.1.txt?md5=401455b8d09b0946925e909d4e90ea8b",
+                "label": "Complete published journal text: Results 2.1-2.6, Figures 1-5/captions, Discussion limitations, Methods 4.1-4.5; supplement not audited"
+              },
+              {
+                "url": "https://api.crossref.org/works/10.1111/tan.71060",
+                "label": "Publisher-deposited 31 October first online date, original journal article status"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "retiredDraftIds": [
     1
   ],
-  "nextInternalId": 5
+  "nextInternalId": 6
 }
