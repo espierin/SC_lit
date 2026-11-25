@@ -68,3 +68,12 @@ Before the house-journal item, retain "From our Journal HLA Immune Response Gene
 At composition time, look up the most recent available Journal Impact Factor, using Clarivate Journal Citation Reports or the official journal/publisher website. Record the JIF year, actual source URL and access date in the article evidence metadata. Never invent, extrapolate or substitute CiteScore, a five-year impact factor, or the article publication year. If the current JIF cannot be reliably verified, use exactly "(IF=n.a.)." with no invented JIF year. Do not place these source URLs in the LinkedIn post, which remains DOI-links-only. Impact factor is contextual journal information and never a selection criterion or an article quality score.
 
 Retain the edition header, reviewer attribution and existing EFI hashtags. Ensure the full assembled post, including headings, citations, separators, attribution and hashtags, stays below 3,000 UTF-16 code units. Condense wording while preserving factual nuance. Use no em dashes, en dashes or other long dash punctuation. Provide optional table/figure reading pointers only when full text was actually checked and space permits. Never imply full-text access from an abstract.
+
+### Display formatting update, 25 November 2026
+
+These display rules supersede the eleven-hyphen separator and uppercase paragraph headings above.
+- Put edition number and publication date on one line, for example "Edition 4 - 24 November 2026".
+- Start each article with a bullet followed by the category in uppercase Unicode bold, for example "• 𝐇𝐒𝐂𝐓 𝐀𝐍𝐃 𝐈𝐌𝐌𝐔𝐍𝐄 𝐄𝐒𝐂𝐀𝐏𝐄".
+- Render paragraph headings in bold sentence case: "Key finding", "Why it matters", "Key consideration". For LinkedIn use Unicode bold characters so the formatting survives publication, rather than literal Markdown asterisks.
+- Separate articles with the requested continuous graphical rule "────────────────". This is an explicitly requested visual separator. Do not use long dashes as sentence punctuation.
+- Keep the citation, journal impact factor and online date directly below the category, with all other editorial and evidence requirements unchanged.
