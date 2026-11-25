@@ -36,3 +36,35 @@ The process strip and current duty summary lead into the review selection. Filte
 ## Automatic search handoff
 
 The ChatGPT search remains at Friday 01:00 Amsterdam time. The separate reviewer-handoff workflow starts at 01:15, waits for a complete current-Friday edition and its matching draft TXT, and prepares pending central reviews exactly once. Source-data and draft pushes also trigger it, so later search completion resumes automatically. Concurrent triggers share one queue and the backend keeps a permanent per-Friday completion record. Existing reviewer decisions are never overwritten; no Buffer or newsletter actions occur. Fresh editions and Friday email eligibility wait for confirmed handoff. A waiting run times out after 5.5 hours with a visible failure; later data/TXT pushes can still complete the handoff.
+
+## Required format for future weekly editions
+
+Apply this editorial format to every new weekly edition from 25 November 2026 onward. Preserve the existing search, selection criteria, schedule, numbering, human approval, Buffer publication and disabled newsletter.
+
+Write for EFI scientists at all career stages, HLA diagnostic laboratory scientists and laboratory directors. Explain relevance concretely and accessibly. Distinguish research relevance from established diagnostic use. Phrase limitations constructively and proportionately without weakening the scientific meaning or implying clinical advice.
+
+Use the existing topic heading, followed by the citation and first-online date in exactly this order. Do not replace the heading with an invented numbered article title.
+
+TOPIC HEADING
+FirstAuthor et al. - Full original article title. Journal, year;volume:article-or-pages. (IF=x.x; JIF YYYY).
+Online: DD Mon YYYY.
+
+KEY FINDING
+One concise statement describing the study and principal result.
+
+WHY IT MATTERS
+One concise statement of relevance for the broad EFI audience, including HLA laboratory interpretation where supported.
+
+KEY CONSIDERATION
+One concise, mildly worded but scientifically accurate consideration explaining the main interpretative limitation. Preserve uncertainty and evidence boundaries.
+
+https://doi.org/ARTICLE_DOI
+
+Separate articles with a line containing exactly eleven ordinary hyphens:
+-----------
+
+Before the house-journal item, retain "From our Journal HLA Immune Response Genetics:".
+
+At composition time, look up the most recent available Journal Impact Factor, using Clarivate Journal Citation Reports or the official journal/publisher website. Record the JIF year, actual source URL and access date in the article evidence metadata. Never invent, extrapolate or substitute CiteScore, a five-year impact factor, or the article publication year. If the current JIF cannot be reliably verified, use exactly "(IF=n.a.)." with no invented JIF year. Do not place these source URLs in the LinkedIn post, which remains DOI-links-only. Impact factor is contextual journal information and never a selection criterion or an article quality score.
+
+Retain the edition header, reviewer attribution and existing EFI hashtags. Ensure the full assembled post, including headings, citations, separators, attribution and hashtags, stays below 3,000 UTF-16 code units. Condense wording while preserving factual nuance. Use no em dashes, en dashes or other long dash punctuation. Provide optional table/figure reading pointers only when full text was actually checked and space permits. Never imply full-text access from an abstract.
