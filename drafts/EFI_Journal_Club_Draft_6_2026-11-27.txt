@@ -1,0 +1,13 @@
+𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯
+Weekly literature highlights for the H&I community
+Edition 5
+1 December 2026
+
+• 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹 𝗛𝗟𝗔 𝗱𝗶𝘃𝗲𝗿𝘀𝗶𝘁𝘆
+Crivello et al. Peptide-binding motifs define the functional architecture of human leukocyte antigens. Genome Medicine, 2026;18:178.
+Online: 12 Nov 2026.
+
+Immunopeptidomics-based clustering identified 40 peptide-binding motif groups across HLA class I and II. Allotypes within groups shared more peptides; class II diversity also reflected alpha-chain pairing and DRB3/4/5. This provides a framework for interpreting HLA variation, but uneven allotype coverage and manually finalized group boundaries limit generalization. Clinical outcomes were not tested in this study.
+https://doi.org/10.1186/s13073-026-01825-5
+
+#EFI #Histocompatibility #Immunogenetics #JournalClub #Scientific #Committee
