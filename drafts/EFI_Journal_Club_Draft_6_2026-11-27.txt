@@ -10,4 +10,26 @@ Online: 12 Nov 2026.
 Immunopeptidomics-based clustering identified 40 peptide-binding motif groups across HLA class I and II. Allotypes within groups shared more peptides; class II diversity also reflected alpha-chain pairing and DRB3/4/5. This provides a framework for interpreting HLA variation, but uneven allotype coverage and manually finalized group boundaries limit generalization. Clinical outcomes were not tested in this study.
 https://doi.org/10.1186/s13073-026-01825-5
 
-#EFI #Histocompatibility #Immunogenetics #JournalClub #Scientific #Committee
+• 𝗘𝗻𝗴𝗶𝗻𝗲𝗲𝗿𝗲𝗱 𝗶𝗻𝗻𝗮𝘁𝗲 𝗰𝗲𝗹𝗹 𝘁𝗵𝗲𝗿𝗮𝗽𝘆
+Mashhouri et al. Chimeric antigen receptor-engineered ILC2s for targeted immune regulation. Nature Immunology, 2026.
+Online: 23 Nov 2026.
+
+Human HLA-A2-targeted CAR-ILC2s reduced T-cell engraftment and improved survival in a xenogeneic GVHD mouse model. CD28/CD3z signalling also induced cytotoxic activity. Small preclinical groups and short persistence leave human safety and efficacy unresolved.
+https://doi.org/10.1038/s41590-026-02705-1
+
+• 𝗡𝗞 𝗿𝗲𝗰𝗲𝗽𝘁𝗼𝗿𝘀, 𝗲𝘃𝗼𝗹𝘂𝘁𝗶𝗼𝗻 𝗮𝗻𝗱 𝗿𝗲𝗽𝗿𝗼𝗱𝘂𝗰𝘁𝗶𝗼𝗻
+Lavergne et al. Evolution of Natural Killer Cell Receptor Families in Menstruating and Non-menstruating Mammals. Genome Biology and Evolution, 2026;18:evag267.
+Online: 22 Oct 2026.
+
+Analysis of 41 mammalian genomes identified previously unannotated KIR/KLR genes. Menstruation was associated with stronger KIR sequence constraint, but not a general receptor-family expansion. Reference-genome sampling and incomplete phenotyping limit inference; uterine function was not tested.
+https://doi.org/10.1093/gbe/evag267
+
+From our Journal HLA Immune Response Genetics:
+• 𝗛𝗟𝗔 𝗮𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗺𝗲𝗮𝘀𝘂𝗿𝗲𝗺𝗲𝗻𝘁
+Janin et al. Predicting the 1:10 Diluted MFI of Luminex Single Antigen Beads. HLA, 2026;108:e71098.
+Online: 23 Nov 2026.
+
+A model fitted to 237,547 paired bead measurements predicted diluted MFI, with 93.9% prediction-interval coverage in primary external validation across four laboratories. Uncertainty widened near saturation. One assay manufacturer was studied; improved patient outcomes were not tested.
+https://doi.org/10.1111/tan.71098
+
+#EFI #Scientific #Committee #Histocompatibility #Immunogenetics #JournalClub

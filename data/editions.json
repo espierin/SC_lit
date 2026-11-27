@@ -370,15 +370,76 @@
           "text": "• 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹 𝗛𝗟𝗔 𝗱𝗶𝘃𝗲𝗿𝘀𝗶𝘁𝘆\nCrivello et al. Peptide-binding motifs define the functional architecture of human leukocyte antigens. Genome Medicine, 2026;18:178.\nOnline: 12 Nov 2026.\n\nImmunopeptidomics-based clustering identified 40 peptide-binding motif groups across HLA class I and II. Allotypes within groups shared more peptides; class II diversity also reflected alpha-chain pairing and DRB3/4/5. This provides a framework for interpreting HLA variation, but uneven allotype coverage and manually finalized group boundaries limit generalization. Clinical outcomes were not tested in this study.\nhttps://doi.org/10.1186/s13073-026-01825-5",
           "evidence": {
             "firstOnline": "2026-11-12",
-            "fullTextStatus": "full_text",
+            "fullTextStatus": "read",
             "finding": "Motif groups separate peptide repertoires across class I and class II.",
-            "limitation": "Uneven experimental coverage; manual group boundaries; clinical benefit untested. Supplement not separately audited.",
+            "limitation": "Uneven experimental coverage; manual group boundaries; clinical benefit untested. Supplementary Table S1, figure captions S1-S16 and Table S2 checked; no independent computational reproduction.",
             "selectionReason": "Pan-HLA antigen presentation with cross-domain relevance. Author Pietro Crivello is an SC member, independent reviewer assessment is required.",
-            "checkedAt": "2026-11-27T08:38:47.890071+00:00",
+            "checkedAt": "2026-11-27T09:01:00.331328+00:00",
             "sources": [
               {
                 "url": "https://link.springer.com/article/10.1186/s13073-026-01825-5",
                 "label": "Publisher full article: Methods, Results, figure captions, Discussion and limitations; supplement not separately audited"
+              },
+              {
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13769151/",
+                "label": "Published full text and supplementary PDF; 93 class II heterodimer entries in supplementary Table S2"
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-6-1",
+          "doi": "https://doi.org/10.1038/s41590-026-02705-1",
+          "text": "• 𝗘𝗻𝗴𝗶𝗻𝗲𝗲𝗿𝗲𝗱 𝗶𝗻𝗻𝗮𝘁𝗲 𝗰𝗲𝗹𝗹 𝘁𝗵𝗲𝗿𝗮𝗽𝘆\nMashhouri et al. Chimeric antigen receptor-engineered ILC2s for targeted immune regulation. Nature Immunology, 2026.\nOnline: 23 Nov 2026.\n\nHuman HLA-A2-targeted CAR-ILC2s reduced T-cell engraftment and improved survival in a xenogeneic GVHD mouse model. CD28/CD3z signalling also induced cytotoxic activity. Small preclinical groups and short persistence leave human safety and efficacy unresolved.\nhttps://doi.org/10.1038/s41590-026-02705-1",
+          "evidence": {
+            "firstOnline": "2026-11-23",
+            "fullTextStatus": "read",
+            "finding": "Human HLA-A2-targeted CAR-ILC2s reduced T-cell engraftment and improved survival in a xenogeneic GVHD mouse model. CD28/CD3z signalling also induced cytotoxic activity. Small preclinical groups and short persistence leave human safety and efficacy unresolved.",
+            "limitation": "Preclinical mouse model, no human therapeutic outcomes; small groups and limited persistence.",
+            "selectionReason": "Mechanistic HLA-directed regulatory cell engineering; links transplantation, innate immunity and synthetic receptors.",
+            "checkedAt": "2026-11-27T09:01:00.331328+00:00",
+            "sources": [
+              {
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13792928/",
+                "label": "Publisher PDF: Results, Fig. 4, Methods and statistics; supplementary Fig. 5 independent cohorts and Fig. 6 trafficking examined."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-6-2",
+          "doi": "https://doi.org/10.1093/gbe/evag267",
+          "text": "• 𝗡𝗞 𝗿𝗲𝗰𝗲𝗽𝘁𝗼𝗿𝘀, 𝗲𝘃𝗼𝗹𝘂𝘁𝗶𝗼𝗻 𝗮𝗻𝗱 𝗿𝗲𝗽𝗿𝗼𝗱𝘂𝗰𝘁𝗶𝗼𝗻\nLavergne et al. Evolution of Natural Killer Cell Receptor Families in Menstruating and Non-menstruating Mammals. Genome Biology and Evolution, 2026;18:evag267.\nOnline: 22 Oct 2026.\n\nAnalysis of 41 mammalian genomes identified previously unannotated KIR/KLR genes. Menstruation was associated with stronger KIR sequence constraint, but not a general receptor-family expansion. Reference-genome sampling and incomplete phenotyping limit inference; uterine function was not tested.\nhttps://doi.org/10.1093/gbe/evag267",
+          "evidence": {
+            "firstOnline": "2026-10-22",
+            "fullTextStatus": "read",
+            "finding": "Analysis of 41 mammalian genomes identified previously unannotated KIR/KLR genes. Menstruation was associated with stronger KIR sequence constraint, but not a general receptor-family expansion. Reference-genome sampling and incomplete phenotyping limit inference; uterine function was not tested.",
+            "limitation": "One reference genome per species; incomplete phenotype and expression evidence; associations do not establish uterine receptor function.",
+            "selectionReason": "Substantial comparative curation with phylogeny-aware analyses; adds underrepresented evolution and reproductive immunogenetics, with eligibility expiring 3 December.",
+            "checkedAt": "2026-11-27T09:01:00.331328+00:00",
+            "sources": [
+              {
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13756075/",
+                "label": "Complete PMC journal text, methods, figure captions; supplementary species tables and lineage notes examined."
+              }
+            ]
+          }
+        },
+        {
+          "id": "edition-6-3",
+          "doi": "https://doi.org/10.1111/tan.71098",
+          "text": "From our Journal HLA Immune Response Genetics:\n• 𝗛𝗟𝗔 𝗮𝗻𝘁𝗶𝗯𝗼𝗱𝘆 𝗺𝗲𝗮𝘀𝘂𝗿𝗲𝗺𝗲𝗻𝘁\nJanin et al. Predicting the 1:10 Diluted MFI of Luminex Single Antigen Beads. HLA, 2026;108:e71098.\nOnline: 23 Nov 2026.\n\nA model fitted to 237,547 paired bead measurements predicted diluted MFI, with 93.9% prediction-interval coverage in primary external validation across four laboratories. Uncertainty widened near saturation. One assay manufacturer was studied; improved patient outcomes were not tested.\nhttps://doi.org/10.1111/tan.71098",
+          "evidence": {
+            "firstOnline": "2026-11-23",
+            "fullTextStatus": "read",
+            "finding": "A model fitted to 237,547 paired bead measurements predicted diluted MFI, with 93.9% prediction-interval coverage in primary external validation across four laboratories. Uncertainty widened near saturation. One assay manufacturer was studied; improved patient outcomes were not tested.",
+            "limitation": "Retrospective and manufacturer-specific; repeated beads are not independent patients; no transplant outcome validation.",
+            "selectionReason": "Substantive house-journal diagnostic modelling with unchanged-model external validation and explicit uncertainty.",
+            "checkedAt": "2026-11-27T09:01:00.331328+00:00",
+            "sources": [
+              {
+                "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13791305/",
+                "label": "Full Methods, Results, Discussion and supplementary methods/tables S1-S3 read; supplementary figure captions S1-S10 checked."
               }
             ]
           }
