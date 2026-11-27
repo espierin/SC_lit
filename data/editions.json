@@ -356,10 +356,38 @@
           }
         }
       ]
+    },
+    {
+      "id": 6,
+      "date": "2026-11-27",
+      "status": "draft",
+      "publicationNumber": 5,
+      "header": "𝗘𝗙𝗜’𝘀 𝗦𝗰𝗶𝗲𝗻𝘁𝗶𝗳𝗶𝗰 𝗖𝗼𝗺𝗺𝗶𝘁𝘁𝗲𝗲 𝗝𝗼𝘂𝗿𝗻𝗮𝗹 𝗖𝗹𝘂𝗯\nWeekly literature highlights for the H&I community\nEdition 5\n1 December 2026",
+      "items": [
+        {
+          "id": "edition-6-0",
+          "doi": "https://doi.org/10.1186/s13073-026-01825-5",
+          "text": "• 𝗙𝘂𝗻𝗰𝘁𝗶𝗼𝗻𝗮𝗹 𝗛𝗟𝗔 𝗱𝗶𝘃𝗲𝗿𝘀𝗶𝘁𝘆\nCrivello et al. Peptide-binding motifs define the functional architecture of human leukocyte antigens. Genome Medicine, 2026;18:178.\nOnline: 12 Nov 2026.\n\nImmunopeptidomics-based clustering identified 40 peptide-binding motif groups across HLA class I and II. Allotypes within groups shared more peptides; class II diversity also reflected alpha-chain pairing and DRB3/4/5. This provides a framework for interpreting HLA variation, but uneven allotype coverage and manually finalized group boundaries limit generalization. Clinical outcomes were not tested in this study.\nhttps://doi.org/10.1186/s13073-026-01825-5",
+          "evidence": {
+            "firstOnline": "2026-11-12",
+            "fullTextStatus": "full_text",
+            "finding": "Motif groups separate peptide repertoires across class I and class II.",
+            "limitation": "Uneven experimental coverage; manual group boundaries; clinical benefit untested. Supplement not separately audited.",
+            "selectionReason": "Pan-HLA antigen presentation with cross-domain relevance. Author Pietro Crivello is an SC member, independent reviewer assessment is required.",
+            "checkedAt": "2026-11-27T08:38:47.890071+00:00",
+            "sources": [
+              {
+                "url": "https://link.springer.com/article/10.1186/s13073-026-01825-5",
+                "label": "Publisher full article: Methods, Results, figure captions, Discussion and limitations; supplement not separately audited"
+              }
+            ]
+          }
+        }
+      ]
     }
   ],
   "retiredDraftIds": [
     1
   ],
-  "nextInternalId": 6
+  "nextInternalId": 7
 }
